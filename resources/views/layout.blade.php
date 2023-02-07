@@ -34,6 +34,8 @@
 </head>
 
 <body>
+    <x-flash-message/>
+
     <h1>My Website</h1>
 
     <div class="alert alert-primary" role="alert">
