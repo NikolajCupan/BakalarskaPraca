@@ -1,7 +1,8 @@
 @props(['tagsCsv'])
 
 @php
-    $tags = explode(',', $tagsCsv)
+    $tags = explode(',', $tagsCsv);
+    $tags = array_map('trim', $tags);
 @endphp
 
 <ul class="list-group list-group-horizontal">
