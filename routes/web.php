@@ -20,6 +20,9 @@ Route::get('/', [ListingController::class, 'index']);
 
 Route::get('/listing/{listing}', [ListingController::class, 'show']);
 
+Route::post('search', [ListingController::class, 'search']);
+
+
 
 
 Route::get('/layout', function() {

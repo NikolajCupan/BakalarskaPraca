@@ -3,13 +3,7 @@
 @section('content')
 
     @include('partials._range')
-    @include('partials._floating')
-
-    @php
-        $test = 10;
-    @endphp
-
-    {{$test}}
+    @include('partials._search')
 
     @unless (count(@$listings) == 0)
         @foreach ($listings as $listing)
