@@ -10,7 +10,7 @@
             <input type="text" class="form-control" name="title" id="title" value="{{$listing->title}}">
 
             @error('title')
-                <p class="text-danger">{{$message}}</p>
+            <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
 
@@ -19,7 +19,7 @@
             <input type="text" class="form-control" name="tags" id="tags" value="{{$listing->tags}}">
 
             @error('tags')
-                <p class="text-danger">{{$message}}</p>
+            <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
 
@@ -28,7 +28,7 @@
             <input type="text" class="form-control" name="company" id="company" value="{{$listing->company}}">
 
             @error('company')
-                <p class="text-danger">{{$message}}</p>
+            <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
 
@@ -37,7 +37,7 @@
             <input type="text" class="form-control" name="location" id="location" value="{{$listing->location}}">
 
             @error('location')
-                <p class="text-danger">{{$message}}</p>
+            <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
 
@@ -46,7 +46,7 @@
             <input type="text" class="form-control" name="email" id="email" value="{{$listing->email}}">
 
             @error('email')
-                <p class="text-danger">{{$message}}</p>
+            <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
 
@@ -55,7 +55,7 @@
             <input type="text" class="form-control" name="website" id="website" value="{{$listing->website}}">
 
             @error('website')
-                <p class="text-danger">{{$message}}</p>
+            <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
 
@@ -68,16 +68,17 @@
             }}" class="card-img-top" alt="...">
 
             @error('image')
-                <p class="text-danger">{{$message}}</p>
+            <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
 
         <div class="form-group">
             <label for="description">Description:</label>
-            <textarea type="text" class="form-control" name="description" id="description">{{$listing->description}}</textarea>
+            <textarea type="text" class="form-control" name="description"
+                      id="description">{{$listing->description}}</textarea>
 
             @error('description')
-                <p class="text-danger">{{$message}}</p>
+            <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
 

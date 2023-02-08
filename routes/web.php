@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +19,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+ * MainController
+ */
+
+// Welcome page
+Route::get('/', [MainController::class, 'index']);
+
+
+
+/*
+ * UserController
+ */
+
+// Register page
+Route::get('/register', [UserController::class, 'register']);
+
+// Register user
+Route::post('/register', [UserController::class, 'store']);
+
+// Login
+Route::get('/login', [UserController::class, 'login']);
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Old Stuff
+|--------------------------------------------------------------------------
+|
+*/
+
+
+/*
 // Show create form
 Route::get('/listings/create', [ListingController::class, 'create']);
 
@@ -58,10 +96,4 @@ Route::get('/search', function(Request $request) {
     return response($request->name . ' ' . $request->city);
 });
 
-
-
-/*
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 */
