@@ -15,4 +15,7 @@
         <p>No listings found!</p>
     @endif
 
+    <div class="mt-4 px-4">
+        {{$listings->links()}}
+    </div>
 @endsection
