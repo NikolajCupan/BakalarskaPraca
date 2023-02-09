@@ -33,7 +33,7 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
     <main>
         @yield('content')
     </main>

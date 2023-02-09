@@ -35,11 +35,20 @@ Route::get('/', [MainController::class, 'index']);
 // Register page
 Route::get('/register', [UserController::class, 'register']);
 
+// Login page
+Route::get('/login', [UserController::class, 'login']);
+
+// Forgotten password page
+Route::get('/forgottenPassword', [UserController::class, 'forgottenPassword']);
+
 // Register user
 Route::post('/register', [UserController::class, 'store']);
 
-// Login
-Route::get('/login', [UserController::class, 'login']);
+// Login user
+Route::post('/login', [UserController::class, 'authenticate']);
+
+// Logout
+Route::post('/logout', [UserController::class, 'logout']);
 
 
 

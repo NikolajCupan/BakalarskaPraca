@@ -1,3 +1,44 @@
+/*
+    General start
+ */
+.mt-6 {
+    margin-top: 4rem;
+}
+
+.mt-7 {
+    margin-top: 5rem;
+}
+
+.mt-8 {
+    margin-top: 6rem;
+}
+
+.mt-9 {
+    margin-top: 7rem;
+}
+
+.mt-10 {
+    margin-top: 8rem;
+}
+/*
+    General end
+ */
+
+
+
+/*
+    Home start
+ */
+
+/*
+    Home end
+ */
+
+
+
+/*
+    Register start
+ */
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
     font-size: 1rem;
     line-height: 2.15;
@@ -17,3 +58,17 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.loginLeftSide {
+    /* fallback for old browsers */
+    background: #30cfd0;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5))
+}
+/*
+    Register end
+ */

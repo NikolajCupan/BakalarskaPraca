@@ -2,18 +2,14 @@
 
 @section('content')
 
-    <section class="h-100 bg-light">
+    <section class="h-100">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
                     <div class="card card-registration my-4">
                         <div class="row g-0">
 
-                            <div class="col-xl-6 d-none d-xl-block">
-                                <img src="{{asset('images/loginBackground.jpg')}}"
-                                     alt="loginBackground" class="img-fluid"
-                                     style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
-                            </div>
+                            <div class="loginLeftSide col-xl-6 d-none d-xl-block"></div>
 
                             <div class="col-xl-6">
                                 <div class="card-body p-md-5 text-black">
@@ -25,7 +21,7 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-4">
                                                 <div class="form-group form-floating">
-                                                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="firstName" value="{{old('firstName')}}" required>
+                                                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="firstName" value="{{old('firstName')}}">
                                                     <label for="firstName">Meno <span class="text-danger fw-bold">*</span></label>
                                                 </div>
 
@@ -35,7 +31,7 @@
                                             </div>
                                             <div class="col-md-6 mb-4">
                                                 <div class="form-group form-floating">
-                                                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="lastName" value="{{old('lastName')}}" required>
+                                                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="lastName" value="{{old('lastName')}}">
                                                     <label for="lastName">Priezvisko <span class="text-danger fw-bold">*</span></label>
                                                 </div>
 
@@ -46,7 +42,7 @@
                                         </div>
 
                                         <div class="form-group form-floating mb-4">
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="email" value="{{old('email')}}" required>
+                                            <input type="text" class="form-control" name="email" id="email" placeholder="email" value="{{old('email')}}">
                                             <label for="email">Email <span class="text-danger fw-bold">*</span></label>
 
                                             @error('email')
@@ -55,7 +51,7 @@
                                         </div>
 
                                         <div class="form-group form-floating mb-4">
-                                            <input type="password" class="form-control" name="password" id="password" placeholder="password" required>
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="password">
                                             <label for="password">Heslo <span class="text-danger fw-bold">*</span></label>
 
                                             @error('password')
@@ -64,7 +60,7 @@
                                         </div>
 
                                         <div class="form-group form-floating mb-4">
-                                            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="password_confirmation" required>
+                                            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="password_confirmation">
                                             <label for="password_confirmation">Potvrdenie hesla <span class="text-danger fw-bold">*</span></label>
 
                                             @error('password_confirmation')
