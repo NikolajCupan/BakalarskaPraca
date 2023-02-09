@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MainController;
@@ -33,13 +34,17 @@ Route::get('/', [MainController::class, 'index']);
  */
 
 // Register page
-Route::get('/register', [UserController::class, 'register']);
+Route::get('/register', [UserController::class, 'register'])
+    ->middleware('guest');
 
 // Login page
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/login', [UserController::class, 'login'])
+    ->middleware('guest')
+    ->name('login');
 
 // Forgotten password page
-Route::get('/forgottenPassword', [UserController::class, 'forgottenPassword']);
+Route::get('/forgottenPassword', [UserController::class, 'forgottenPassword'])
+    ->middleware('auth');
 
 // Register user
 Route::post('/register', [UserController::class, 'store']);
@@ -50,9 +55,14 @@ Route::post('/login', [UserController::class, 'authenticate']);
 // Logout
 Route::post('/logout', [UserController::class, 'logout']);
 
-// Admin page
-Route::get('/admin', [UserController::class, 'admin']);
 
+
+/*
+ * AdminController
+ */
+
+// Admin page
+Route::get('/admin', [AdminController::class, 'admin']);
 
 
 /*

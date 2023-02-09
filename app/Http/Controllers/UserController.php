@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\User;
@@ -52,8 +53,11 @@ class UserController extends Controller
         // Check only if entered
         if (!is_null($request->postalCode) || !is_null($request->city))
         {
+            // Normalize city (remove diacritics and make first letter uppercase)
+            $normalizedCity = Helper::normalize($request->city);
+
             // Find if there is a row in the table city
-            $foundCity = City::where('city', '=', $request->city)
+            $foundCity = City::where('city', '=', $normalizedCity)
                 ->where('postal_code', '=', $request->postalCode)
                 ->first();
 
@@ -128,16 +132,5 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/')->with('message', 'Odhlasenie bolo uspesne');
-    }
-
-    // Admin page
-    public function admin()
-    {
-        if (!Gate::allows('administrate'))
-        {
-            abort(403);
-        }
-
-        return view('user.admin');
     }
 }
