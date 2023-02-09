@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\City;
+use App\Models\User;
 use App\Models\UserRole;
 use App\Models\WebRole;
-use App\Models\WebUser;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -52,7 +53,7 @@ class UserController extends Controller
         if (!is_null($request->postalCode) || !is_null($request->city))
         {
             // Find if there is a row in the table city
-            $foundCity = City::where('city', 'like', $request->city . '%')
+            $foundCity = City::where('city', '=', $request->city)
                 ->where('postal_code', '=', $request->postalCode)
                 ->first();
 
@@ -76,7 +77,7 @@ class UserController extends Controller
         // Hash password
         $hashPassword = bcrypt($request->password);
 
-        $user = WebUser::create([
+        $user = User::create([
             'id_address' => $address->id_address,
             'id_image' => null,
             'first_name' => $request->firstName,
@@ -127,5 +128,16 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/')->with('message', 'Odhlasenie bolo uspesne');
+    }
+
+    // Admin page
+    public function admin()
+    {
+        if (!Gate::allows('administrate'))
+        {
+            abort(403);
+        }
+
+        return view('user.admin');
     }
 }

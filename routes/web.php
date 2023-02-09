@@ -50,7 +50,8 @@ Route::post('/login', [UserController::class, 'authenticate']);
 // Logout
 Route::post('/logout', [UserController::class, 'logout']);
 
-
+// Admin page
+Route::get('/admin', [UserController::class, 'admin']);
 
 
 
