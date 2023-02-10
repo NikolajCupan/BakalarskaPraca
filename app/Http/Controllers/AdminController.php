@@ -14,6 +14,6 @@ class AdminController extends Controller
             abort(403);
         }
 
-        return view('user.admin');
+        return view('admin.admin');
     }
 }

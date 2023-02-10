@@ -23,4 +23,11 @@ class Address extends Model
     // Primary key information
     protected $primaryKey = 'id_address';
     public $incrementing = true;
+
+
+    // Relation to City
+    public function getCity()
+    {
+        return City::where('postal_code', '=', $this->postal_code)->first();
+    }
 }

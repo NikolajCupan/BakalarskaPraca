@@ -26,4 +26,11 @@ class User extends Authenticatable
     // Primary key information
     protected $primaryKey = 'id_user';
     public $incrementing = true;
+
+
+    // Relation to Address
+    public function getAddress()
+    {
+        return Address::where('id_address', '=', $this->id_address)->first();
+    }
 }

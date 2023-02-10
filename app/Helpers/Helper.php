@@ -167,4 +167,30 @@ class Helper
         $string = self::remove_accents($string);
         return ucfirst($string);
     }
+
+    public static function removeSpaces($string)
+    {
+        return str_replace(' ', '', $string);
+    }
+
+    public static function replaceNullsAddress($address)
+    {
+        is_null($address->postal_code) ? $address->postal_code = "" : "";
+        is_null($address->street) ? $address->street = "" : "";
+        is_null($address->house_number) ? $address->house_number = "" : "";
+
+        return $address;
+    }
+
+    public static function getEmptyCity($city)
+    {
+        if (is_null($city))
+        {
+            return [
+                'city' => ""
+            ];
+        }
+
+        return $city;
+    }
 }

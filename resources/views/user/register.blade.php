@@ -80,8 +80,13 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-4">
                                                 <div class="form-group form-floating">
-                                                    <input type="text" class="form-control" name="city" id="city" placeholder="city" value="{{old('city')}}">
-                                                    <label for="city">Mesto</label>
+                                                    <select type="text" class="form-select" name="city" id="city">
+                                                        <option value="">Vyberte mesto</option>
+                                                        @foreach ($cities as $city)
+                                                            <option value="{{$city->city}}" {{ old('city') == $city->city ? 'selected' : '' }}>{{$city->city}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <label for="city" class="form-label">Mesto</label>
 
                                                     @error('city')
                                                         <p class="text-danger">{{$message}}</p>

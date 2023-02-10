@@ -46,6 +46,10 @@ Route::get('/login', [UserController::class, 'login'])
 Route::get('/forgottenPassword', [UserController::class, 'forgottenPassword'])
     ->middleware('auth');
 
+// Edit profile page
+Route::get('/edit', [UserController::class, 'edit'])
+    ->middleware('auth');
+
 // Register user
 Route::post('/register', [UserController::class, 'store']);
 
@@ -54,6 +58,12 @@ Route::post('/login', [UserController::class, 'authenticate']);
 
 // Logout
 Route::post('/logout', [UserController::class, 'logout']);
+
+// Edit
+Route::post('/edit', [UserController::class, 'update']);
+
+// AJAX call to get current user's values from database
+Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues']);
 
 
 
