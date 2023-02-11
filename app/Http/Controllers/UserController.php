@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use PHPUnit\TextUI\Help;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController extends Controller
 {
@@ -211,36 +212,26 @@ class UserController extends Controller
         ]);
 
         $image = $request->file('image');
-        $image->store('images', 'public');
 
-        /*
-        // Crop image to 1:1 ratio according to shorter side
-        $imageData = getimagesize($image);
+        // Resize image to 1:1 ratio
+        $manager = new Image();
 
-        $width = $imageData[0];
-        $height = $imageData[1];
-        $shorter = min($width, $height);
+        $img = $manager->make($image);
 
-        // Create GdImage according to image format
-        $GdImage = null;
-        switch($request->file('image')->extension())
+        $width = $img->width();
+        $height = $img->height();
+
+        if ($width > $height)
         {
-            case 'jpg':
-                $GdImage = imagecreatefromjpeg($image);
-                break;
-            case 'png':
-                $GdImage = imagecreatefrompng($image);
-                break;
-            case 'bmp':
-                $GdImage = imagecreatefrombmp($image);
-                break;
+            $img->crop($height, $height, round(($width - $height) / 2), 0);
+        }
+        else
+        {
+            $img->crop($width, $width, 0, round(($height - $width) / 2));
         }
 
-        $croppedImage = imagecrop($GdImage, ['x' => 0, 'y' => 0, 'width' => $shorter, 'height' => $shorter]);
-        $img = '/flower.gif';
-        file_put_contents($img, file_get_contents($croppedImage));
-        //Storage::putFile('public/images', $croppedImage);
-        */
+        // Save image to public folder
+        $img->save(storage_path('app/public/images/').$image->hashName());
 
         return redirect('/')->with('message', 'Zmena profilovej fotky bola uspesna');
     }
