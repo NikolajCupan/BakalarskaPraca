@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class ListingController extends Controller
+class ListingController extends \App\Http\Controllers\Controller
 {
     // Show all listings
     public function index()

@@ -1,12 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
-use App\Models\Listing;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
