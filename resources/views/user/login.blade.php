@@ -9,6 +9,8 @@
                     <div class="card card-registration my-4">
                         <div class="row g-0">
 
+                            <div class="loginLeftSide col-xl-6 d-none d-xl-block"></div>
+
                             <div class="col-xl-6">
                                 <div class="card-body p-md-5 text-black">
 
@@ -42,13 +44,10 @@
 
                                     </form>
 
-                                    <p class="small mt-5 pb-lg-2"><a class="text-muted" href="/forgottenPassword">Zabudnute heslo?</a></p>
-                                    <p>Namate ucet? <a href="/register" class="link-info">Registrovat</a></p>
+                                    <p class="mt-5">Namate ucet? <a href="/register" class="link-info">Registrovat</a></p>
 
                                 </div>
                             </div>
-
-                            <div class="loginLeftSide col-xl-6 d-none d-xl-block"></div>
 
                         </div>
                     </div>

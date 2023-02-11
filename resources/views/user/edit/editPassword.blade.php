@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <p>Zabudnute heslo</p>
+password
 
 @endsection

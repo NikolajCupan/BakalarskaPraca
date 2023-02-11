@@ -31,15 +31,23 @@ class UserController extends Controller
         return view('user.login');
     }
 
-    // Edit page
-    public function edit()
+
+
+    // Select edit page
+    public function editSelect()
+    {
+        return view('user.edit.editSelect');
+    }
+
+    // Edit profile page
+    public function editProfile()
     {
         $user = Auth::user();
         $address = $user->getAddress();
         $currentCity = $address->getCity();
         $cities = City::all();
 
-        return view('user.edit', [
+        return view('user.edit.editProfile', [
             'user' => $user,
             'address' => $address,
             'currentCity' => $currentCity,
@@ -47,11 +55,25 @@ class UserController extends Controller
         ]);
     }
 
-    // Forgotten password page
-    public function forgottenPassword()
+    // Edit photo page
+    public function editPhoto()
     {
-        return view('user.forgottenPassword');
+        return view('user.edit.editPhoto');
     }
+
+    // Edit password page
+    public function editPassword()
+    {
+        return view('user.edit.editPassword');
+    }
+
+    // Delete account page
+    public function editDelete()
+    {
+        return view('user.edit.editDelete');
+    }
+
+
 
     // Register new user
     public function store(Request $request)
@@ -167,6 +189,8 @@ class UserController extends Controller
         return redirect('/')->with('message', 'Editacia uctu bolo uspesna');
     }
 
+
+
     // AJAX call to get current user's values from database
     public function getPreviousValues()
     {
@@ -178,6 +202,8 @@ class UserController extends Controller
 
         return response()->json(['user' => $user, 'address' => $address, 'city' => $city]);
     }
+
+
 
     // Common validation for edit and register
     // If city/postal_code combination is not found, function returns false

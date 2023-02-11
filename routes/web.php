@@ -38,13 +38,26 @@ Route::get('/login', [UserController::class, 'login'])
     ->middleware('guest')
     ->name('login');
 
-// Forgotten password page
-Route::get('/forgottenPassword', [UserController::class, 'forgottenPassword'])
+// Select edit type page
+Route::get('/user/select', [UserController::class, 'editSelect'])
     ->middleware('auth');
 
 // Edit profile page
-Route::get('/edit', [UserController::class, 'edit'])
+Route::get('/user/edit', [UserController::class, 'editProfile'])
     ->middleware('auth');
+
+// Edit photo page
+Route::get('/user/photo', [UserController::class, 'editPhoto'])
+    ->middleware('auth');
+
+// Edit password page
+Route::get('/user/password', [UserController::class, 'editPassword'])
+    ->middleware('auth');
+
+// Delete account page
+Route::get('/user/delete', [UserController::class, 'editDelete'])
+    ->middleware('auth');
+
 
 // Register user
 Route::post('/register', [UserController::class, 'store']);
@@ -58,8 +71,10 @@ Route::post('/logout', [UserController::class, 'logout']);
 // Edit
 Route::post('/edit', [UserController::class, 'update']);
 
+
 // AJAX call to get current user's values from database
-Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues']);
+Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues'])
+    ->middleware('ajax');
 
 
 
@@ -69,6 +84,7 @@ Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues']);
 
 // Admin page
 Route::get('/admin', [AdminController::class, 'admin']);
+
 
 
 /*

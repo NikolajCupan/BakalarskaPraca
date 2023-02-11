@@ -1,4 +1,5 @@
 @extends('layout.layout')
+
 @section('content')
 
     <script>
