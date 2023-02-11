@@ -9,7 +9,7 @@
                     <div class="card card-registration my-4">
                         <div class="row g-0">
 
-                            <div class="loginLeftSide col-xl-6 d-none d-xl-block"></div>
+                            <div class="gradientLeftSide col-xl-6 d-none d-xl-block"></div>
 
                             <div class="col-xl-6">
                                 <div class="card-body p-md-5 text-black">

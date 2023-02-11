@@ -8,9 +8,11 @@ use App\Models\City;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\WebRole;
+use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -70,7 +72,11 @@ class UserController extends Controller
     // Edit password page
     public function editPassword()
     {
-        return view('user.edit.editPassword');
+        $user = Auth::user();
+
+        return view('user.edit.editPassword', [
+            'user' => $user
+        ]);
     }
 
     // Delete account page
@@ -153,7 +159,7 @@ class UserController extends Controller
         return redirect('/')->with('message', 'Odhlasenie bolo uspesne');
     }
 
-    // Edit logged user profile
+    // Edit logged user's profile
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
@@ -192,13 +198,63 @@ class UserController extends Controller
         $address->house_number = $request->houseNumber;
         $address->save();
 
-        return redirect('/')->with('message', 'Editacia uctu bolo uspesna');
+        return redirect('/')->with('message', 'Zmena profilovych udajov bola uspesna');
     }
 
-    // Edit logged user photo
+    // Edit logged user's photo
     public function updatePhoto(Request $request)
     {
-        return redirect('/')->with('message', 'Zmena fotky bola uspesna');
+        $request->validate([
+            'image' => ['required', 'max:2048', 'mimes:jpg,bmp,png',
+                'dimensions:min_width=256,min_height=256,max_width:2048,max_height:2048',
+            ]
+        ]);
+
+        $image = $request->file('image');
+        $image->store('images', 'public');
+
+        /*
+        // Crop image to 1:1 ratio according to shorter side
+        $imageData = getimagesize($image);
+
+        $width = $imageData[0];
+        $height = $imageData[1];
+        $shorter = min($width, $height);
+
+        // Create GdImage according to image format
+        $GdImage = null;
+        switch($request->file('image')->extension())
+        {
+            case 'jpg':
+                $GdImage = imagecreatefromjpeg($image);
+                break;
+            case 'png':
+                $GdImage = imagecreatefrompng($image);
+                break;
+            case 'bmp':
+                $GdImage = imagecreatefrombmp($image);
+                break;
+        }
+
+        $croppedImage = imagecrop($GdImage, ['x' => 0, 'y' => 0, 'width' => $shorter, 'height' => $shorter]);
+        $img = '/flower.gif';
+        file_put_contents($img, file_get_contents($croppedImage));
+        //Storage::putFile('public/images', $croppedImage);
+        */
+
+        return redirect('/')->with('message', 'Zmena profilovej fotky bola uspesna');
+    }
+
+    // Edit logged user's password
+    public function updatePassword(Request $request)
+    {
+        return redirect('/')->with('message', 'Zmena hesla bola uspesna');
+    }
+
+    // Delete logged user's account
+    public function updateDelete(Request $request)
+    {
+        return redirect('/')->with('message', 'Ucet bol uspesne zmazany');
     }
 
 

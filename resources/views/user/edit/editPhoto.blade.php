@@ -35,7 +35,7 @@
                     <div class="card card-registration my-4">
                         <div class="row g-0">
 
-                            <div class="loginLeftSide col-lg-6 d-none d-lg-block align-items-center">
+                            <div class="gradientLeftSide col-lg-6 d-none d-lg-block align-items-center">
 
                                 <div class="pt-5 row row-cols-1">
                                     <div class="col text-center">
@@ -74,15 +74,21 @@
                                         </div>
                                     </div>
 
-                                    <form method="POST" action="/user/photo">
+                                    <form method="POST" action="/user/photo" enctype="multipart/form-data">
                                         @csrf
-                                        <label class="form-label" for="customFile">Vyberte novu fotku</label>
-                                        <input type="file" class="form-control" id="customFile">
+                                        <label class="form-label" for="image">Vyberte novu fotku</label>
+                                        <input type="file" class="form-control" name="image" id="image">
+
+                                        @error('image')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
 
                                         <p class="fw-bold mt-6 mb-1">Prosim, riadte sa nasledujucimi pokynmi:</p>
                                         <ul>
-                                            <li>Maximalna velkost fotky je 5 MB</li>
-                                            <li>Pouzitie nevhodnej fotky bude viest k zmazaniu uctu</li>
+                                            <li>Maximalna velkost: 2 MB</li>
+                                            <li>Maximalne rozmery: 2048 pixelov</li>
+                                            <li>Minimalne rozmery: 256 pixelov</li>
+                                            <li>Povolene formaty: jpg, bmp, png</li>
                                             <li>Optimalny pomer stran fotky je 1:1</li>
                                         </ul>
 

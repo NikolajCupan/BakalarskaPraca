@@ -49,9 +49,11 @@
         .fa {
             color: #1959a9;
         }
+
     </style>
 
     <div class="d-flex justify-content-md-center align-items-center vh-100">
+
         <div class="m-2 row">
 
             <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">

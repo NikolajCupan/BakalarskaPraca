@@ -36,14 +36,14 @@
                     <div class="card card-registration my-4">
                         <div class="row g-0">
 
-                            <div class="loginLeftSide col-xl-6 d-none d-xl-block"></div>
+                            <div class="gradientLeftSide col-xl-6 d-none d-xl-block"></div>
 
                             <div class="col-xl-6">
                                 <div class="card-body p-md-5 text-black">
 
                                     <div class="d-flex justify-content-between">
                                         <div class="p-2">
-                                            <h3 class="mb-5 text-uppercase fw-bold d-inline-block">Editovanie profilu</h3>
+                                            <h3 class="mb-5 text-uppercase fw-bold d-inline-block">Zmena profilovych udajov</h3>
                                         </div>
                                         <div class="mt-2 p-2">
                                             <a id="reloadValuesButton" href="#">

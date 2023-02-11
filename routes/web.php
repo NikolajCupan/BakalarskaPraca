@@ -74,6 +74,12 @@ Route::post('/user/edit', [UserController::class, 'updateProfile']);
 // Edit photo
 Route::post('/user/photo', [UserController::class, 'updatePhoto']);
 
+// Edit password
+Route::post('/user/password', [UserController::class, 'updatePassword']);
+
+// Delete account
+Route::post('/user/delete', [UserController::class, 'updateDelete']);
+
 
 // AJAX call to get current user's values from database
 Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues'])

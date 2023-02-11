@@ -26,19 +26,6 @@
 
 
 
-/*
-    Home start
- */
-
-/*
-    Home end
- */
-
-
-
-/*
-    Register start
- */
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
     font-size: 1rem;
     line-height: 2.15;
@@ -59,7 +46,7 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.loginLeftSide {
+.gradientLeftSide {
     /* fallback for old browsers */
     background: #30cfd0;
 
@@ -67,8 +54,11 @@ input[type=number] {
     background: -webkit-linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
 
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5))
+    background: linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
 }
-/*
-    Register end
- */
+
+.gradientLeftSideWarning {
+    background: rgb(0,0,0);
+
+    background: linear-gradient(to bottom right, rgba(0,0,0,1) 0%, rgba(209,16,16,1) 100%);
+}

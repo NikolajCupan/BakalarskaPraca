@@ -44,7 +44,7 @@ return [
     'different' => 'The :attribute and :other must be different.',
     'digits' => 'Pole :attribute musi mat :digits cislic.',
     'digits_between' => 'Pole :attribute musi mat od :min do :max cislic.',
-    'dimensions' => 'The :attribute has invalid image dimensions.',
+    'dimensions' => 'Pole :attribute ma neplatne rozmery.',
     'distinct' => 'The :attribute field has a duplicate value.',
     'email' => 'Pole :attribute musi byt platny email.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
@@ -91,8 +91,8 @@ return [
         'string' => 'Pole :attribute nemoze mat viac ako :max znakov.',
         'array' => 'The :attribute must not have more than :max items.',
     ],
-    'mimes' => 'The :attribute must be a file of type: :values.',
-    'mimetypes' => 'The :attribute must be a file of type: :values.',
+    'mimes' => 'Pole :attribute musi mat typ: :values.',
+    'mimetypes' => 'Pole :attribute musi mat typ: :values.',
     'min' => [
         'numeric' => 'Pole :attribute musi byt aspon :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
@@ -129,7 +129,7 @@ return [
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
     'unique' => 'Hodnota :attribute je uz obsadena.',
-    'uploaded' => 'The :attribute failed to upload.',
+    'uploaded' => 'Upload bol neuspesny',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
@@ -295,6 +295,7 @@ return [
         'city' => 'mesto',
         'postalCode' => 'PSC',
         'street' => 'ulica',
-        'houseNumber' => 'cislo domu'
+        'houseNumber' => 'cislo domu',
+        'image' => 'fotka'
     ],
 ];
