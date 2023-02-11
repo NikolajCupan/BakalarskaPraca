@@ -33,4 +33,11 @@ class User extends Authenticatable
     {
         return Address::where('id_address', '=', $this->id_address)->first();
     }
+
+    // Relation to Image
+    // Might return null (null is returned when user has no record in Image table)
+    public function getImage()
+    {
+        return Image::where('id_image', '=', $this->id_image)->first();
+    }
 }

@@ -2,6 +2,104 @@
 
 @section('content')
 
-photo
+    <style>
+        .profileImage {
+            height: 200px;
+            width: 200px;
+        }
+
+        .profileImageSmall {
+            height: 50px;
+            width: 50px;
+            margin-top: -15px;
+        }
+
+        .profileImageXSmall {
+            height: 120px;
+            width: 120px;
+        }
+
+        .profileInfo {
+            color: rgb(0, 0, 0)
+        }
+
+        .imageBorder {
+            border: solid 1px black;
+        }
+    </style>
+
+    <section class="h-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card card-registration my-4">
+                        <div class="row g-0">
+
+                            <div class="loginLeftSide col-lg-6 d-none d-lg-block align-items-center">
+
+                                <div class="pt-5 row row-cols-1">
+                                    <div class="col text-center">
+                                        <img class="imageBorder profileImage img-fluid bg-light mb-2" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                    </div>
+
+                                    <div class="mt-3 profileInfo fw-bold col text-center">
+                                        {{$user->email}}
+                                    </div>
+
+                                    <div class="profileInfo fw-bold col text-center">
+                                        {{$user->first_name}} {{$user->last_name}}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="card-body p-md-5 text-black">
+
+                                    <div class="d-none d-sm-block">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="p-2">
+                                                <h3 class="mb-5 text-uppercase fw-bold">Zmena profilovej fotky</h3>
+                                            </div>
+                                            <div class="mt-2 p-2">
+                                                <img class="d-lg-none imageBorder profileImageSmall img-fluid bg-light" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-sm-none">
+                                        <h3 class="mb-3 text-uppercase fw-bold">Zmena profilovej fotky</h3>
+                                        <div class="mb-5 d-flex justify-content-center">
+                                            <img class="d-lg-none imageBorder profileImageXSmall img-fluid bg-light" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                        </div>
+                                    </div>
+
+                                    <form method="POST" action="/user/photo">
+                                        @csrf
+                                        <label class="form-label" for="customFile">Vyberte novu fotku</label>
+                                        <input type="file" class="form-control" id="customFile">
+
+                                        <p class="fw-bold mt-6 mb-1">Prosim, riadte sa nasledujucimi pokynmi:</p>
+                                        <ul>
+                                            <li>Maximalna velkost fotky je 5 MB</li>
+                                            <li>Pouzitie nevhodnej fotky bude viest k zmazaniu uctu</li>
+                                            <li>Optimalny pomer stran fotky je 1:1</li>
+                                        </ul>
+
+                                        <div class="d-flex justify-content-end pt-3 mt-5">
+                                            <a href="/" type="button" class="btn btn-light btn-lg">Domov</a>
+                                            <button type="submit" class="btn btn-dark btn-lg ms-2">Ulozit</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 @endsection

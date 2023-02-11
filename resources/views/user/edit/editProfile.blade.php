@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
 
-                                    <form method="POST" action="/edit">
+                                    <form method="POST" action="/user/edit">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-6 mb-4">

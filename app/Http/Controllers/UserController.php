@@ -58,7 +58,13 @@ class UserController extends Controller
     // Edit photo page
     public function editPhoto()
     {
-        return view('user.edit.editPhoto');
+        $user = Auth::user();
+        $image = $user->getImage();
+
+        return view('user.edit.editPhoto', [
+            'user' => $user,
+            'image' => $image
+        ]);
     }
 
     // Edit password page
@@ -147,8 +153,8 @@ class UserController extends Controller
         return redirect('/')->with('message', 'Odhlasenie bolo uspesne');
     }
 
-    // Edit logged user
-    public function update(Request $request)
+    // Edit logged user profile
+    public function updateProfile(Request $request)
     {
         $user = Auth::user();
 
@@ -187,6 +193,12 @@ class UserController extends Controller
         $address->save();
 
         return redirect('/')->with('message', 'Editacia uctu bolo uspesna');
+    }
+
+    // Edit logged user photo
+    public function updatePhoto(Request $request)
+    {
+        return redirect('/')->with('message', 'Zmena fotky bola uspesna');
     }
 
 

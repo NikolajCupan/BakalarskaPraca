@@ -1,9 +1,9 @@
 <?php
 
 
-use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Models\Listing;
 
 class ListingController extends \App\Http\Controllers\Controller
 {

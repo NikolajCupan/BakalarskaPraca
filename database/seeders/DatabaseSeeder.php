@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Listing;
 use Illuminate\Database\Seeder;
+use Models\Listing;
 
 class DatabaseSeeder extends Seeder
 {

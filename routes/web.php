@@ -68,8 +68,11 @@ Route::post('/login', [UserController::class, 'authenticate']);
 // Logout
 Route::post('/logout', [UserController::class, 'logout']);
 
-// Edit
-Route::post('/edit', [UserController::class, 'update']);
+// Edit profile
+Route::post('/user/edit', [UserController::class, 'updateProfile']);
+
+// Edit photo
+Route::post('/user/photo', [UserController::class, 'updatePhoto']);
 
 
 // AJAX call to get current user's values from database
