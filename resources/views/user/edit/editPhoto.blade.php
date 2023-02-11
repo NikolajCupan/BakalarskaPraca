@@ -1,7 +1,6 @@
 @extends('layout.layout')
 
 @section('content')
-
     <style>
         .profileImage {
             height: 200px;
@@ -39,7 +38,11 @@
 
                                 <div class="pt-5 row row-cols-1">
                                     <div class="col text-center">
-                                        <img class="imageBorder profileImage img-fluid bg-light mb-2" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                        @if (!is_null($imagePath))
+                                            <img class="imageBorder profileImage img-fluid bg-light" src="{{asset('/storage/images/' . $imagePath)}}" alt="">
+                                        @else
+                                            <img class="imageBorder profileImage img-fluid bg-light" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                        @endif
                                     </div>
 
                                     <div class="mt-3 profileInfo fw-bold col text-center">
@@ -62,7 +65,11 @@
                                                 <h3 class="mb-5 text-uppercase fw-bold">Zmena profilovej fotky</h3>
                                             </div>
                                             <div class="mt-2 p-2">
-                                                <img class="d-lg-none imageBorder profileImageSmall img-fluid bg-light" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                                @if (!is_null($imagePath))
+                                                    <img class="d-lg-none imageBorder profileImageSmall img-fluid bg-light" src="{{asset('/storage/images/' . $imagePath)}}" alt="">
+                                                @else
+                                                    <img class="d-lg-none imageBorder profileImageSmall img-fluid bg-light" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -70,7 +77,11 @@
                                     <div class="d-sm-none">
                                         <h3 class="mb-3 text-uppercase fw-bold">Zmena profilovej fotky</h3>
                                         <div class="mb-5 d-flex justify-content-center">
-                                            <img class="d-lg-none imageBorder profileImageXSmall img-fluid bg-light" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                            @if (!is_null($imagePath))
+                                                <img class="d-lg-none imageBorder profileImageXSmall img-fluid bg-light" src="{{asset('/storage/images/' . $imagePath)}}" alt="">
+                                            @else
+                                                <img class="d-lg-none imageBorder profileImageXSmall img-fluid bg-light" src="{{asset('/images/fotka.jpg')}}" alt="">
+                                            @endif
                                         </div>
                                     </div>
 

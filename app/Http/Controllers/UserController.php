@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Models\Address;
 use App\Models\City;
+use App\Models\Image;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\WebRole;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use PHPUnit\TextUI\Help;
-use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\ImageManagerStatic;
 
 class UserController extends Controller
 {
@@ -64,9 +65,20 @@ class UserController extends Controller
         $user = Auth::user();
         $image = $user->getImage();
 
+        // Image could get lost, if image does not exist, default image is shown
+        $imagePath = null;
+        if (!is_null($image))
+        {
+            $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $image->image_path;
+            if (file_exists($absolutePath))
+            {
+                $imagePath = $image->image_path;
+            }
+        }
+
         return view('user.edit.editPhoto', [
             'user' => $user,
-            'image' => $image
+            'imagePath' => $imagePath
         ]);
     }
 
@@ -214,7 +226,7 @@ class UserController extends Controller
         $image = $request->file('image');
 
         // Resize image to 1:1 ratio
-        $manager = new Image();
+        $manager = new ImageManagerStatic();
 
         $img = $manager->make($image);
 
@@ -231,7 +243,38 @@ class UserController extends Controller
         }
 
         // Save image to public folder
-        $img->save(storage_path('app/public/images/').$image->hashName());
+        $img->save(storage_path('app/public/images/') . $image->hashName());
+
+        // Save image to DB
+        $user = Auth::user();
+        $userImage = $user->getImage();
+
+        if (is_null($userImage))
+        {
+            // User has never uploaded an image, thus he has no record in Image table
+            $dbImage = Image::create([
+                'image_path' => $image->hashName(),
+            ]);
+
+            $user->id_image = $dbImage->id_image;
+            $user->save();
+        }
+        else
+        {
+            // User has already uploaded an image before, image_path is changed
+            $dbImage = Image::where('id_image', '=', $user->id_image)->first();
+
+            // Delete current image (if it exists)
+            // dirname => need to go one folder up
+            $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $dbImage->image_path;
+            if (file_exists($absolutePath))
+            {
+                unlink($absolutePath);
+            }
+
+            $dbImage->image_path = $image->hashName();
+            $dbImage->save();
+        }
 
         return redirect('/')->with('message', 'Zmena profilovej fotky bola uspesna');
     }
