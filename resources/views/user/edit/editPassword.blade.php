@@ -23,19 +23,19 @@
                     </div>
 
                     <div class="form-group form-floating mb-4">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="password">
-                        <label for="password">Nove heslo</label>
+                        <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="newPassword">
+                        <label for="newPassword">Nove heslo</label>
 
-                        @error('password')
+                        @error('newPassword')
                         <p class="text-danger">{{$message}}</p>
                         @enderror
                     </div>
 
                     <div class="form-group form-floating mb-4">
-                        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="password_confirmation">
-                        <label for="password_confirmation">Potvrdenie noveho hesla</label>
+                        <input type="password" class="form-control" name="newPassword_confirmation" id="newPassword_confirmation" placeholder="newPassword_confirmation">
+                        <label for="newPassword_confirmation">Potvrdenie noveho hesla</label>
 
-                        @error('password_confirmation')
+                        @error('newPassword_confirmation')
                         <p class="text-danger">{{$message}}</p>
                         @enderror
                     </div>

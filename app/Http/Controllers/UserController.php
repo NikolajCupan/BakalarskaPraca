@@ -13,6 +13,7 @@ use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -149,7 +150,10 @@ class UserController extends Controller
     // Login existing user
     public function authenticate(Request $request)
     {
-        $form = $request->validate(['email' => 'required', 'password' => 'required']);
+        $form = $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
 
         if (auth()->attempt($form))
         {
@@ -282,13 +286,64 @@ class UserController extends Controller
     // Edit logged user's password
     public function updatePassword(Request $request)
     {
+        $user = Auth::user();
+
+        if(!Hash::check($request->oldPassword, $user->password))
+        {
+            return back()->withErrors(['oldPassword' => 'Nespravne heslo'])->onlyInput('oldPassword');
+        }
+
+        $request->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required|min:6|max:50|confirmed'
+        ]);
+
+        // Has new password and change it
+        $hashPassword = bcrypt($request->newPassword);
+        $user->password = $hashPassword;
+        $user->save();
+
         return redirect('/')->with('message', 'Zmena hesla bola uspesna');
     }
 
     // Delete logged user's account
     public function updateDelete(Request $request)
     {
-        return redirect('/')->with('message', 'Ucet bol uspesne zmazany');
+        $user = Auth::user();
+
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            'confirmDelete' => 'accepted'
+        ]);
+
+
+        if(!Hash::check($request->password, $user->password) || ($request->email != $user->email))
+        {
+            return back()->withErrors(['email' => 'Nespravne udaje'])->onlyInput('email');
+        }
+
+        // Getting here means all the values are correct and user can be deleted
+        $userImage = $user->getImage();
+
+        // User's Image is deleted if it exists
+        if (!is_null($userImage))
+        {
+            // Delete current image (if it exists)
+            // dirname => need to go one folder up
+            $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $userImage->image_path;
+            if (file_exists($absolutePath))
+            {
+                unlink($absolutePath);
+            }
+
+            $userImage->save();
+        }
+
+        Auth::logout();
+        $user->delete();
+
+        return redirect('/')->with('message', 'Zmazanie uctu bolo uspesne');
     }
 
 
