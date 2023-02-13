@@ -1,27 +1,8 @@
 @extends('layout.layout')
 
 @section('content')
-    <style>
-        .profileImage {
-            height: 200px;
-            width: 200px;
-        }
 
-        .profileImageSmall {
-            height: 50px;
-            width: 50px;
-            margin-top: -15px;
-        }
-
-        .profileImageXSmall {
-            height: 120px;
-            width: 120px;
-        }
-
-        .profileInfo {
-            color: rgb(0, 0, 0)
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('css/editPhotoStyles.css')}}">
 
     <x-profileEditFrame>
 

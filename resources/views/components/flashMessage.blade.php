@@ -1,3 +1,11 @@
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $(".flashMessage").fadeOut("slow");
+        }, 2500);
+    });
+</script>
+
 <style>
     .flashMessage {
         width: 30%;
@@ -6,14 +14,6 @@
         text-align: center;
     }
 </style>
-
-<script>
-    $(document).ready(function() {
-        setTimeout(function() {
-            $(".flashMessage").fadeOut("slow");
-        }, 2500);
-    });
-</script>
 
 @if (session()->has('message'))
     <div class="flashMessage alert alert-success" role="alert">

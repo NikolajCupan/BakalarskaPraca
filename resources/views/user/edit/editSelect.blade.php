@@ -16,41 +16,7 @@
         });
     </script>
 
-    <style>
-        body {
-            background: #eee;
-        }
-
-        span {
-            font-size: 15px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #0062cc;
-            border-bottom: 2px solid #0062cc;
-        }
-
-        .box {
-            padding: 60px 0;
-        }
-
-        .box-part {
-            background: #FFF;
-            border-radius: 0;
-            padding: 60px 10px;
-            margin: 30px 0;
-        }
-
-        .text {
-            margin: 20px 0;
-        }
-
-        .fa {
-            color: #1959a9;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{{asset('css/editSelectStyles.css')}}">
 
     <div class="d-flex justify-content-md-center align-items-center vh-100">
 
