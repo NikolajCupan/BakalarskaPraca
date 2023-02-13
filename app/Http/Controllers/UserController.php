@@ -64,18 +64,7 @@ class UserController extends Controller
     public function editPhoto()
     {
         $user = Auth::user();
-        $image = $user->getImage();
-
-        // Image could get lost, if image does not exist, default image is shown
-        $imagePath = null;
-        if (!is_null($image))
-        {
-            $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $image->image_path;
-            if (file_exists($absolutePath))
-            {
-                $imagePath = $image->image_path;
-            }
-        }
+        $imagePath = $user->getImagePath();
 
         return view('user.edit.editPhoto', [
             'user' => $user,

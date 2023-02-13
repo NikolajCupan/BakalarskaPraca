@@ -9,7 +9,11 @@
         <div class="col-xl-6">
             <div class="card-body p-md-5 text-black">
 
-                <h3 class="mb-5 text-uppercase fw-bold d-inline-block">Zmena hesla</h3>
+                <div class="d-flex justify-content-between">
+                    <div class="p-2">
+                        <h3 class="mb-5 text-uppercase fw-bold d-inline-block">Zmena hesla</h3>
+                    </div>
+                </div>
 
                 <form method="POST" action="/user/password">
                     @csrf

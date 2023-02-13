@@ -40,4 +40,37 @@ class User extends Authenticatable
     {
         return Image::where('id_image', '=', $this->id_image)->first();
     }
+
+
+    // Might return null if $image does not exist or image is lost
+    public function getImagePath()
+    {
+        $image = $this->getImage();
+
+        // Image could get lost, if image does not exist, default image is shown
+        $imagePath = null;
+        if (!is_null($image))
+        {
+            $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $image->image_path;
+            if (file_exists($absolutePath))
+            {
+                $imagePath = $image->image_path;
+            }
+        }
+
+        return $imagePath;
+    }
+
+    // Returns true if user has role 'admin'
+    public function isAdmin()
+    {
+        $adminRole = WebRole::where('name', '=', 'admin')->first();
+
+        // Check if user is admin
+        $isAdmin = UserRole::where('id_user', '=', $this->id_user)
+            ->where('id_role', '=', $adminRole->id_role)
+            ->exists();
+
+        return $isAdmin;
+    }
 }

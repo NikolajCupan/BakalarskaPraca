@@ -21,10 +21,6 @@
         .profileInfo {
             color: rgb(0, 0, 0)
         }
-
-        .imageBorder {
-            border: solid 1px black;
-        }
     </style>
 
     <x-profileEditFrame>

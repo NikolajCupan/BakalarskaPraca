@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 // Welcome page
 Route::get('/', [MainController::class, 'index']);
+
+// Contact page
+Route::get('/contact', [MainController::class, 'contact']);
+
+// About us page
+Route::get('/about', [MainController::class, 'about']);
 
 
 
@@ -84,6 +91,19 @@ Route::post('/user/delete', [UserController::class, 'updateDelete']);
 // AJAX call to get current user's values from database
 Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues'])
     ->middleware('ajax');
+
+
+/*
+ * UserShopController
+ */
+
+// Current cart page
+Route::get('/user/cart', [UserShopController::class, 'cart'])
+    ->middleware('auth');
+
+// User's order history page
+Route::get('/user/orderHistory', [UserShopController::class, 'orderHistory'])
+    ->middleware('auth');
 
 
 
