@@ -30,6 +30,9 @@ Route::get('/contact', [MainController::class, 'contact']);
 // About us page
 Route::get('/about', [MainController::class, 'about']);
 
+// Page for testing html
+Route::get('/test', [MainController::class, 'test']);
+
 
 
 /*

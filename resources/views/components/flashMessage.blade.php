@@ -1,7 +1,7 @@
 <script>
     $(document).ready(function() {
         setTimeout(function() {
-            $(".flashMessage").fadeOut("slow");
+            $("#flashMessage").fadeOut("slow");
         }, 2500);
     });
 </script>

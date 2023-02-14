@@ -61,4 +61,10 @@ class MainController extends Controller
             'imagePath' => $imagePath
         ]);
     }
+
+    // Page for testing html
+    public function test()
+    {
+        return view('test');
+    }
 }
