@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\Helper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -31,10 +32,14 @@ class AppServiceProvider extends ServiceProvider
             $user = Auth::user();
 
             // User might not be logged in
+            // If image on path does not exist, function returns null
             $imagePath = null;
             if (!is_null($user))
             {
-                $imagePath = $user->getImagePath();
+                if (Helper::imageExists($user->getImagePath()))
+                {
+                    $imagePath = $user->getImagePath();
+                }
             }
 
             $view->with('imagePath', $imagePath)

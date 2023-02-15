@@ -64,7 +64,12 @@ class UserController extends Controller
     public function editPhoto()
     {
         $user = Auth::user();
-        $imagePath = $user->getImagePath();
+        $imagePath = null;
+
+        if (Helper::imageExists($user->getImagePath()))
+        {
+            $imagePath = $user->getImagePath();
+        }
 
         return view('user.edit.editPhoto', [
             'user' => $user,
@@ -111,15 +116,16 @@ class UserController extends Controller
         $normalizedPostalCode = $request->postalCode ? Helper::removeSpaces($request->postalCode) : null;
 
         // Getting here means values in all fields are valid
-        // First, create address row
+        // First, create address row and image row
         $address = Address::create(['postal_code' => $normalizedPostalCode, 'street' => $request->street, 'house_number' => $request->houseNumber]);
+        $image = Image::create();
 
         // Hash password
         $hashPassword = bcrypt($request->password);
 
         $user = User::create([
             'id_address' => $address->id_address,
-            'id_image' => null,
+            'id_image' => $image->id_image,
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
             'password' => $hashPassword,
@@ -240,34 +246,21 @@ class UserController extends Controller
 
         // Save image to DB
         $user = Auth::user();
-        $userImage = $user->getImage();
+        $dbImage = $user->getImage();
 
-        if (is_null($userImage))
+        if (!is_null($dbImage->image_path))
         {
-            // User has never uploaded an image, thus he has no record in Image table
-            $dbImage = Image::create([
-                'image_path' => $image->hashName(),
-            ]);
-
-            $user->id_image = $dbImage->id_image;
-            $user->save();
-        }
-        else
-        {
-            // User has already uploaded an image before, image_path is changed
-            $dbImage = Image::where('id_image', '=', $user->id_image)->first();
-
             // Delete current image (if it exists)
             // dirname => need to go one folder up
             $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $dbImage->image_path;
-            if (file_exists($absolutePath))
+            if (Helper::imageExists($dbImage->image_path))
             {
                 unlink($absolutePath);
             }
-
-            $dbImage->image_path = $image->hashName();
-            $dbImage->save();
         }
+
+        $dbImage->image_path = $image->hashName();
+        $dbImage->save();
 
         return redirect('/')->with('message', 'Zmena profilovej fotky bola uspesna');
     }
@@ -315,19 +308,19 @@ class UserController extends Controller
         // Getting here means all the values are correct and user can be deleted
         $userImage = $user->getImage();
 
-        // User's Image is deleted if it exists
-        if (!is_null($userImage))
+        // Path might not be set
+        if (!is_null($userImage->image_path))
         {
             // Delete current image (if it exists)
             // dirname => need to go one folder up
             $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $userImage->image_path;
-            if (file_exists($absolutePath))
+            if (Helper::imageExists($userImage->image_path))
             {
                 unlink($absolutePath);
             }
-
-            $userImage->save();
         }
+
+        $userImage->save();
 
         Auth::logout();
         $user->delete();

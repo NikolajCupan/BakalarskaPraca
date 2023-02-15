@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // Allow only users with role 'admin'
-        Gate::define('administrate', function(User $user)
+        Gate::define('admin', function()
         {
             return Auth::user()->isAdmin();
         });

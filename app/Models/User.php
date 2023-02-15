@@ -35,30 +35,19 @@ class User extends Authenticatable
     }
 
     // Relation to Image
-    // Might return null (null is returned when user has no record in Image table)
+    // Never returns null, user might not have image, but he always has record in Image table
     public function getImage()
     {
         return Image::where('id_image', '=', $this->id_image)->first();
     }
 
 
-    // Might return null if $image does not exist or image is lost
+    // Might return null if user has no image
     public function getImagePath()
     {
         $image = $this->getImage();
 
-        // Image could get lost, if image does not exist, default image is shown
-        $imagePath = null;
-        if (!is_null($image))
-        {
-            $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $image->image_path;
-            if (file_exists($absolutePath))
-            {
-                $imagePath = $image->image_path;
-            }
-        }
-
-        return $imagePath;
+        return $image->image_path;
     }
 
     // Returns true if user has role 'admin'

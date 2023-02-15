@@ -9,11 +9,11 @@ class AdminController extends Controller
 {
     public static function admin()
     {
-        if (!Gate::allows('administrate'))
+        if (!Gate::allows('admin'))
         {
             abort(403);
         }
 
-        return view('admin.admin');
+        return view('admin.adminSelect');
     }
 }

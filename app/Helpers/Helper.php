@@ -207,4 +207,16 @@ class Helper
 
         return $categories;
     }
+
+    // Function returns false if image on path does not exist
+    public static function imageExists($imagePath)
+    {
+        $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $imagePath;
+        if (file_exists($absolutePath))
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
