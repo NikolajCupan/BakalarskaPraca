@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserShopController;
 use Illuminate\Support\Facades\Route;
@@ -116,6 +117,13 @@ Route::get('/user/orderHistory', [UserShopController::class, 'orderHistory'])
 
 // Admin page
 Route::get('/admin', [AdminController::class, 'admin']);
+
+
+
+/*
+ * ShopController
+ */
+Route::get('/shop/{category}', [ShopController::class, 'showCategory']);
 
 
 

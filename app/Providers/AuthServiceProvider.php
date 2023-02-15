@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\WebRole;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 
 class AuthServiceProvider extends ServiceProvider
 {

@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="{{asset('css/navbarStyles.css')}}">
 
-<nav class="navbar navbar-expand-lg fixed-top bg-light navbar-light">
+<nav class="border-bottom navbar navbar-expand-lg bg-light navbar-light">
     <div class="container">
         <!-- Logo on the left side (always visible) -->
         <a class="navbar-brand" href="/">

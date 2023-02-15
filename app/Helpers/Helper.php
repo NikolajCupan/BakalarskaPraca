@@ -193,4 +193,18 @@ class Helper
 
         return $city;
     }
+
+    // Function adds new attribute to each category in an array
+    // New attribute represents displayed (dashes are replaces with spaces, first letter is uppercase) category name for link
+    public static function addDisplayNames($categories)
+    {
+        foreach ($categories as $category)
+        {
+            $string = str_replace("-", " ", $category->category);
+            $string = ucFirst($string);
+            $category['displayNameCategory'] = $string;
+        }
+
+        return $categories;
+    }
 }
