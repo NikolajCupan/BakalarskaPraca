@@ -66,3 +66,8 @@ input[type=number] {
 
     background: linear-gradient(to bottom right, rgba(0,0,0,1) 0%, rgba(209,16,16,1) 100%);
 }
+
+table td svg {
+    position: relative;
+    bottom: -3px;
+}

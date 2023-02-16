@@ -7,7 +7,7 @@
     <div class="container">
 
         <!-- Logo on the left side (always visible) -->
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/admin/product">
             <img id="eshopLogo" src="{{asset('/images/logo.png')}}" alt="eshopLogo" draggable="false" height="30"/>
         </a>
 

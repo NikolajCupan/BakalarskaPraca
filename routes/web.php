@@ -139,10 +139,19 @@ Route::get('/admin/product', [AdminController::class, 'product']);
  */
 
 // Warehouse management page
-Route::get('/admin/product/warehouse', [AdminProductController::class, 'warehouse']);
+Route::get('/admin/product/warehouse/index', [AdminProductController::class, 'warehouseIndex']);
 
 // Shop management page
-Route::get('/admin/product/shop', [AdminProductController::class, 'shop']);
+Route::get('/admin/product/shop/index', [AdminProductController::class, 'shopIndex']);
+
+// Create warehouse product page
+Route::get('/admin/product/warehouse/create', [AdminProductController::class, 'warehouseCreate']);
+
+// Edit warehouse product page
+Route::get('/admin/product/warehouse/edit/{id_warehouse_product}', [AdminProductController::class, 'warehouseEdit']);
+
+// Store new warehouse product
+Route::post('/admin/product/warehouse/create', [AdminProductController::class, 'warehouseStore']);
 
 
 
