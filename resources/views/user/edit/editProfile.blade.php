@@ -19,8 +19,8 @@
                         document.getElementById("phoneNumber").value = user.phone_number;
 
                         document.getElementById("city").value = city.city;
+                        document.getElementById("postalCode").value = city.postal_code;
 
-                        document.getElementById("postalCode").value = address.postal_code;
                         document.getElementById("street").value = address.street;
                         document.getElementById("houseNumber").value = address.house_number;
                     }
@@ -116,7 +116,7 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="form-group form-floating">
-                                <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="postalCode" value="{{$address->postal_code}}">
+                                <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="postalCode" value="{{ isset($currentCity) ? $currentCity->postal_code : '' }}">
                                 <label for="postalCode">PSC</label>
                             </div>
 

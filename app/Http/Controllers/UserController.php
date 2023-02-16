@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Address;
+use App\Models\Basket;
 use App\Models\City;
 use App\Models\Image;
 use App\Models\User;
@@ -11,6 +12,7 @@ use App\Models\UserRole;
 use App\Models\WebRole;
 use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +28,7 @@ class UserController extends Controller
     // Register form page
     public function register()
     {
-        $cities = City::all();
+        $cities = DB::table('city')->select('city')->groupBy('city')->get();
         return view('user.register', ['cities' => $cities]);
     }
 
@@ -50,7 +52,7 @@ class UserController extends Controller
         $user = Auth::user();
         $address = $user->getAddress();
         $currentCity = $address->getCity();
-        $cities = City::all();
+        $cities = DB::table('city')->select('city')->groupBy('city')->get();
 
         return view('user.edit.editProfile', [
             'user' => $user,
@@ -117,7 +119,15 @@ class UserController extends Controller
 
         // Getting here means values in all fields are valid
         // First, create address row and image row
-        $address = Address::create(['postal_code' => $normalizedPostalCode, 'street' => $request->street, 'house_number' => $request->houseNumber]);
+        $city = City::where('city', '=', $request->city)
+                    ->where('postal_code', '=', $normalizedPostalCode)
+                    ->first();
+
+        $address = Address::create([
+            'id_city' => $city->id_city,
+            'street' => $request->street,
+            'house_number' => $request->houseNumber
+        ]);
         $image = Image::create();
 
         // Hash password
@@ -133,10 +143,11 @@ class UserController extends Controller
             'phone_number' => $request->phoneNumber
         ]);
 
-        // New user is given role customer
+        // New user is given role customer and basket
         $webRole = WebRole::where('name', '=', 'customer')->first();
 
         UserRole::create(['id_user' => $user->id_user, 'id_role' => $webRole->id_role]);
+        Basket::create(['id_user' => $user->id_user]);
 
         // Redirect to home page with success message
         return redirect('/')->with('message', 'Registracia bola uspesna');
@@ -204,8 +215,21 @@ class UserController extends Controller
         $user->save();
 
         // Update address
+        // City is updated when both postal_code and city are filled out and valid
         $address = $user->getAddress();
-        $address->postal_code = $request->postalCode;
+        if (!is_null($request->postalCode) && !is_null($request->city))
+        {
+            $city = City::where('postal_code', '=', $request->postalCode)
+                        ->where('city', '=', $request->city)
+                        ->first();
+
+            $address->id_city = $city->id_city;
+        }
+        else
+        {
+            // Getting to this branch means user removed postal_code and city information
+            $address->id_city = null;
+        }
         $address->street = $request->street;
         $address->house_number = $request->houseNumber;
         $address->save();
@@ -367,8 +391,8 @@ class UserController extends Controller
         {
             // Find if there is a row in the table city
             $foundCity = City::where('city', '=', $parRequest->city)
-                ->where('postal_code', '=', $normalizedPostalCode)
-                ->first();
+                             ->where('postal_code', '=', $normalizedPostalCode)
+                             ->first();
 
             // If combination was not found, throw an error
             if (!$foundCity)

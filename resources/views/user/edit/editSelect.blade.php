@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <link rel="stylesheet" href="{{asset('css/editSelectStyles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/selectStyles.css')}}">
 
     <div class="box">
         <div class="container">

@@ -175,7 +175,7 @@ class Helper
 
     public static function replaceNullsAddress($address)
     {
-        is_null($address->postal_code) ? $address->postal_code = "" : "";
+        is_null($address->id_city) ? $address->id_city = "" : "";
         is_null($address->street) ? $address->street = "" : "";
         is_null($address->house_number) ? $address->house_number = "" : "";
 
@@ -187,7 +187,8 @@ class Helper
         if (is_null($city))
         {
             return [
-                'city' => ""
+                'city' => "",
+                'postal_code' => ""
             ];
         }
 

@@ -16,7 +16,7 @@ class Address extends Model
     protected $table = 'address';
 
     protected $fillable = [
-        'postal_code', 'street', 'house_number'
+        'id_city', 'street', 'house_number'
     ];
 
 
@@ -28,6 +28,7 @@ class Address extends Model
     // Relation to City
     public function getCity()
     {
-        return City::where('postal_code', '=', $this->postal_code)->first();
+        return City::where('id_city', '=', $this->id_city)
+                   ->first();
     }
 }
