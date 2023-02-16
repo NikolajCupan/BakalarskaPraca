@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <x-navbar :imagePath="$imagePath" :user="$user"/>
+    <x-navbar.navbar :imagePath="$imagePath" :user="$user"/>
 
 @endsection

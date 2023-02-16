@@ -34,7 +34,19 @@ class AuthServiceProvider extends ServiceProvider
         // Allow only users with role 'admin'
         Gate::define('admin', function()
         {
-            return Auth::user()->isAdmin();
+            return Auth::user()->hasRole('admin');
+        });
+
+        // Allow only users with role 'accountManager'
+        Gate::define('accountManager', function()
+        {
+            return Auth::user()->hasRole('accountManager');
+        });
+
+        // Allow only users with role 'productManager'
+        Gate::define('productManager', function()
+        {
+            return Auth::user()->hasRole('productManager');
         });
     }
 }

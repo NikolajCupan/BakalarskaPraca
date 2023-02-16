@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
@@ -112,18 +113,36 @@ Route::get('/user/orderHistory', [UserShopController::class, 'orderHistory'])
 
 
 /*
+ * ShopController
+ */
+Route::get('/shop/{category}', [ShopController::class, 'showCategory']);
+
+
+
+/*
  * AdminController
  */
 
 // Admin page
 Route::get('/admin', [AdminController::class, 'admin']);
 
+// Users management page
+Route::get('/admin/user', [AdminController::class, 'user']);
+
+// Products management page
+Route::get('/admin/product', [AdminController::class, 'product']);
+
 
 
 /*
- * ShopController
+ * AdminProductController
  */
-Route::get('/shop/{category}', [ShopController::class, 'showCategory']);
+
+// Warehouse management page
+Route::get('/admin/product/warehouse', [AdminProductController::class, 'warehouse']);
+
+// Shop management page
+Route::get('/admin/product/shop', [AdminProductController::class, 'shop']);
 
 
 

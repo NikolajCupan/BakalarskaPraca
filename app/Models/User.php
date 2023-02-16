@@ -50,16 +50,13 @@ class User extends Authenticatable
         return $image->image_path;
     }
 
-    // Returns true if user has role 'admin'
-    public function isAdmin()
+    // Function returns true if logged user has role passed as parameter
+    public function hasRole($role)
     {
-        $adminRole = WebRole::where('name', '=', 'admin')->first();
+        $dbRole = WebRole::where('name', '=', $role)->first();
 
-        // Check if user is admin
-        $isAdmin = UserRole::where('id_user', '=', $this->id_user)
-            ->where('id_role', '=', $adminRole->id_role)
-            ->exists();
-
-        return $isAdmin;
+        return UserRole::where('id_user', '=', $this->id_user)
+                       ->where('id_role', '=', $dbRole->id_role)
+                       ->exists();
     }
 }

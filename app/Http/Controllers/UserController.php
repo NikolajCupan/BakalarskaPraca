@@ -124,10 +124,17 @@ class UserController extends Controller
                     ->first();
 
         $address = Address::create([
-            'id_city' => $city->id_city,
             'street' => $request->street,
             'house_number' => $request->houseNumber
         ]);
+
+        // User might not fill city and postal code fields
+        if (!is_null($city))
+        {
+            $address->id_city = $city->id_city;
+            $address->save();
+        }
+
         $image = Image::create();
 
         // Hash password

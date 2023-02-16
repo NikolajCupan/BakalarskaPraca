@@ -79,7 +79,7 @@
                                 @endif
                                 <p class="fw-bold mt-1 mb-0">{{$user->email}}</p>
 
-                                @if ($user->isAdmin())
+                                @if ($user->hasRole('admin'))
                                     <a class="navbarButton sideMenuItemSmall" href="/admin">Sprava</a>
                                 @endif
 
@@ -142,7 +142,7 @@
                                     <p style="color: black" class="fw-bold mt-1 mb-0">{{$user->email}}</p>
                                 </h6>
 
-                                @if ($user->isAdmin())
+                                @if ($user->hasRole('admin'))
                                     <div class="dropdown-divider"></div>
                                     <li><a class="userMenuItem dropdown-item" href="/admin">Sprava</a></li>
                                 @endif

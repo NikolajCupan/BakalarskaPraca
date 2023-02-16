@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Gate;
+
 class Helper
 {
     public static function seems_utf8($str)
@@ -219,5 +221,14 @@ class Helper
         }
 
         return false;
+    }
+
+    // Abort if user does not have role
+    public static function allow($role)
+    {
+        if (!Gate::allows($role))
+        {
+            abort(403);
+        }
     }
 }
