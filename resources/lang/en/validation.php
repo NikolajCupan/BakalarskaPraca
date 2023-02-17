@@ -298,6 +298,8 @@ return [
         'houseNumber' => 'cislo domu',
         'image' => 'fotka',
         'oldPassword' => 'stare heslo',
-        'newPassword' => 'nove heslo'
+        'newPassword' => 'nove heslo',
+        'product' => 'produkt',
+        'quantity' => 'kvantita'
     ],
 ];

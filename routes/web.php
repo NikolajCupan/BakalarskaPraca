@@ -138,13 +138,13 @@ Route::get('/admin/product', [AdminController::class, 'product']);
  * AdminProductController
  */
 
-// Warehouse management page
-Route::get('/admin/product/warehouse/index', [AdminProductController::class, 'warehouseIndex']);
+// Warehouse active products page
+Route::get('/admin/product/warehouse/active', [AdminProductController::class, 'warehouseActive']);
 
-// Shop management page
-Route::get('/admin/product/shop/index', [AdminProductController::class, 'shopIndex']);
+// Warehouse inactive products page
+Route::get('/admin/product/warehouse/inactive', [AdminProductController::class, 'warehouseInactive']);
 
-// Create warehouse product page
+// Warehouse new product page
 Route::get('/admin/product/warehouse/create', [AdminProductController::class, 'warehouseCreate']);
 
 // Edit warehouse product page
@@ -152,6 +152,27 @@ Route::get('/admin/product/warehouse/edit/{id_warehouse_product}', [AdminProduct
 
 // Store new warehouse product
 Route::post('/admin/product/warehouse/create', [AdminProductController::class, 'warehouseStore']);
+
+// Update warehouse product
+Route::post('/admin/product/warehouse/update', [AdminProductController::class, 'warehouseUpdate']);
+
+// Delete warehouse product
+Route::post('/admin/product/warehouse/destroy', [AdminProductController::class, 'warehouseDestroy']);
+
+
+// Shop active products page
+Route::get('/admin/product/shop/active', [AdminProductController::class, 'shopActive']);
+
+// Shop inactive products page
+Route::get('/admin/product/shop/inactive', [AdminProductController::class, 'shopInactive']);
+
+// Shop new product page
+Route::get('/admin/product/shop/create', [AdminProductController::class, 'shopCreate']);
+
+// Store new product
+Route::post('/admin/product/shop/create', [AdminProductController::class, 'shopStore']);
+
+
 
 
 

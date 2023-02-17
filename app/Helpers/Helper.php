@@ -2,6 +2,10 @@
 
 namespace App\Helpers;
 
+use App\Models\Product;
+use App\Models\WarehouseProduct;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class Helper
@@ -230,5 +234,36 @@ class Helper
         {
             abort(403);
         }
+    }
+
+    // Function returns array of active product
+    // Active product is a product that is either being sold or its quantity is more than 0
+    public static function activeProducts()
+    {
+        return WarehouseProduct::where('quantity', '>', 0)
+                               ->orWhere(function ($mainQuery) {
+                               $mainQuery->whereIn('id_warehouse_product', function ($subquery) {
+                                   $subquery->select('id_warehouse_product')
+                                            ->from('Product')
+                                            ->whereNull('date_sale_end')
+                                            ->orWhere('date_sale_end', '>', Carbon::now());
+            });
+        })->get();
+    }
+
+    // Note: "<=" operator used
+    // Function returns array of inactive product
+    // Inactive product is a product that is not being sold and its quantity is 0
+    public static function inactiveProducts()
+    {
+        return WarehouseProduct::where('quantity', '<=', 0)
+                               ->where(function ($mainQuery) {
+                               $mainQuery->whereNotIn('id_warehouse_product', function ($subquery) {
+                                    $subquery->select('id_warehouse_product')
+                                             ->from('Product')
+                                             ->whereNull('date_sale_end')
+                                             ->orWhere('date_sale_end', '>', Carbon::now());
+            });
+        })->get();
     }
 }

@@ -5,17 +5,29 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Models\WarehouseProduct;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdminProductController extends Controller
 {
-    // Warehouse management page
-    public function warehouseIndex()
+    // Warehouse active products page
+    public function warehouseActive()
     {
         Helper::allow('productManager');
 
-        $warehouseProducts = WarehouseProduct::all();
-        return view('admin.product.warehouse.index', [
-            'warehouseProducts' => $warehouseProducts
+        $warehouseActiveProducts = Helper::activeProducts();
+        return view('admin.product.warehouse.active', [
+            'warehouseActiveProducts' => $warehouseActiveProducts
+        ]);
+    }
+
+    // Warehouse inactive products page
+    public function warehouseInactive()
+    {
+        Helper::allow('productManager');
+
+        $warehouseInactiveProducts = Helper::inactiveProducts();
+        return view('admin.product.warehouse.inactive', [
+            'warehouseInactiveProducts' => $warehouseInactiveProducts
         ]);
     }
 
@@ -27,14 +39,33 @@ class AdminProductController extends Controller
         return view('admin.product.warehouse.create');
     }
 
+    // Edit warehouse product page
+    public function warehouseEdit($id_warehouse_product)
+    {
+        Helper::allow('productManager');
+
+        $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
+                                            ->get();
+        // [0] is used because get is used instead of first
+        // element must be in array for foreach loop when showing data in table
+        $products = $warehouseProduct[0]->getProducts();
+
+        // Elements are wrapped to array because foreach loop
+        // is used to display elements in table
+        return view('admin.product.warehouse.edit', [
+            'warehouseProduct' => $warehouseProduct,
+            'products' => $products
+        ]);
+    }
+
     // Create warehouse product page
     public function warehouseStore(Request $request)
     {
         Helper::allow('productManager');
 
         $request->validate([
-            'product' => ['required', 'max:50'],
-            'quantity' => ['required', 'numeric', 'digits_between:1,15', 'between:0,100000']
+            'product' => ['required', 'max:50', Rule::unique('warehouse_product', 'product')],
+            'quantity' => ['required', 'numeric', 'between:0,100000']
         ]);
 
         WarehouseProduct::create([
@@ -42,27 +73,69 @@ class AdminProductController extends Controller
             'quantity' => $request->quantity
         ]);
 
-        return redirect('/admin/product/warehouse/index')->with('message', 'Pridanie produktu na sklad bolo uspesne');
+        return redirect('/admin/product')->with('message', 'Pridanie produktu na sklad bolo uspesne');
     }
 
-    // Edit warehouse product page
-    public function warehouseEdit($id_warehouse_product)
+    // Update warehouse product
+    public function warehouseUpdate(Request $request)
     {
         Helper::allow('productManager');
 
-        $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
+        $request->validate([
+            'product' => ['required', 'max:50', Rule::unique('warehouse_product', 'product')->ignore($request->warehouseProductId, 'id_warehouse_product')],
+            'quantity' => ['required', 'numeric', 'between:0,100000']
+        ]);
+
+        // Getting here means all values are valid and warehouse product can be updated
+        $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $request->warehouseProductId)
                                             ->first();
 
-        return view('admin.product.warehouse.edit', [
-            'warehouseProduct' => $warehouseProduct
-        ]);
+        $warehouseProduct->product = $request->product;
+        $warehouseProduct->quantity = $request->quantity;
+        $warehouseProduct->save();
+
+        return redirect('/admin/product')->with('message', 'Editacia produktu na sklade bola uspesna');
     }
 
-    // Shop management page
-    public function shopIndex()
+    // Delete warehouse product
+    public function warehouseDestroy(Request $request)
     {
         Helper::allow('productManager');
 
-        return view('admin.product.shop.index');
+        $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $request->warehouseProductId)
+                                            ->first();
+
+        if (!$warehouseProduct->canBeDeleted())
+        {
+            return redirect('/admin/product');
+        }
+
+        $warehouseProduct->delete();
+
+        return redirect('/admin/product')->with('message', 'Produktu na sklade bol uspesne zmazany');
+    }
+
+    // Shop active products page
+    public function shopActive()
+    {
+        Helper::allow('productManager');
+
+        return view('admin.product.shop.active');
+    }
+
+    // Shop inactive products page
+    public function shopInactive()
+    {
+        Helper::allow('productManager');
+
+        return view('admin.product.shop.inactive');
+    }
+
+    // Create shop product page
+    public function shopCreate()
+    {
+        Helper::allow('productManager');
+
+        return view('admin.product.shop.create');
     }
 }
