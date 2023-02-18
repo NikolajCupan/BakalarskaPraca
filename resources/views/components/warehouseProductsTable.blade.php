@@ -6,6 +6,7 @@
         <th scope="col">ID</th>
         <th scope="col">Produkt</th>
         <th scope="col">Kvantita</th>
+        <th scope="col">Predavany</th>
         <th scope="col">Detail</th>
     </tr>
     </thead>
@@ -16,6 +17,11 @@
             <td>{{$warehouseProduct->id_warehouse_product}}</td>
             <td>{{$warehouseProduct->product}}</td>
             <td>{{$warehouseProduct->quantity}}</td>
+            @if ($warehouseProduct->isSold())
+            <td class="text-success">Ano</td>
+            @else
+            <td class="text-danger">Nie</td>
+            @endif
             <td>
                 <a href="/admin/product/warehouse/edit/{{$warehouseProduct->id_warehouse_product}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">

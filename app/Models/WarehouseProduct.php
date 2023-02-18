@@ -44,6 +44,11 @@ class WarehouseProduct extends Model
         }
 
         // Getting here means quantity is equal to 0, however it can still be active if it is being sold
+        return $this->isSold();
+    }
+
+    public function isSold()
+    {
         return Product::where('id_warehouse_product', '=', $this->id_warehouse_product)
                       ->where(function ($mainQuery) {
                           $mainQuery->whereNull('date_sale_end')

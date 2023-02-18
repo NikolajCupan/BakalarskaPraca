@@ -10,3 +10,7 @@
 .inactiveProduct {
     color: red;
 }
+
+.inner {
+    display: inline-block;
+}

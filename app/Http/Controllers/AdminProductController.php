@@ -14,7 +14,7 @@ class AdminProductController extends Controller
     {
         Helper::allow('productManager');
 
-        $warehouseActiveProducts = Helper::activeProducts();
+        $warehouseActiveProducts = Helper::warehouseActiveProducts();
         return view('admin.product.warehouse.active', [
             'warehouseActiveProducts' => $warehouseActiveProducts
         ]);
@@ -25,7 +25,7 @@ class AdminProductController extends Controller
     {
         Helper::allow('productManager');
 
-        $warehouseInactiveProducts = Helper::inactiveProducts();
+        $warehouseInactiveProducts = Helper::warehouseInactiveProducts();
         return view('admin.product.warehouse.inactive', [
             'warehouseInactiveProducts' => $warehouseInactiveProducts
         ]);
@@ -46,6 +46,7 @@ class AdminProductController extends Controller
 
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
                                             ->get();
+
         // [0] is used because get is used instead of first
         // element must be in array for foreach loop when showing data in table
         $products = $warehouseProduct[0]->getProducts();
@@ -82,7 +83,6 @@ class AdminProductController extends Controller
         Helper::allow('productManager');
 
         $request->validate([
-            'product' => ['required', 'max:50', Rule::unique('warehouse_product', 'product')->ignore($request->warehouseProductId, 'id_warehouse_product')],
             'quantity' => ['required', 'numeric', 'between:0,100000']
         ]);
 
@@ -90,7 +90,6 @@ class AdminProductController extends Controller
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $request->warehouseProductId)
                                             ->first();
 
-        $warehouseProduct->product = $request->product;
         $warehouseProduct->quantity = $request->quantity;
         $warehouseProduct->save();
 
@@ -112,7 +111,7 @@ class AdminProductController extends Controller
 
         $warehouseProduct->delete();
 
-        return redirect('/admin/product')->with('message', 'Produktu na sklade bol uspesne zmazany');
+        return redirect('/admin/product')->with('message', 'Produkt na sklade bol uspesne zmazany');
     }
 
     // Shop active products page
@@ -132,10 +131,29 @@ class AdminProductController extends Controller
     }
 
     // Create shop product page
-    public function shopCreate()
+    public function shopSalable()
     {
         Helper::allow('productManager');
 
-        return view('admin.product.shop.create');
+        $inStock = Helper::warehouseSalableInStock();
+        $outOfStock = Helper::warehouseSalableOutOfStock();
+
+        return view('admin.product.shop.salable', [
+            'inStock' => $inStock,
+            'outOfStock' => $outOfStock
+        ]);
+    }
+
+    // Create shop product page
+    public function shopCreate($id_warehouse_product)
+    {
+        Helper::allow('productManager');
+
+        $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
+                                            ->first();
+
+        return view('admin.product.shop.create', [
+            'warehouseProduct' => $warehouseProduct
+        ]);
     }
 }

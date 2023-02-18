@@ -166,11 +166,11 @@ Route::get('/admin/product/shop/active', [AdminProductController::class, 'shopAc
 // Shop inactive products page
 Route::get('/admin/product/shop/inactive', [AdminProductController::class, 'shopInactive']);
 
-// Shop new product page
-Route::get('/admin/product/shop/create', [AdminProductController::class, 'shopCreate']);
+// Shop salable products page
+Route::get('/admin/product/shop/salable', [AdminProductController::class, 'shopSalable']);
 
-// Store new product
-Route::post('/admin/product/shop/create', [AdminProductController::class, 'shopStore']);
+// Shop new product page
+Route::get('/admin/product/shop/create/{id_warehouse_product}', [AdminProductController::class, 'shopCreate']);
 
 
 

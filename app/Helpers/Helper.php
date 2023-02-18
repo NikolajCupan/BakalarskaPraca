@@ -236,9 +236,9 @@ class Helper
         }
     }
 
-    // Function returns array of active product
-    // Active product is a product that is either being sold or its quantity is more than 0
-    public static function activeProducts()
+    // Function returns array of active warehouse products
+    // Active warehouse product is a warehouse product that is either being sold or its quantity is more than 0
+    public static function warehouseActiveProducts()
     {
         return WarehouseProduct::where('quantity', '>', 0)
                                ->orWhere(function ($mainQuery) {
@@ -252,9 +252,9 @@ class Helper
     }
 
     // Note: "<=" operator used
-    // Function returns array of inactive product
-    // Inactive product is a product that is not being sold and its quantity is 0
-    public static function inactiveProducts()
+    // Function returns array of inactive warehouse products
+    // Inactive warehouse product is a warehouse product that is not being sold and its quantity is 0
+    public static function warehouseInactiveProducts()
     {
         return WarehouseProduct::where('quantity', '<=', 0)
                                ->where(function ($mainQuery) {
@@ -264,6 +264,35 @@ class Helper
                                              ->whereNull('date_sale_end')
                                              ->orWhere('date_sale_end', '>', Carbon::now());
             });
+        })->get();
+    }
+
+    // Function returns array of salable warehouse products
+    // Salable warehouse product is a product that is not being sold now
+    // Quantity must be over 0
+    public static function warehouseSalableInStock()
+    {
+        return WarehouseProduct::where('quantity', '>', 0)
+                               ->whereNotIn('id_warehouse_product', function ($mainQuery) {
+                                 $mainQuery->select('id_warehouse_product')
+                                           ->from('Product')
+                                           ->whereNull('date_sale_end')
+                                           ->orWhere('date_sale_end', '>', Carbon::now());
+        })->get();
+    }
+
+    // Note: "<=" operator used
+    // Function returns array of salable warehouse products
+    // Salable warehouse product is a product that is not being sold now
+    // Quantity is 0
+    public static function warehouseSalableOutOfStock()
+    {
+        return WarehouseProduct::where('quantity', '<=', 0)
+                               ->whereNotIn('id_warehouse_product', function ($mainQuery) {
+                               $mainQuery->select('id_warehouse_product')
+                                         ->from('Product')
+                                         ->whereNull('date_sale_end')
+                                         ->orWhere('date_sale_end', '>', Carbon::now());
         })->get();
     }
 }
