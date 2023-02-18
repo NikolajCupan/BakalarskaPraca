@@ -21,7 +21,7 @@
         <span>Sklad - neaktivne produkty</span>
     </a>
 
-    <a href="/admin/product/shop/salable" class="@if (isset($activeCategory) && $activeCategory == 'shopCreate') list-group-item-dark @endif
+    <a href="/admin/product/shop/salable" class="@if (isset($activeCategory) && $activeCategory == 'shopSalable') list-group-item-dark @endif
     list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-center">
         <span>Obchod - novy predaj</span>
     </a>

@@ -25,7 +25,6 @@
  */
 
 
-
 .imageBorder {
     border: solid 1px black;
 }
@@ -35,9 +34,6 @@
     line-height: 2.15;
     padding-left: .75em;
     padding-right: .75em;
-}
-.card-registration .select-arrow {
-    top: 13px;
 }
 
 input::-webkit-outer-spin-button,
@@ -51,6 +47,9 @@ input[type=number] {
 }
 
 .gradientLeftSide {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
     /* fallback for old browsers */
     background: #30cfd0;
 
@@ -62,6 +61,9 @@ input[type=number] {
 }
 
 .gradientLeftSideWarning {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
     background: rgb(0,0,0);
 
     background: linear-gradient(to bottom right, rgba(0,0,0,1) 0%, rgba(209,16,16,1) 100%);
