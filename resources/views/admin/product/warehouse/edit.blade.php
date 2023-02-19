@@ -15,7 +15,7 @@
             <div class="col-md-12 col-lg-9">
 
                 <div class="d-flex justify-content-between">
-                    <h3 class="title">Zakladne informacie o produkte</h3>
+                    <h3 class="title">Zakladne informacie o produkte na sklade</h3>
 
                     <div>
                         <div class="inner pb-1">

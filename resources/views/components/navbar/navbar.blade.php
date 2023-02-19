@@ -73,7 +73,7 @@
                             <div class="pt-0 card card-body">
 
                                 @if (!is_null($imagePath))
-                                    <img class="mt-2 imageBorder navbarImage img-fluid bg-light" src="{{asset('/storage/images/' . $imagePath)}}" alt="">
+                                    <img class="mt-2 imageBorder navbarImage img-fluid bg-light" src="{{asset('/storage/images/users/' . $imagePath)}}" alt="">
                                 @else
                                     <img class="mt-2 imageBorder navbarImage img-fluid bg-light" src="{{asset('/images/userNoImage.png')}}" alt="">
                                 @endif
@@ -135,7 +135,7 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <h6 class="text-center dropdown-header">
                                     @if (!is_null($imagePath))
-                                        <img class="imageBorder navbarImage img-fluid bg-light" src="{{asset('/storage/images/' . $imagePath)}}" alt="">
+                                        <img class="imageBorder navbarImage img-fluid bg-light" src="{{asset('/storage/images/users/' . $imagePath)}}" alt="">
                                     @else
                                         <img class="imageBorder navbarImage img-fluid bg-light" src="{{asset('/images/userNoImage.png')}}" alt="">
                                     @endif

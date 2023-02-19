@@ -109,7 +109,7 @@ return [
     'prohibited_if' => 'The :attribute field is prohibited when :other is :value.',
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
-    'regex' => 'The :attribute format is invalid.',
+    'regex' => 'Hodnota :attribute je neplatna.',
     'required' => 'Pole :attribute musi byt vyplnene.',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
@@ -300,6 +300,9 @@ return [
         'oldPassword' => 'stare heslo',
         'newPassword' => 'nove heslo',
         'product' => 'produkt',
-        'quantity' => 'kvantita'
+        'quantity' => 'kvantita',
+        'price' => 'cena',
+        'category' => 'kategoria',
+        'description' => 'popis'
     ],
 ];

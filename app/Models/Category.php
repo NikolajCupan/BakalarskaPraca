@@ -23,4 +23,12 @@ class Category extends Model
     // Primary key information
     protected $primaryKey = 'id_category';
     public $incrementing = true;
+
+
+    // Dashes are replaces with spaces, first letter is uppercase
+    public function getDisplayName()
+    {
+        $displayName = str_replace("-", " ", $this->category);
+        return ucFirst($displayName);
+    }
 }

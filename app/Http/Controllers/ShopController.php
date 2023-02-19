@@ -16,7 +16,6 @@ class ShopController extends Controller
         $category = Category::where('category', '=', $categoryName)->first();
 
         $categories = Category::all();
-        Helper::addDisplayNames($categories);
 
         // user and imagePath is sent to view using AppServiceProvider
         return view('shop.category', [

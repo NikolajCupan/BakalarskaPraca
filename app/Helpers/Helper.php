@@ -4,9 +4,12 @@ namespace App\Helpers;
 
 use App\Models\Product;
 use App\Models\WarehouseProduct;
+use http\Env\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Intervention\Image\ImageManagerStatic;
 
 class Helper
 {
@@ -201,24 +204,10 @@ class Helper
         return $city;
     }
 
-    // Function adds new attribute to each category in an array
-    // New attribute represents displayed (dashes are replaces with spaces, first letter is uppercase) category name for link
-    public static function addDisplayNames($categories)
-    {
-        foreach ($categories as $category)
-        {
-            $string = str_replace("-", " ", $category->category);
-            $string = ucFirst($string);
-            $category['displayNameCategory'] = $string;
-        }
-
-        return $categories;
-    }
-
     // Function returns false if image on path does not exist
     public static function imageExists($imagePath)
     {
-        $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $imagePath;
+        $absolutePath = dirname(app_path()) . '/storage/app/public/images/users/' . $imagePath;
         if (file_exists($absolutePath))
         {
             return true;
@@ -294,5 +283,29 @@ class Helper
                                          ->whereNull('date_sale_end')
                                          ->orWhere('date_sale_end', '>', Carbon::now());
         })->get();
+    }
+
+    // Function crops image to 1:1 ratio
+    // Cropped image is returned
+    public static function cropImage($image)
+    {
+        // Resize image to 1:1 ratio
+        $manager = new ImageManagerStatic();
+
+        $croppedImage = $manager->make($image);
+
+        $width = $croppedImage->width();
+        $height = $croppedImage->height();
+
+        if ($width > $height)
+        {
+            $croppedImage->crop($height, $height, round(($width - $height) / 2), 0);
+        }
+        else
+        {
+            $croppedImage->crop($width, $width, 0, round(($height - $width) / 2));
+        }
+
+        return $croppedImage;
     }
 }

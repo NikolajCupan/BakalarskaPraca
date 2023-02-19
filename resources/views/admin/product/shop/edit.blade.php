@@ -10,7 +10,8 @@
                 <x-menu.categoryMenuAdminProduct/>
             </div>
             <div class="col-md-12 col-lg-9">
-                Shop edit
+                {{$warehouseProduct}}
+                {{$product}}
             </div>
         </div>
     </div>

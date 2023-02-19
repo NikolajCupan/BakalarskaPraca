@@ -31,4 +31,11 @@ class Product extends Model
         return Category::where('id_category', '=', $this->id_category)
                        ->first();
     }
+
+    // Relation to Warehouse product
+    public function getWarehouseProduct()
+    {
+        return WarehouseProduct::where('id_warehouse_product', '=', $this->id_warehouse_product)
+                               ->first();
+    }
 }

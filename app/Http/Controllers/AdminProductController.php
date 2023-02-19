@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\Category;
+use App\Models\Image;
+use App\Models\Price;
+use App\Models\Product;
 use App\Models\WarehouseProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Intervention\Image\ImageManagerStatic;
 
 class AdminProductController extends Controller
 {
@@ -51,15 +58,13 @@ class AdminProductController extends Controller
         // element must be in array for foreach loop when showing data in table
         $products = $warehouseProduct[0]->getProducts();
 
-        // Elements are wrapped to array because foreach loop
-        // is used to display elements in table
         return view('admin.product.warehouse.edit', [
             'warehouseProduct' => $warehouseProduct,
             'products' => $products
         ]);
     }
 
-    // Create warehouse product page
+    // Store new warehouse product
     public function warehouseStore(Request $request)
     {
         Helper::allow('productManager');
@@ -151,9 +156,77 @@ class AdminProductController extends Controller
 
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
                                             ->first();
+        $categories = Category::all();
 
         return view('admin.product.shop.create', [
+            'warehouseProduct' => $warehouseProduct,
+            'categories' => $categories
+        ]);
+    }
+
+    // Edit shop product page
+    public function shopEdit($id_product)
+    {
+        Helper::allow('productManager');
+
+        $product = Product::where('id_product', '=', $id_product)
+                          ->first();
+        $warehouseProduct = $product->getWarehouseProduct();
+
+        return view('admin.product.shop.edit', [
+            'product' => $product,
             'warehouseProduct' => $warehouseProduct
         ]);
+    }
+
+    // Store new shop product
+    public function shopStore(Request $request)
+    {
+        Helper::allow('productManager');
+
+        $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $request->warehouseProductId)
+                                            ->first();
+
+        // Administrator should not be able to post form with product that is already being sold, but it is checked
+        if ($warehouseProduct->isSold())
+        {
+            return redirect('/admin/product/');
+        }
+
+        $request->validate([
+            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'between:0,100000'],
+            'description' => ['required', 'min:5', 'max:5000'],
+            'idCategory' => 'required',
+            'image' => ['required', 'max:2048', 'mimes:jpg,bmp,png',
+                'dimensions:min_width=256,min_height=256,max_width:2048,max_height:2048',
+            ]
+        ]);
+
+        $image = $request->file('image');
+        $croppedImage = Helper::cropImage($image);
+
+        // Save image to public folder
+        $croppedImage->save(storage_path('app/public/images/products/') . $image->hashName());
+
+        $dbImage = Image::create([
+            'image_path' => 'app/public/images/products/' . $image->hashName()
+        ]);
+
+        $now = Carbon::now();
+        $product = Product::create([
+            'id_warehouse_product' => $warehouseProduct->id_warehouse_product,
+            'id_category' => $request->idCategory,
+            'id_image' => $dbImage->id_image,
+            'description' => $request->description,
+            'date_sale_start' => $now
+        ]);
+
+        Price::create([
+            'date_price_start' => $now,
+            'id_product' => $product->id_product,
+            'price' => $request->price
+        ]);
+
+        return redirect('/admin/product')->with('message', 'Predaj produktu bol uspesne spusteny');
     }
 }

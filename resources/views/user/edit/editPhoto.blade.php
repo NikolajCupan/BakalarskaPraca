@@ -11,7 +11,7 @@
             <div class="pt-5 row row-cols-1">
                 <div class="col text-center">
                     @if (!is_null($imagePath))
-                        <img class="imageBorder profileImage img-fluid bg-light" src="{{asset('/storage/images/' . $imagePath)}}" alt="">
+                        <img class="imageBorder profileImage img-fluid bg-light" src="{{asset('/storage/images/users/' . $imagePath)}}" alt="">
                     @else
                         <img class="imageBorder profileImage img-fluid bg-light" src="{{asset('/images/userNoImage.png')}}" alt="">
                     @endif
@@ -38,7 +38,7 @@
                         </div>
                         <div class="mt-2 p-2">
                             @if (!is_null($imagePath))
-                                <img class="d-lg-none imageBorder profileImageSmall img-fluid bg-light" src="{{asset('/storage/images/' . $imagePath)}}" alt="">
+                                <img class="d-lg-none imageBorder profileImageSmall img-fluid bg-light" src="{{asset('/storage/images/users/' . $imagePath)}}" alt="">
                             @else
                                 <img class="d-lg-none imageBorder profileImageSmall img-fluid bg-light" src="{{asset('/images/userNoImage.png')}}" alt="">
                             @endif
@@ -50,7 +50,7 @@
                     <h3 class="mb-3 text-uppercase fw-bold">Zmena profilovej fotky</h3>
                     <div class="mb-5 d-flex justify-content-center">
                         @if (!is_null($imagePath))
-                            <img class="d-lg-none imageBorder profileImageXSmall img-fluid bg-light" src="{{asset('/storage/images/' . $imagePath)}}" alt="">
+                            <img class="d-lg-none imageBorder profileImageXSmall img-fluid bg-light" src="{{asset('/storage/images/users/' . $imagePath)}}" alt="">
                         @else
                             <img class="d-lg-none imageBorder profileImageXSmall img-fluid bg-light" src="{{asset('/images/userNoImage.png')}}" alt="">
                         @endif

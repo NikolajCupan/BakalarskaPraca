@@ -14,3 +14,12 @@
 .inner {
     display: inline-block;
 }
+
+.svgPopover {
+    margin-top: 5px;
+}
+
+.formFrame {
+    background-color: white;
+    border-radius: 5px;
+}

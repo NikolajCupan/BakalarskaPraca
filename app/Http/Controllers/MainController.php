@@ -20,7 +20,6 @@ class MainController extends Controller
     public function index()
     {
         $categories = Category::all();
-        Helper::addDisplayNames($categories);
 
         return view('main.index', [
             'categories' => $categories

@@ -254,26 +254,10 @@ class UserController extends Controller
         ]);
 
         $image = $request->file('image');
-
-        // Resize image to 1:1 ratio
-        $manager = new ImageManagerStatic();
-
-        $img = $manager->make($image);
-
-        $width = $img->width();
-        $height = $img->height();
-
-        if ($width > $height)
-        {
-            $img->crop($height, $height, round(($width - $height) / 2), 0);
-        }
-        else
-        {
-            $img->crop($width, $width, 0, round(($height - $width) / 2));
-        }
+        $croppedImage = Helper::cropImage($image);
 
         // Save image to public folder
-        $img->save(storage_path('app/public/images/') . $image->hashName());
+        $croppedImage->save(storage_path('app/public/images/users/') . $image->hashName());
 
         // Save image to DB
         $user = Auth::user();
@@ -283,7 +267,7 @@ class UserController extends Controller
         {
             // Delete current image (if it exists)
             // dirname => need to go one folder up
-            $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $dbImage->image_path;
+            $absolutePath = dirname(app_path()) . '/storage/app/public/images/users/' . $dbImage->image_path;
             if (Helper::imageExists($dbImage->image_path))
             {
                 unlink($absolutePath);
@@ -344,7 +328,7 @@ class UserController extends Controller
         {
             // Delete current image (if it exists)
             // dirname => need to go one folder up
-            $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $userImage->image_path;
+            $absolutePath = dirname(app_path()) . '/storage/app/public/images/users/' . $userImage->image_path;
             if (Helper::imageExists($userImage->image_path))
             {
                 unlink($absolutePath);
