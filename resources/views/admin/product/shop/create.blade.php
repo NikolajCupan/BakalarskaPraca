@@ -61,7 +61,7 @@
                                             <select type="text" class="form-select" name="idCategory" id="idCategory">
                                                 <option value="">Vyberte kategoriu</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{$category->id_category}}" {{ old('category') == $category->id_category ? 'selected' : '' }}>{{$category->getDisplayName()}}</option>
+                                                    <option value="{{$category->id_category}}" {{ old('idCategory') == $category->id_category ? 'selected' : '' }}>{{$category->getDisplayName()}}</option>
                                                 @endforeach
                                             </select>
                                             <label for="idCategory" class="form-label">Kategoria <span class="text-danger fw-bold">*</span></label>

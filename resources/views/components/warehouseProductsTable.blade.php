@@ -13,6 +13,16 @@
     </thead>
 
     <tbody>
+
+    @php
+        // In some cases only single element can be passed, if so
+        // element is wrapped to Collection
+        if ($warehouseProducts instanceof App\Models\WarehouseProduct)
+        {
+            $warehouseProducts = collect([$warehouseProducts]);
+        }
+    @endphp
+
     @foreach ($warehouseProducts as $warehouseProduct)
         <tr>
             <td>

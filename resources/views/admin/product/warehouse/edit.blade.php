@@ -14,23 +14,23 @@
 
             <div class="col-md-12 col-lg-9">
 
-                <div class="d-flex justify-content-between">
-                    <h3 class="title">Zakladne informacie o produkte na sklade</h3>
+                <div class="d-xl-flex justify-content-between">
+                    <h3 class="title">Informacie o produkte na sklade</h3>
 
                     <div>
                         <div class="inner pb-1">
-                            @if ($warehouseProduct[0]->canBeDeleted())
+                            @if ($warehouseProduct->canBeDeleted())
                             <form method="POST" action="/admin/product/warehouse/destroy">
                                 @csrf
-                                <input type="hidden" name="warehouseProductId" id="warehouseProductId" value="{{$warehouseProduct[0]->id_warehouse_product}}">
+                                <input type="hidden" name="warehouseProductId" id="warehouseProductId" value="{{$warehouseProduct->id_warehouse_product}}">
                                 <button type="submit" class="btn btn-danger ms-2">Zmazat</button>
                             </form>
                             @endif
                         </div>
 
                         <div class="inner">
-                            @if (!$warehouseProduct[0]->isSold())
-                            <a href="/admin/product/shop/create/{{$warehouseProduct[0]->id_warehouse_product}}" type="submit" class="btn btn-dark ms-2">
+                            @if (!$warehouseProduct->isSold())
+                            <a href="/admin/product/shop/create/{{$warehouseProduct->id_warehouse_product}}" class="btn btn-dark ms-2">
                                 Spustit predaj
                             </a>
                             @endif
@@ -38,19 +38,34 @@
                     </div>
                 </div>
 
-                @if ($warehouseProduct[0]->isActive())
-                    <h4 class="mt-2 activeProduct">Produkt je aktivny</h4>
+                <p>Nasledujuca stranka zobrazuje informacie o produkte na sklade. Tabulka obsahuje historicke udaje o tom, kedy bol produkt predavany.
+                   Detail predavaneho produktu zobrazuje informacie o cenach pocas predaja. Predaj produktu mozno kedykolvek zastavit.</p>
+
+                @if ($warehouseProduct->isActive())
+                    <h4 class="mt-2 mb-1 activeProduct">Produkt je aktivny:</h4>
                 @else
-                    <h4 class="mt-2 inactiveProduct">Produkt je neaktivny</h4>
+                    <h4 class="mt-2 mb-1 inactiveProduct">Produkt je neaktivny:</h4>
+                @endif
+
+                @if ($warehouseProduct->isSold())
+                    <p class="mb-0 activeProduct">- produkt je predavany</p>
+                @else
+                    <p class="mb-0 inactiveProduct">- produkt nie je predavany</p>
+                @endif
+
+                @if ($warehouseProduct->quantity > 0)
+                    <p class="mt-0 mb-4 activeProduct">- produkt je na sklade</p>
+                @else
+                    <p class="mt-0 mb-4 inactiveProduct">- produkt je vypredany</p>
                 @endif
 
                 <form method="POST" action="/admin/product/warehouse/update">
                     @csrf
-                    <input type="hidden" name="warehouseProductId" id="warehouseProductId" value="{{$warehouseProduct[0]->id_warehouse_product}}">
+                    <input type="hidden" name="warehouseProductId" id="warehouseProductId" value="{{$warehouseProduct->id_warehouse_product}}">
 
                     <div class="mt-3 col-md-6 mb-4">
                         <div class="form-group form-floating">
-                            <input disabled type="text" class="form-control" name="product" id="product" placeholder="product" value="{{$warehouseProduct[0]->product}}">
+                            <input disabled type="text" class="form-control" name="product" id="product" placeholder="product" value="{{$warehouseProduct->product}}">
                             <label for="product">Nazov produktu</label>
                         </div>
 
@@ -61,7 +76,7 @@
 
                     <div class="col-md-6 mb-4">
                         <div class="form-group form-floating">
-                            <input type="number" class="form-control" name="quantity" id="quantity" placeholder="quantity" value="{{old('quantity') ?? $warehouseProduct[0]->quantity}}">
+                            <input type="number" class="form-control" name="quantity" id="quantity" placeholder="quantity" value="{{old('quantity') ?? $warehouseProduct->quantity}}">
                             <label for="quantity">Pocet kusov produktu</label>
                         </div>
 
@@ -73,7 +88,7 @@
                     <button type="submit" class="btn btn-dark btn-lg ms-2">Ulozit</button>
                 </form>
 
-                <h3 class="mt-5 title">Historia predavania produktu</h3>
+                <h4 class="mt-5 title">Historia predavania produktu</h4>
                 <x-productsTable :products="$products"/>
 
             </div>

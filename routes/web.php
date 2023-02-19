@@ -172,13 +172,17 @@ Route::get('/admin/product/shop/salable', [AdminProductController::class, 'shopS
 // Shop new product page
 Route::get('/admin/product/shop/create/{id_warehouse_product}', [AdminProductController::class, 'shopCreate']);
 
-// Edit shop product page
+// Show single shop product page
+Route::get('/admin/product/shop/show/{id_product}', [AdminProductController::class, 'shopShow']);
+
+// Edit warehouse product page
 Route::get('/admin/product/shop/edit/{id_product}', [AdminProductController::class, 'shopEdit']);
 
 // Store new warehouse product
 Route::post('/admin/product/shop/create', [AdminProductController::class, 'shopStore']);
 
-
+// End sale of shop product
+Route::post('/admin/product/shop/endSale/', [AdminProductController::class, 'shopEndSale']);
 
 
 

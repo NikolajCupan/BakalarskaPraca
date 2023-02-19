@@ -16,6 +16,11 @@ class Price extends Model
     protected $table = 'price';
 
     protected $fillable = [
-        'date_price_start', 'id_product', 'date_price_end', 'price'
+        'id_product', 'date_price_start', 'date_price_end', 'price'
     ];
+
+
+    // Primary key information
+    protected $primaryKey = 'id_price';
+    public $incrementing = true;
 }

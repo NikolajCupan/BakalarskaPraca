@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Intervention\Image\ImageManagerStatic;
+use Ramsey\Collection\Collection;
 
 class AdminProductController extends Controller
 {
@@ -22,6 +23,7 @@ class AdminProductController extends Controller
         Helper::allow('productManager');
 
         $warehouseActiveProducts = Helper::warehouseActiveProducts();
+
         return view('admin.product.warehouse.active', [
             'warehouseActiveProducts' => $warehouseActiveProducts
         ]);
@@ -52,11 +54,8 @@ class AdminProductController extends Controller
         Helper::allow('productManager');
 
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
-                                            ->get();
-
-        // [0] is used because get is used instead of first
-        // element must be in array for foreach loop when showing data in table
-        $products = $warehouseProduct[0]->getProducts();
+                                            ->first();
+        $products = $warehouseProduct->getProducts();
 
         return view('admin.product.warehouse.edit', [
             'warehouseProduct' => $warehouseProduct,
@@ -109,6 +108,7 @@ class AdminProductController extends Controller
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $request->warehouseProductId)
                                             ->first();
 
+        // Administrator should not be able to post form to delete warehouse product that cannot be deleted, but it is checked
         if (!$warehouseProduct->canBeDeleted())
         {
             return redirect('/admin/product');
@@ -156,11 +156,36 @@ class AdminProductController extends Controller
 
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
                                             ->first();
+
+        // Administrator should not be able to access form for product that is already being sold, but it is checked
+        if ($warehouseProduct->isSold())
+        {
+            return redirect('/admin/product/');
+        }
+
         $categories = Category::all();
 
         return view('admin.product.shop.create', [
             'warehouseProduct' => $warehouseProduct,
             'categories' => $categories
+        ]);
+    }
+
+    // Show single shop product page
+    public function shopShow($id_product)
+    {
+        Helper::allow('productManager');
+
+        $product = Product::where('id_product', '=', $id_product)
+                          ->first();
+        $warehouseProduct = $product->getWarehouseProduct();
+        $prices = Price::where('id_product', '=', $id_product)
+                       ->get();
+
+        return view('admin.product.shop.show', [
+            'product' => $product,
+            'warehouseProduct' => $warehouseProduct,
+            'prices' => $prices
         ]);
     }
 
@@ -171,12 +196,45 @@ class AdminProductController extends Controller
 
         $product = Product::where('id_product', '=', $id_product)
                           ->first();
+
+        // Administrator should not be able to access form for product if its sale is over
+        if ($product->isSaleOver())
+        {
+            return redirect('/admin/product/');
+        }
+
         $warehouseProduct = $product->getWarehouseProduct();
 
         return view('admin.product.shop.edit', [
             'product' => $product,
             'warehouseProduct' => $warehouseProduct
         ]);
+    }
+
+    // End sale of shop product
+    public function shopEndSale(Request $request)
+    {
+        Helper::allow('productManager');
+
+        $product = Product::where('id_product', '=', $request->productId)
+                          ->first();
+
+        // Administrator should not be able to post form for product if its sale is already over
+        if ($product->isSaleOver())
+        {
+            return redirect('/admin/product/');
+        }
+
+        // Change dates in Product and Price
+        $now = Carbon::now()->toDateTimeString();
+        $product->date_sale_end = $now;
+        $product->save();
+
+        $price = $product->getNewestPrice();
+        $price->date_price_end = $now;
+        $price->save();
+
+        return redirect('/admin/product')->with('message', 'Predaj produktu bol uspesne ukonceny');
     }
 
     // Store new shop product
@@ -194,7 +252,7 @@ class AdminProductController extends Controller
         }
 
         $request->validate([
-            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'between:0,100000'],
+            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'between:0,99999'],
             'description' => ['required', 'min:5', 'max:5000'],
             'idCategory' => 'required',
             'image' => ['required', 'max:2048', 'mimes:jpg,bmp,png',
@@ -222,8 +280,8 @@ class AdminProductController extends Controller
         ]);
 
         Price::create([
-            'date_price_start' => $now,
             'id_product' => $product->id_product,
+            'date_price_start' => $now,
             'price' => $request->price
         ]);
 
