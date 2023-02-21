@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -75,5 +76,32 @@ class Product extends Model
         }
 
         return true;
+    }
+
+    // Relation to Image
+    // Function returns path only if image on the path exists
+    public function getImagePathIfExists()
+    {
+        $image = Image::where('id_image', '=', $this->id_image)
+                      ->first();
+
+        $imagePath = null;
+        if (Helper::imageExists($image->image_path, 'products'))
+        {
+            $imagePath = $image->image_path;
+        }
+
+        return $imagePath;
+    }
+
+    // Function returns true of product is on stock
+    public function isAvailable()
+    {
+        if ($this->getWarehouseProduct()->quantity > 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -20,10 +20,10 @@
                    je rovny 0. Predavat sa moze zacat ktoryhokolvek z uvedenych produktov.</p>
 
                 <h3 class="mt-5 title">Na sklade</h3>
-                <x-warehouseProductsTable :warehouseProducts="$inStock"/>
+                <x-table.warehouseProductsTable :warehouseProducts="$inStock"/>
 
                 <h3 class="mt-5 title">Vypredane</h3>
-                <x-warehouseProductsTable :warehouseProducts="$outOfStock"/>
+                <x-table.warehouseProductsTable :warehouseProducts="$outOfStock"/>
 
             </div>
         </div>

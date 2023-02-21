@@ -1,4 +1,4 @@
-@aware(['warehouseProducts'])
+@aware(['prices'])
 
 <table class="pricesTable mt-4 table table-striped">
     <thead class="table-dark">

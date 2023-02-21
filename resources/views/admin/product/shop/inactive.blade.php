@@ -19,7 +19,7 @@
                    a kolkokrat bol zakupeny. Predaj produktu nie je mozne opatovne obnovit - je potrebne vytvorit novy predaj
                    skladovaneho produktu.</p>
 
-                <x-productsTable :products="$shopInactiveProducts"/>
+                <x-table.productsTable :products="$shopInactiveProducts"/>
             </div>
         </div>
     </div>

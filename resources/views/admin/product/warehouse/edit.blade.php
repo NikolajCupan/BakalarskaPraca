@@ -89,7 +89,7 @@
                 </form>
 
                 <h4 class="mt-5 title">Historia predavania produktu</h4>
-                <x-productsTable :products="$products"/>
+                <x-table.productsTable :products="$products"/>
 
             </div>
         </div>

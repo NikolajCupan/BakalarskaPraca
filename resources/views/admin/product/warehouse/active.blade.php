@@ -19,7 +19,7 @@
                    sa predava alebo pocet skladovanych kusov je viac ako 0. Detail produktu zobrazuje, kedy bol produkt predavany. Produktu mozno manualne
                    menit kvantitu a ak nebol nikdy predavany mozno ho zmazat.</p>
 
-                <x-warehouseProductsTable :warehouseProducts="$warehouseActiveProducts"/>
+                <x-table.warehouseProductsTable :warehouseProducts="$warehouseActiveProducts"/>
             </div>
         </div>
     </div>

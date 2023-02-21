@@ -167,7 +167,7 @@
             </form>
 
             <h4 class="mt-5 title">Historia cien</h4>
-            <x-pricesTable :prices="$prices"/>
+            <x-table.pricesTable :prices="$prices"/>
 
             <h4 class="mt-5 title">Objednavky</h4>
             <p>TODO</p>

@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" href="{{asset('css/editPhotoStyles.css')}}">
 
-    <x-profileEditFrame>
+    <x-other.profileEditFrame>
 
         <div class="gradientLeftSide col-lg-6 d-none d-lg-block align-items-center">
 
@@ -85,6 +85,6 @@
             </div>
         </div>
 
-    </x-profileEditFrame>
+    </x-other.profileEditFrame>
 
 @endsection

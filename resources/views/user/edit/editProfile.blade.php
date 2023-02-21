@@ -29,7 +29,7 @@
         };
     </script>
 
-    <x-profileEditFrame>
+    <x-other.profileEditFrame>
 
         <div class="gradientLeftSide col-xl-6 d-none d-xl-block"></div>
 
@@ -153,5 +153,5 @@
 
             </div>
         </div>
-    </x-profileEditFrame>
+    </x-other.profileEditFrame>
 @endsection

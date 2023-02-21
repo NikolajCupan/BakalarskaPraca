@@ -19,7 +19,7 @@
                     a zaroven pocet skladovanych kusov je 0. Detail produktu zobrazuje, kedy bol produkt predavany. Produktu mozno manualne
                     menit kvantitu a ak nebol nikdy predavany mozno ho zmazat.</p>
 
-                <x-warehouseProductsTable :warehouseProducts="$warehouseInactiveProducts"/>
+                <x-table.warehouseProductsTable :warehouseProducts="$warehouseInactiveProducts"/>
             </div>
         </div>
     </div>

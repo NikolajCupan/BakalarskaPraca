@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,5 +31,21 @@ class Category extends Model
     {
         $displayName = str_replace("-", " ", $this->category);
         return ucFirst($displayName);
+    }
+
+    // Function returns count of products from category that are currently being sold
+    public function getSellingProductsCount()
+    {
+        return $this->getSellingProducts()->count();
+    }
+
+    // Function returns array of products from category that are currently being sold
+    public function getSellingProducts()
+    {
+        return Product::where('id_category', '=', $this->id_category)
+                      ->where(function ($mainQuery) {
+                          $mainQuery->whereNull('date_sale_end')
+                                    ->orWhere('date_sale_end', '>', Carbon::now());
+        })->get();
     }
 }

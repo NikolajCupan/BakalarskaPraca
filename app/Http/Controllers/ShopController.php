@@ -16,11 +16,13 @@ class ShopController extends Controller
         $category = Category::where('category', '=', $categoryName)->first();
 
         $categories = Category::all();
+        $productsFromCategory = $category->getSellingProducts();
 
         // user and imagePath is sent to view using AppServiceProvider
         return view('shop.category', [
             'categories' => $categories,
-            'activeCategory' => $category
+            'activeCategory' => $category,
+            'productsFromCategory' => $productsFromCategory
         ]);
     }
 }
