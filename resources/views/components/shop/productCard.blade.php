@@ -25,7 +25,7 @@
         @if ($product->isAvailable())
             <h6 class="text-success">Na sklade</h6>
         @else
-            <h6 class="text-danger">Vypredany</h6>
+            <h6 class="text-danger">Vypredane</h6>
         @endif
 
         <div class="d-flex flex-column mt-4">
