@@ -206,7 +206,7 @@ class AdminProductController extends Controller
         $product = Product::where('id_product', '=', $request->productId)
                           ->first();
 
-        // Administrator should not be able to post form for product if its sale is already over
+        // Administrator should not be able to post form for product to end its sale if its sale is already over, but it is checked
         if ($product->isSaleOver())
         {
             return redirect('/admin/product/');

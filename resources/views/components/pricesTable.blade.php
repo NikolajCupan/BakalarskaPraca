@@ -1,9 +1,9 @@
 @aware(['warehouseProducts'])
 
-<table class="mt-4 table table-striped">
+<table class="pricesTable mt-4 table table-striped">
     <thead class="table-dark">
     <tr>
-        <th scope="col">Typ</th>
+        <th class="noSort" scope="col">Typ</th>
         <th scope="col">Cena od</th>
         <th scope="col">Cena do</th>
         <th scope="col">Cena</th>

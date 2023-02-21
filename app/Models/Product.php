@@ -43,7 +43,6 @@ class Product extends Model
     public function getPrices()
     {
         return Price::where('id_product', '=', $this->id_product)
-                    ->orderBy('date_price_start', 'desc')
                     ->get();
     }
 

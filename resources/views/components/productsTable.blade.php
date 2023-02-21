@@ -1,15 +1,15 @@
 @aware(['products'])
 
-<table class="mt-4 table table-striped">
+<table class="productsTable mt-4 table table-striped">
     <thead class="table-dark">
     <tr>
-        <th scope="col">Typ</th>
+        <th class="noSort" scope="col">Typ</th>
         <th scope="col">ID</th>
         <th scope="col">Produkt</th>
         <th scope="col">Kategoria</th>
         <th scope="col">Predaj od</th>
         <th scope="col">Predaj do</th>
-        <th scope="col">Detail</th>
+        <th class="noSort" scope="col">Detail</th>
     </tr>
     </thead>
 

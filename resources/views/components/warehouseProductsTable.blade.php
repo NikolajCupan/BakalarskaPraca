@@ -1,20 +1,14 @@
 @aware(['warehouseProducts'])
 
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
-
-<table class="mt-4 table table-striped">
+<table class="warehouseProductsTable mt-4 table table-striped">
     <thead class="table-dark">
     <tr>
-        <th scope="col">Typ</th>
+        <th class="noSort" scope="col">Typ</th>
         <th scope="col">ID</th>
         <th scope="col">Produkt</th>
         <th scope="col">Kvantita</th>
         <th scope="col">Predavany</th>
-        <th scope="col">Detail</th>
+        <th class="noSort" scope="col">Detail</th>
     </tr>
     </thead>
 

@@ -291,7 +291,6 @@ class Helper
     public static function shopActiveProducts()
     {
         return Product::whereNull('date_sale_end')
-                      ->orderBy('date_sale_start', 'desc')
                       ->get();
     }
 
@@ -300,7 +299,6 @@ class Helper
     public static function shopinactiveProducts()
     {
         return Product::whereNotNull('date_sale_end')
-                      ->orderBy('date_sale_start', 'desc')
                       ->get();
     }
 
