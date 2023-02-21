@@ -1,3 +1,3 @@
-<link rel="stylesheet" href="{{asset('css/onlyPhoto.css')}}">
+<link rel="stylesheet" href="{{asset('css/onlyImage.css')}}">
 
-<img class="center" src="{{asset('/storage/images/products/' . $image->image_path)}}" alt="">
+<img class="imageCenter" src="{{asset('/storage/images/products/' . $image->image_path)}}" alt="">

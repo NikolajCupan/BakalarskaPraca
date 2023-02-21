@@ -19,6 +19,7 @@
                    moze byt rovny 0, v pripade ak boli vsetky predane. Predavanemu produktu je mozne zmenit cenu, kategoriu a obrazok. Pripadne
                    je mozne zrusit jeho predaj.</p>
 
+                <x-productsTable :products="$shopActiveProducts"/>
             </div>
         </div>
     </div>

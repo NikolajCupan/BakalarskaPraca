@@ -124,7 +124,11 @@ class AdminProductController extends Controller
     {
         Helper::allow('productManager');
 
-        return view('admin.product.shop.active');
+        $shopActiveProducts = Helper::shopActiveProducts();
+
+        return view('admin.product.shop.active', [
+            'shopActiveProducts' => $shopActiveProducts
+        ]);
     }
 
     // Shop inactive products page
@@ -132,7 +136,11 @@ class AdminProductController extends Controller
     {
         Helper::allow('productManager');
 
-        return view('admin.product.shop.inactive');
+        $shopInactiveProducts = Helper::shopInactiveProducts();
+
+        return view('admin.product.shop.inactive', [
+            'shopInactiveProducts' => $shopInactiveProducts
+        ]);
     }
 
     // Create shop product page

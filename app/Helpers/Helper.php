@@ -285,6 +285,24 @@ class Helper
         })->get();
     }
 
+    // Function returns array of shop products
+    // that are currently being sold
+    public static function shopActiveProducts()
+    {
+        return Product::whereNull('date_sale_end')
+                      ->orderBy('date_sale_start', 'desc')
+                      ->get();
+    }
+
+    // Function returns array of shop products
+    // that are no longer sold
+    public static function shopinactiveProducts()
+    {
+        return Product::whereNotNull('date_sale_end')
+                      ->orderBy('date_sale_start', 'desc')
+                      ->get();
+    }
+
     // Function crops image to 1:1 ratio
     // Cropped image is returned
     public static function cropImage($image)

@@ -37,13 +37,21 @@
             <div class="d-xl-flex justify-content-between">
                 <h3 class="title">Informacie o predavanom produkte</h3>
 
-                @if (!$product->isSaleOver())
-                    <form method="POST" action="/admin/product/shop/endSale/">
-                        @csrf
-                        <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
-                        <button type="submit" class="btn btn-danger ms-2">Ukoncit predaj</button>
-                    </form>
-                @endif
+                <div>
+                    <div class="inner pb-1">
+                        <a href="/admin/product/warehouse/edit/{{$warehouseProduct->id_warehouse_product}}" type="button" class="btn btn-dark">Skladove informacie</a>
+                    </div>
+
+                    <div class="inner">
+                        @if (!$product->isSaleOver())
+                            <form method="POST" action="/admin/product/shop/endSale/">
+                                @csrf
+                                <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
+                                <button type="submit" class="btn btn-danger ms-2">Ukoncit predaj</button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
             </div>
 
             <form method="POST" action="/admin/product/shop/update" enctype="multipart/form-data">
