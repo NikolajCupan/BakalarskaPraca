@@ -63,6 +63,11 @@
                         <div class="p-0 col-md-12 col-lg-6">
                             <div class="p-3 pt-md-5 p-lg-5 card-body text-black">
                                 <div class="mb-4 form-group form-floating">
+                                    <input type="text" class="form-control" name="shopProductId" id="shopProductId" placeholder="shopProductId" value="{{$product->id_product}}" disabled>
+                                    <label for="shopProductId">ID Produktu</label>
+                                </div>
+
+                                <div class="mb-4 form-group form-floating">
                                     <input type="text" class="form-control" name="product" id="product" placeholder="product" value="{{$warehouseProduct->product}}" disabled>
                                     <label for="product">Nazov produktu</label>
                                 </div>
@@ -165,7 +170,7 @@
             <x-pricesTable :prices="$prices"/>
 
             <h4 class="mt-5 title">Objednavky</h4>
-            <p>{{\App\Helpers\Helper::getFormattedDate('4')}}</p>
+            <p>TODO</p>
         </div>
     </div>
 

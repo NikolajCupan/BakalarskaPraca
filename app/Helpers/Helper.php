@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\Product;
 use App\Models\WarehouseProduct;
+use DateTime;
 use http\Env\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -329,8 +330,14 @@ class Helper
 
     // Function takes date as input in format: YYYY-MM-DD HH:MM:SS
     // and returns DD.MM.YYYY HH:MM:SS
-    public static function getFormattedDate($date)
+    public static function getFormattedDate($paramDate)
     {
-        return "TODO";
+        if (is_null($paramDate))
+        {
+            return null;
+        }
+
+        $date = new DateTime($paramDate);
+        return $date->format('d.m.Y H:i:s');
     }
 }
