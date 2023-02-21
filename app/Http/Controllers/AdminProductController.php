@@ -179,35 +179,14 @@ class AdminProductController extends Controller
         $product = Product::where('id_product', '=', $id_product)
                           ->first();
         $warehouseProduct = $product->getWarehouseProduct();
-        $prices = Price::where('id_product', '=', $id_product)
-                       ->get();
+        $prices = $product->getPrices();
+        $categories = Category::all();
 
         return view('admin.product.shop.show', [
             'product' => $product,
             'warehouseProduct' => $warehouseProduct,
-            'prices' => $prices
-        ]);
-    }
-
-    // Edit shop product page
-    public function shopEdit($id_product)
-    {
-        Helper::allow('productManager');
-
-        $product = Product::where('id_product', '=', $id_product)
-                          ->first();
-
-        // Administrator should not be able to access form for product if its sale is over
-        if ($product->isSaleOver())
-        {
-            return redirect('/admin/product/');
-        }
-
-        $warehouseProduct = $product->getWarehouseProduct();
-
-        return view('admin.product.shop.edit', [
-            'product' => $product,
-            'warehouseProduct' => $warehouseProduct
+            'prices' => $prices,
+            'categories' => $categories
         ]);
     }
 
@@ -235,6 +214,95 @@ class AdminProductController extends Controller
         $price->save();
 
         return redirect('/admin/product')->with('message', 'Predaj produktu bol uspesne ukonceny');
+    }
+
+    // Show image of shop product page
+    public function shopImage($id_image)
+    {
+        Helper::allow('productManager');
+
+        $image = Image::where('id_image', '=', $id_image)
+                      ->first();
+
+        return view('admin.product.shop.image', [
+            'image' => $image
+        ]);
+    }
+
+    // Update shop product
+    public function shopUpdate(Request $request)
+    {
+        Helper::allow('productManager');
+
+        $product = Product::where('id_product', '=', $request->shopProductId)
+                          ->first();
+
+        // Administrator should not be able to update shop product that is not sold anymore, but it is checked
+        if ($product->isSaleOver())
+        {
+            return redirect('/admin/product/');
+        }
+
+        $request->validate([
+            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'between:0,99999'],
+            'description' => ['required', 'min:5', 'max:5000'],
+            'idCategory' => 'required'
+        ]);
+
+        $image = $request->file('image');
+        if (!is_null($image))
+        {
+            // Validate image only if uploaded
+            $request->validate([
+                'image' => ['max:2048', 'mimes:jpg,bmp,png',
+                    'dimensions:min_width=256,min_height=256,max_width:2048,max_height:2048',
+                ]
+            ]);
+
+            // Delete current image (if it exists)
+            // dirname => need to go one folder up
+            $dbImage = Image::where('id_image', '=', $product->id_image)
+                            ->first();
+            $absolutePath = dirname(app_path()) . '/storage/app/public/images/products/' . $dbImage->image_path;
+            if (Helper::imageExists($dbImage->image_path, 'products'))
+            {
+                unlink($absolutePath);
+            }
+
+            $croppedImage = Helper::cropImage($image);
+
+            // Save image to public folder
+            $croppedImage->save(storage_path('app/public/images/products/') . $image->hashName());
+            $dbImage->image_path = $image->hashName();
+            $dbImage->save();
+        }
+
+        // Product information change
+        $product->description = $request->description;
+        $product->id_category = $request->idCategory;
+        $product->save();
+
+        // Price change
+        $currentPrice = $product->getNewestPrice();
+
+        if ($request->price != $currentPrice->price)
+        {
+            // Price was changed
+            $now = Carbon::now()->toDateTimeString();
+
+            // Modify current price
+            $currentPrice->date_price_end = $now;
+            $currentPrice->save();
+
+            // New price
+            Price::create([
+                'id_product' => $product->id_product,
+                'date_price_start' => $now,
+                'price' => $request->price
+            ]);
+        }
+
+        return redirect('/admin/product')->with('message', 'Editacia predavaneho produktu bola uspesna');
     }
 
     // Store new shop product
@@ -267,7 +335,7 @@ class AdminProductController extends Controller
         $croppedImage->save(storage_path('app/public/images/products/') . $image->hashName());
 
         $dbImage = Image::create([
-            'image_path' => 'app/public/images/products/' . $image->hashName()
+            'image_path' => $image->hashName()
         ]);
 
         $now = Carbon::now();

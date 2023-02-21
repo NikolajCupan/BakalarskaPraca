@@ -175,14 +175,19 @@ Route::get('/admin/product/shop/create/{id_warehouse_product}', [AdminProductCon
 // Show single shop product page
 Route::get('/admin/product/shop/show/{id_product}', [AdminProductController::class, 'shopShow']);
 
-// Edit warehouse product page
-Route::get('/admin/product/shop/edit/{id_product}', [AdminProductController::class, 'shopEdit']);
+// Show image of shop product page
+Route::get('/admin/product/shop/image/{id_image}', [AdminProductController::class, 'shopImage']);
 
 // Store new warehouse product
 Route::post('/admin/product/shop/create', [AdminProductController::class, 'shopStore']);
 
 // End sale of shop product
 Route::post('/admin/product/shop/endSale/', [AdminProductController::class, 'shopEndSale']);
+
+// Update shop product
+Route::post('/admin/product/shop/update', [AdminProductController::class, 'shopUpdate']);
+
+
 
 
 

@@ -68,7 +68,7 @@ class UserController extends Controller
         $user = Auth::user();
         $imagePath = null;
 
-        if (Helper::imageExists($user->getImagePath()))
+        if (Helper::imageExists($user->getImagePath(), 'users'))
         {
             $imagePath = $user->getImagePath();
         }
@@ -268,7 +268,7 @@ class UserController extends Controller
             // Delete current image (if it exists)
             // dirname => need to go one folder up
             $absolutePath = dirname(app_path()) . '/storage/app/public/images/users/' . $dbImage->image_path;
-            if (Helper::imageExists($dbImage->image_path))
+            if (Helper::imageExists($dbImage->image_path, 'users'))
             {
                 unlink($absolutePath);
             }
@@ -329,7 +329,7 @@ class UserController extends Controller
             // Delete current image (if it exists)
             // dirname => need to go one folder up
             $absolutePath = dirname(app_path()) . '/storage/app/public/images/users/' . $userImage->image_path;
-            if (Helper::imageExists($userImage->image_path))
+            if (Helper::imageExists($userImage->image_path, 'users'))
             {
                 unlink($absolutePath);
             }

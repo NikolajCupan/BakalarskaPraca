@@ -31,6 +31,7 @@ class WarehouseProduct extends Model
     public function getProducts()
     {
         return Product::where('id_warehouse_product', '=', $this->id_warehouse_product)
+                      ->orderBy('date_sale_start', 'desc')
                       ->get();
     }
 

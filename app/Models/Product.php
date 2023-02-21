@@ -40,22 +40,30 @@ class Product extends Model
     }
 
     // Relation to Price
+    public function getPrices()
+    {
+        return Price::where('id_product', '=', $this->id_product)
+                    ->orderBy('date_price_start', 'desc')
+                    ->get();
+    }
+
+    // Relation to Price
     // Function returns current price or if it is not sold anymore
     // returns the latest price
     public function getNewestPrice()
     {
         if (is_null($this->date_sale_end))
         {
-            // Product is not sold anymore
+            // Product is still being sold
             return Price::where('id_product', '=', $this->id_product)
-                        ->latest('date_price_end')
+                        ->whereNull('date_price_end')
                         ->first();
         }
         else
         {
-            // Product is still being sold
+            // Product is not sold anymore
             return Price::where('id_product', '=', $this->id_product)
-                        ->whereNull('date_price_end')
+                        ->latest('date_price_end')
                         ->first();
         }
     }

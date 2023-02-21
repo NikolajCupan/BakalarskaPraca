@@ -205,9 +205,9 @@ class Helper
     }
 
     // Function returns false if image on path does not exist
-    public static function imageExists($imagePath)
+    public static function imageExists($imagePath, $directoryName)
     {
-        $absolutePath = dirname(app_path()) . '/storage/app/public/images/users/' . $imagePath;
+        $absolutePath = dirname(app_path()) . '/storage/app/public/images/' . $directoryName . '/' . $imagePath;
         if (file_exists($absolutePath))
         {
             return true;
@@ -307,5 +307,12 @@ class Helper
         }
 
         return $croppedImage;
+    }
+
+    // Function takes date as input in format: YYYY-MM-DD HH:MM:SS
+    // and returns DD.MM.YYYY HH:MM:SS
+    public static function getFormattedDate($date)
+    {
+        return "TODO";
     }
 }

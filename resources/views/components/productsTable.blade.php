@@ -4,7 +4,6 @@
     <thead class="table-dark">
     <tr>
         <th scope="col">Typ</th>
-        <th scope="col">ID</th>
         <th scope="col">Produkt</th>
         <th scope="col">Kategoria</th>
         <th scope="col">Predaj od</th>
@@ -32,7 +31,6 @@
                     <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>
                 </svg>
             </td>
-            <td>{{$product->id_product}}</td>
             <td>{{$product->getWarehouseProduct()->product}}</td>
             <td>{{$product->getCategory()->category}}</td>
             <td>{{$product->date_sale_start}}</td>

@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
             $imagePath = null;
             if (!is_null($user))
             {
-                if (Helper::imageExists($user->getImagePath()))
+                if (Helper::imageExists($user->getImagePath(), 'users'))
                 {
                     $imagePath = $user->getImagePath();
                 }
