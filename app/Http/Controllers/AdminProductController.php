@@ -229,11 +229,17 @@ class AdminProductController extends Controller
     {
         Helper::allow('productManager');
 
+        // Image path is sent, only if photo on the path exists
         $image = Image::where('id_image', '=', $id_image)
                       ->first();
+        $imagePath = null;
+        if (Helper::imageExists($image->image_path, 'products'))
+        {
+            $imagePath = $image->image_path;
+        }
 
         return view('admin.product.shop.image', [
-            'image' => $image
+            'imagePath' => $imagePath
         ]);
     }
 
