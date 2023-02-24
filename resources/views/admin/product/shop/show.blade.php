@@ -144,10 +144,8 @@
 
                         <div class="p-0 col-12">
                             <div class="p-3 pb-md-5 pt-md-5 pt-lg-0 p-lg-5 card-body text-black">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="description" name="description" id="description" style="height: 200px">{{old('description') ?? $product->description}}</textarea>
-                                    <label for="description">Popis <span class="text-danger fw-bold">*</span></label>
-                                </div>
+                                <label class="form-label" for="description">Popis <span class="text-danger fw-bold">*</span></label>
+                                <textarea class="form-control" placeholder="description" name="description" id="description" style="height: 200px">{{old('description') ?? $product->description}}</textarea>
 
                                 @error('description')
                                 <p class="text-danger">{{$message}}</p>

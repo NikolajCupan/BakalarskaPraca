@@ -4,6 +4,7 @@ function initializeLanguage(tableClass, sortingOption) {
             { targets: 'noSort', orderable: false }
         ],
         order: sortingOption,
+        scrollX: true,
 
         language: {
             search: "Vyhladat",

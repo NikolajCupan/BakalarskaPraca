@@ -1,6 +1,6 @@
 @aware(['products'])
 
-<table class="productsTable mt-4 table table-striped">
+<table class="productsTable mt-4 table table-striped display nowrap" style="width: 100%">
     <thead class="table-dark">
     <tr>
         <th class="noSort" scope="col">Typ</th>
