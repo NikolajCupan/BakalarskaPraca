@@ -104,4 +104,20 @@ class Product extends Model
 
         return false;
     }
+
+    // There are 11 possible star ratings that can be shown
+    // Function returns number from interval <0, 10> according to how many half-stars will be shown
+    public function getHalfStarsCount()
+    {
+        $averageRating = Review::where('id_product', '=', $this->id_product)
+                               ->avg('rating');
+        return round($averageRating * 2);
+    }
+
+    // Function returns number of review of the product
+    public function getReviewCount()
+    {
+        return Review::where('id_product', '=', $this->id_product)
+                     ->count();
+    }
 }
