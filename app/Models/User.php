@@ -59,4 +59,13 @@ class User extends Authenticatable
                        ->where('id_role', '=', $dbRole->id_role)
                        ->exists();
     }
+
+    // Relation to Basket
+    // Current basket is a basket where date_basket_end is null
+    public function getCurrentBasket()
+    {
+        return Basket::where('id_user', '=', $this->id_user)
+                     ->whereNull('date_basket_end')
+                     ->first();
+    }
 }

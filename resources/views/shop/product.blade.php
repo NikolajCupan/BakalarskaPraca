@@ -4,24 +4,11 @@
 
     <script type="text/javascript" src="{{asset('js/numberSelector.js')}}"></script>
 
+    <x-other.flashMessage/>
     <x-navbar.navbar :imagePath="$imagePath" :user="$user"/>
 
-    <style>
-        .card {
-            margin-bottom: 30px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-clip: border-box;
-            border: 0 solid transparent;
-            border-radius: 0;
-        }
-    </style>
-
     <div class="container mt-4">
-        <div class="card rounded border">
+        <div class="productShowCard rounded border">
             <div class="card-body">
                 <div class="row gx-5">
 
@@ -53,19 +40,13 @@
                             {{$product->getNewestPrice()->price}} &euro;
                         </h2>
 
-                        <div class="input-group" style="width: 120px">
-                            <span class="input-group-btn">
-                            <button id="decrementButton" class="btn" type="button">-</button>
-                            </span>
+                        <form method="POST" action="/user/addToCart" class="d-flex">
+                            @csrf
+                            <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
 
-                            <input id="quantityValue" type="number" class="form-control text-center" maxlength="3" value="1">
-
-                            <span class="input-group-btn">
-                            <button id="incrementButton" class="btn" type="button">+</button>
-                            </span>
-                        </div>
-                        
-                        <button class="btn btn-dark">Pridat do kosika</button>
+                            <x-shop.numberSelector/>
+                            <button class="ms-2 btn btn-dark" type="submit">Pridat do kosika</button>
+                        </form>
                     </div>
 
                     <div class="col-lg-12 col-md-12 col-sm-12">

@@ -17,7 +17,7 @@ $(document).ready(function() {
         let input = document.getElementById("quantityValue");
         let currentValue = parseInt(input.value, 10);
 
-        if (!isNaN(currentValue) && currentValue < 99)
+        if (!isNaN(currentValue) && currentValue < 999)
         {
             input.value = (currentValue + 1);
         }
@@ -27,14 +27,14 @@ $(document).ready(function() {
         }
         else
         {
-            input.value = 99;
+            input.value = 999;
         }
     })
 
     $('#quantityValue').blur(function() {
         let currentValue = parseInt(this.value, 10);
 
-        if (isNaN(currentValue) || currentValue > 99 || currentValue < 1)
+        if (isNaN(currentValue) || currentValue > 999 || currentValue < 1)
         {
             this.value = 1;
         }

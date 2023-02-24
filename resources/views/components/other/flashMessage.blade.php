@@ -21,7 +21,11 @@
 </style>
 
 @if (session()->has('message'))
-    <div id="flashMessage" class="flashMessage alert alert-success" role="alert">
+    <div class="flashMessage alert alert-success" id="flashMessage" role="alert">
         {{ session()->get('message') }}
+    </div>
+@elseif (session()->has('errorMessage'))
+    <div class="flashMessage alert alert-danger" id="flashMessage" role="alert">
+        {{ session()->get('errorMessage') }}
     </div>
 @endif

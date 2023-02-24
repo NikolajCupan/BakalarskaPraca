@@ -110,6 +110,10 @@ Route::get('/user/cart', [UserShopController::class, 'cart'])
 Route::get('/user/orderHistory', [UserShopController::class, 'orderHistory'])
     ->middleware('auth');
 
+// Add shop product to logged user's cart
+Route::post('/user/addToCart', [UserShopController::class, 'addToCart'])
+    ->middleware('auth');
+
 
 
 /*

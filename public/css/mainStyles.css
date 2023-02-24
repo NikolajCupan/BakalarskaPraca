@@ -77,3 +77,15 @@ table td svg {
 .starProduct {
     margin-top: 2px;
 }
+
+.productShowCard {
+    margin-bottom: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 0 solid transparent;
+    border-radius: 0;
+}
