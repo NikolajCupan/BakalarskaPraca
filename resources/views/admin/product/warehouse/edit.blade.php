@@ -61,29 +61,39 @@
                     @csrf
                     <input type="hidden" name="warehouseProductId" id="warehouseProductId" value="{{$warehouseProduct->id_warehouse_product}}">
 
-                    <div class="mt-3 col-md-6 mb-4">
-                        <div class="form-group form-floating">
-                            <input disabled type="text" class="form-control" name="product" id="product" placeholder="product" value="{{$warehouseProduct->product}}">
-                            <label for="product">Nazov produktu</label>
+                    <div class="mt-2 mb-5 container border formFrame">
+                        <div class="row d-flex justify-content-center">
+                            <div class="p-0 col-md-12 col-lg-6">
+                                <div class="p-3 pt-md-5 p-lg-5 card-body text-black">
+                                    <div class="form-group form-floating">
+                                        <input disabled type="text" class="form-control" name="product" id="product" placeholder="product" value="{{$warehouseProduct->product}}">
+                                        <label for="product">Nazov produktu</label>
+                                    </div>
+
+                                    @error('product')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="p-0 col-md-12 col-lg-6">
+                                <div class="p-3 p-lg-5 card-body text-black">
+                                    <div class="form-group form-floating">
+                                        <input type="number" class="form-control" name="quantity" id="quantity" placeholder="quantity" value="{{old('quantity') ?? $warehouseProduct->quantity}}">
+                                        <label for="quantity">Pocet kusov produktu</label>
+                                    </div>
+
+                                    @error('quantity')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="p-3 pb-md-5 pt-md-0 pt-lg-0 p-lg-5 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-dark btn-lg ms-2">Ulozit</button>
+                            </div>
                         </div>
-
-                        @error('product')
-                        <p class="text-danger">{{$message}}</p>
-                        @enderror
                     </div>
-
-                    <div class="col-md-6 mb-4">
-                        <div class="form-group form-floating">
-                            <input type="number" class="form-control" name="quantity" id="quantity" placeholder="quantity" value="{{old('quantity') ?? $warehouseProduct->quantity}}">
-                            <label for="quantity">Pocet kusov produktu</label>
-                        </div>
-
-                        @error('quantity')
-                        <p class="text-danger">{{$message}}</p>
-                        @enderror
-                    </div>
-
-                    <button type="submit" class="btn btn-dark btn-lg ms-2">Ulozit</button>
                 </form>
 
                 <h4 class="mt-5 title">Historia predavania produktu</h4>
