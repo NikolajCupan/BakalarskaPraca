@@ -37,19 +37,17 @@
             <div class="d-xl-flex justify-content-between">
                 <h3 class="title">Informacie o predavanom produkte</h3>
 
-                <div>
-                    <div class="inner pb-1">
-                        <a href="/admin/product/warehouse/edit/{{$warehouseProduct->id_warehouse_product}}" type="button" class="btn btn-dark">Skladove informacie</a>
-                    </div>
-
+                <div class="mb-lg-3 mb-xl-0">
                     <div class="inner">
                         @if (!$product->isSaleOver())
-                            <form method="POST" action="/admin/product/shop/endSale/">
-                                @csrf
-                                <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
-                                <button type="submit" class="btn btn-danger ms-2">Ukoncit predaj</button>
-                            </form>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmEndSaleModal">
+                                Ukoncit predaj
+                            </button>
                         @endif
+                    </div>
+
+                    <div class="inner pb-1">
+                        <a href="/admin/product/warehouse/edit/{{$warehouseProduct->id_warehouse_product}}" type="button" class="btn btn-dark ms-2">Skladove informacie</a>
                     </div>
                 </div>
             </div>
@@ -174,7 +172,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Image upload information modal -->
     <div id="onLoadModal" class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -187,6 +185,29 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Rozumiem</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop product end sale confirmation modal -->
+    <div class="modal fade" id="confirmEndSaleModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">Potvrdenie ukoncenia predaja</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Ste si isty, ze chcete ukoncit predaj daneho produktu?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Nie</button>
+                    <form method="POST" action="/admin/product/shop/endSale/">
+                        @csrf
+                        <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
+                        <button type="submit" class="btn btn-danger">Ukoncit predaj</button>
+                    </form>
                 </div>
             </div>
         </div>

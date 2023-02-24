@@ -17,14 +17,12 @@
                 <div class="d-xl-flex justify-content-between">
                     <h3 class="title">Informacie o produkte na sklade</h3>
 
-                    <div>
+                    <div class="mb-lg-3 mb-xl-0">
                         <div class="inner pb-1">
                             @if ($warehouseProduct->canBeDeleted())
-                            <form method="POST" action="/admin/product/warehouse/destroy">
-                                @csrf
-                                <input type="hidden" name="warehouseProductId" id="warehouseProductId" value="{{$warehouseProduct->id_warehouse_product}}">
-                                <button type="submit" class="btn btn-danger ms-2">Zmazat</button>
-                            </form>
+                            <button type="button" class="btn btn-danger ms-2 ms-lg-0" data-bs-toggle="modal" data-bs-target="#confirmDestroyModal">
+                                Zmazat
+                            </button>
                             @endif
                         </div>
 
@@ -91,6 +89,29 @@
                 <h4 class="mt-5 title">Historia predavania produktu</h4>
                 <x-table.productsTable :products="$products"/>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Warehouse product destroy confirmation modal -->
+    <div class="modal fade" id="confirmDestroyModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">Potvrdenie zmazania</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Zmazany produkt nie je mozne obnovit. Ste si isty, ze chcete vykonat nasledujucu akciu?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Nie</button>
+                    <form method="POST" action="/admin/product/warehouse/destroy">
+                        @csrf
+                        <input type="hidden" name="warehouseProductId" id="warehouseProductId" value="{{$warehouseProduct->id_warehouse_product}}">
+                        <button type="submit" class="btn btn-danger">Zmazat</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
