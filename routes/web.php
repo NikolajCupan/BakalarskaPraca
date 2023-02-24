@@ -115,7 +115,12 @@ Route::get('/user/orderHistory', [UserShopController::class, 'orderHistory'])
 /*
  * ShopController
  */
+
+// Show products from category page
 Route::get('/shop/{category}', [ShopController::class, 'showCategory']);
+
+// Show single product page
+Route::get('/shop/product/{id_product}', [ShopController::class, 'showProduct']);
 
 
 

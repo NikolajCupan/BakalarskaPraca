@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Sends user and imagePath to views
-        view()->composer(['main.index', 'main.contact', 'main.about', 'shop.category'],function ($view)
+        view()->composer(['main.index', 'main.contact', 'main.about', 'shop.category', 'shop.product'],function ($view)
         {
             $user = Auth::user();
 

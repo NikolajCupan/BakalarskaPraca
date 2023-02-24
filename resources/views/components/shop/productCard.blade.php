@@ -65,7 +65,7 @@
         @endif
 
         <div class="d-flex flex-column mt-4">
-            <button class="btn btn-primary btn-sm" type="button">Detaily</button>
+            <a type="button" class="btn btn-primary btn-sm" href="/shop/product/{{$product->id_product}}">Detaily</a>
             <button class="btn btn-outline-primary btn-sm mt-2" type="button">Do kosika</button>
         </div>
     </div>

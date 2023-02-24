@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -23,6 +24,18 @@ class ShopController extends Controller
             'categories' => $categories,
             'activeCategory' => $category,
             'productsFromCategory' => $productsFromCategory
+        ]);
+    }
+
+    // Show single product page
+    public function showProduct($id_product)
+    {
+        $product = Product::where('id_product', '=', $id_product)
+                          ->first();
+
+        // user and imagePath is sent to view using AppServiceProvider
+        return view('shop.product', [
+            'product' => $product
         ]);
     }
 }
