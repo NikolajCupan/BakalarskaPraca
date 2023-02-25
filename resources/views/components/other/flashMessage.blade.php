@@ -9,6 +9,7 @@
 <style>
     .flashMessage {
         width: 20%;
+        min-width: 150px;
         opacity: 0.7;
         text-align: center;
         z-index: 9999;

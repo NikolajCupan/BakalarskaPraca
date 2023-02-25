@@ -3,7 +3,7 @@
 @section('content')
 
     <x-other.flashMessage/>
-    <x-navbar.navbar :imagePath="$imagePath" :user="$user"/>
+    <x-navbar.navbar :imagePath="$imagePath" :user="$user" :basket="$basket"/>
 
     <div class="container">
         <div class="mt-4 row">

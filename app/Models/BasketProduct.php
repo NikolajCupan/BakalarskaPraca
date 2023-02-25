@@ -18,4 +18,14 @@ class BasketProduct extends Model
     protected $fillable = [
         'id_basket', 'id_product', 'quantity'
     ];
+
+
+    // Function returns current price or if it is not sold anymore
+    // returns the latest price
+    public function getNewestPrice()
+    {
+        $product = Product::where('id_product', '=', $this->id_product)
+                          ->first();
+        return $product->getNewestPrice();
+    }
 }

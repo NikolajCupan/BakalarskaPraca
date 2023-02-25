@@ -19,7 +19,7 @@ class ShopController extends Controller
         $categories = Category::all();
         $productsFromCategory = $category->getSellingProducts();
 
-        // user and imagePath is sent to view using AppServiceProvider
+        // user, basket and imagePath is sent to view using AppServiceProvider
         return view('shop.category', [
             'categories' => $categories,
             'activeCategory' => $category,
@@ -33,7 +33,7 @@ class ShopController extends Controller
         $product = Product::where('id_product', '=', $id_product)
                           ->first();
 
-        // user and imagePath is sent to view using AppServiceProvider
+        // user, basket and imagePath is sent to view using AppServiceProvider
         return view('shop.product', [
             'product' => $product
         ]);

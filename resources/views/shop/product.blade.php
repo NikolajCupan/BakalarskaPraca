@@ -5,7 +5,7 @@
     <script type="text/javascript" src="{{asset('js/numberSelector.js')}}"></script>
 
     <x-other.flashMessage/>
-    <x-navbar.navbar :imagePath="$imagePath" :user="$user"/>
+    <x-navbar.navbar :imagePath="$imagePath" :user="$user" :basket="$basket"/>
 
     <div class="container mt-4">
         <div class="productShowCard rounded border">

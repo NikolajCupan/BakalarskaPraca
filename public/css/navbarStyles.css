@@ -40,6 +40,11 @@
     background-color: transparent;
 }
 
+.userMenuItemText {
+    padding: 4px 15px;
+    font-weight: bold;
+}
+
 .productShowCard {
     border: none;
     align-items: center;
@@ -59,4 +64,12 @@
 
 .sideMenuItemSmall:hover {
     color: black;
+}
+
+.basketBadge {
+    position: relative;
+    top: -19px;
+    left: -10px;
+    border: 1px solid black;
+    border-radius: 25px;
 }

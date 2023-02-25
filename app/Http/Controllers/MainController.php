@@ -13,7 +13,7 @@ class MainController extends Controller
 {
     /*
      * Note:
-     * user and imagePath is present in the views using AppServiceProvider
+     * user, basket and imagePath is present in the views using AppServiceProvider
      */
 
     // Welcome page

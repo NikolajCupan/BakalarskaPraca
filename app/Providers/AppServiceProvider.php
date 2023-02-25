@@ -27,15 +27,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Sends user and imagePath to views
-        view()->composer(['main.index', 'main.contact', 'main.about', 'shop.category', 'shop.product'],function ($view)
+        view()->composer(['main.index', 'main.contact', 'main.about', 'shop.category', 'shop.product'], function ($view)
         {
             $user = Auth::user();
 
             // User might not be logged in
             // If image on path does not exist, function returns null
             $imagePath = null;
+            $basket = null;
             if (!is_null($user))
             {
+                $basket = $user->getCurrentBasket();
+
                 if (Helper::imageExists($user->getImagePath(), 'users'))
                 {
                     $imagePath = $user->getImagePath();
@@ -43,7 +46,8 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with('imagePath', $imagePath)
-                 ->with('user', $user);
+                 ->with('user', $user)
+                 ->with('basket', $basket);
         });
     }
 }
