@@ -94,3 +94,28 @@ html {
     margin-left: calc(100vw - 100%);
     margin-right: 0;
 }
+
+.productImage {
+    width: 420px;
+    height: 420px;
+}
+
+a.toggles.toggleActive {
+    background-color: #212529;
+    color: white !important;
+}
+
+a.toggles.toggleActive:hover {
+    background-color: #424649;
+    cursor: pointer;
+}
+
+a.toggles:not(.toggleActive) {
+    color: black !important;
+    background-color: #f8f9fa;
+}
+
+a.toggles:not(.toggleActive):hover {
+    background-color: #d3d4d5;
+    cursor: pointer;
+}
