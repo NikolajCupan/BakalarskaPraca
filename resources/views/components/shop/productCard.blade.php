@@ -34,7 +34,12 @@
 
         <div class="d-flex flex-column mt-4">
             <a type="button" class="btn btn-primary btn-sm" href="/shop/product/{{$product->id_product}}">Detail</a>
-            <button class="btn btn-outline-primary btn-sm mt-2" type="button">Do kosika</button>
+            <form method="POST" action="/user/addToCart">
+                @csrf
+                <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
+                <input type="hidden" name="quantityValue" id="quantityValue" value="1">
+                <button style="width: 100%" class="btn btn-outline-primary btn-sm mt-2" type="submit">Do kosika</button>
+            </form>
         </div>
     </div>
 </div>

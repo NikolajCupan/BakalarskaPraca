@@ -2,18 +2,32 @@
 
 @section('content')
 
-    <script type="text/javascript" src="{{asset('js/numberSelector.js')}}"></script>
+    <style>
+        .item {
+            position:relative;
+            padding-top:20px;
+            display:inline-block;
+        }
+        .notify-badge{
+            position: absolute;
+            right:-20px;
+            top:10px;
+            background: #000000;
+            text-align: center;
+            border-radius: 30px 30px 30px 30px;
+            color:white;
+            padding:3px 5px;
+            font-size:12px;
+        }
+    </style>
 
-    <div class="input-group" style="width: 120px">
-        <span class="input-group-btn">
-            <button id="decrementButton" class="btn" type="button">-</button>
-        </span>
-
-        <input id="quantityValue" type="number" class="form-control text-center" maxlength="3" value="1">
-
-        <span class="input-group-btn">
-            <button id="incrementButton" class="btn" type="button">+</button>
-        </span>
-    </div>
+    <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item ms-5">
+            <div class="item">
+                <span class="notify-badge">98</span>
+                <a class="userMenuItem navbarButton nav-link mx-2" href="/user/cart">Kosik</a>
+            </div>
+        </li>
+    </ul>
 
 @endsection

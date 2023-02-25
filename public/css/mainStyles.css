@@ -89,3 +89,8 @@ table td svg {
     border: 0 solid transparent;
     border-radius: 0;
 }
+
+html {
+    margin-left: calc(100vw - 100%);
+    margin-right: 0;
+}

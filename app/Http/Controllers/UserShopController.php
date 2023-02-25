@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Constants;
 use App\Models\BasketProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserShopController extends Controller
@@ -27,7 +29,7 @@ class UserShopController extends Controller
     {
         // Validate quantity
         $validation = Validator::make($request->all(), [
-            'quantityValue' => ['numeric', 'min:1', 'max:999']
+            'quantityValue' => ['numeric', 'min:1', 'max:' . Constants::MAX_PRODUCT_PIECES]
         ]);
 
         if ($validation->fails())
@@ -56,8 +58,19 @@ class UserShopController extends Controller
         else
         {
             // User already has the product in his basket
-            $basketProduct->delete();
+            $currentQuantity = $basketProduct->quantity;
+            $newQuantity = ($currentQuantity + $request->quantityValue > Constants::MAX_PRODUCT_PIECES)
+                            ? Constants::MAX_PRODUCT_PIECES : ($currentQuantity + $request->quantityValue);
+
+            // Because of composite primary key Query Builder must be used instead of Eloquent
+            DB::table('basket_product')
+              ->where('id_basket', $basket->id_basket)
+              ->where('id_product', $request->productId)
+              ->update([
+                 'quantity' => $newQuantity
+              ]);
         }
-        return back();
+
+        return back()->with('message', 'Produkt bol uspesne pridany do kosika');
     }
 }

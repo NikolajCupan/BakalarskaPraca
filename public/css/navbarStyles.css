@@ -45,6 +45,11 @@
     align-items: center;
 }
 
+.card {
+    border: none;
+    align-items: center;
+}
+
 .sideMenuItemSmall {
     margin-top: 15px;
     font-size: 20px;

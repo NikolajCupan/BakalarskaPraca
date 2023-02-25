@@ -4,6 +4,7 @@
 
     <link rel="stylesheet" href="{{asset('css/categoryProducts.css')}}">
 
+    <x-other.flashMessage/>
     <x-navbar.navbar :imagePath="$imagePath" :user="$user"/>
 
     <div class="container">

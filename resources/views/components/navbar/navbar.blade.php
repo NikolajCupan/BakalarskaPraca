@@ -91,7 +91,6 @@
                                 </form>
                             </div>
                         </div>
-
                     @else
                         <a class="navbarButton sideMenuItem row nav-link mx-2" href="/login">Login</a>
                         <a class="navbarButton sideMenuItem row nav-link mx-2" href="/register">Register</a>
