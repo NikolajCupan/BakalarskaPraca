@@ -11,9 +11,8 @@
         <div class="productShowCard rounded border">
             <div class="card-body">
                 <div class="row gx-5">
-
                     <div class="col-lg-5 col-md-5 mt-xl-3">
-                        <div class="text-center">
+                        <div class="me-3 me-md-0 ms-3 mt-3 mt-xl-0 text-center">
                             @if (!is_null($product->getImagePathIfExists()))
                                 <img class="img-fluid img-responsive rounded" src="{{asset('/storage/images/products/' . $product->getImagePathIfExists())}}" alt="">
                             @else
@@ -22,7 +21,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-5 col-md-7 ms-md-0 ms-sm-4 mt-md-0 mt-4">
+                    <div class="col-lg-5 col-md-7 ms-3 ms-sm-5 ms-md-0 mt-md-0 mt-4">
                         <h2 class="box-title mt-md-3 mt-lg-5">{{$product->getWarehouseProduct()->product}} </h2>
 
                         <div class="d-flex mt-4">
@@ -54,7 +53,6 @@
                         {{$product->description}}
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
