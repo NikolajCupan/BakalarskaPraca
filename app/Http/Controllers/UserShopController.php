@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
+use App\Helpers\Helper;
 use App\Models\BasketProduct;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,13 +66,60 @@ class UserShopController extends Controller
 
             // Because of composite primary key Query Builder must be used instead of Eloquent
             DB::table('basket_product')
-              ->where('id_basket', $basket->id_basket)
-              ->where('id_product', $request->productId)
-              ->update([
-                 'quantity' => $newQuantity
-              ]);
+                  ->where('id_basket', $basket->id_basket)
+                  ->where('id_product', $request->productId)
+                  ->update([
+                     'quantity' => $newQuantity
+            ]);
         }
 
         return back()->with('message', 'Produkt bol uspesne pridany do kosika');
+    }
+
+    // Delete review on product from user
+    public function destroyReview(Request $request)
+    {
+        $loggedUser = Auth::user();
+
+        if (is_null($loggedUser))
+        {
+            return back()->with('errorMessage', 'Vymazanie recenzie bolo neuspesne');
+        }
+
+        $review = Review::where('id_user', '=', $request->authorId)
+                        ->where('id_product', '=', $request->productId)
+                        ->first();
+
+        if (!Helper::hasRightsToModifyReview($loggedUser, $review))
+        {
+            return back()->with('errorMessage', 'Vymazanie recenzie bolo neuspesne');
+        }
+
+        return back()->with('message', 'Recenzia bola uspesna zmazana');
+    }
+
+    // AJAX call to get edit user's review of product
+    public function editReview(Request $request)
+    {
+        $review = Review::where('id_user', '=', $request->authorId)
+                         ->where('id_product', '=', $request->productId)
+                         ->first();
+        $loggedUser = Auth::user();
+
+        if (!Helper::hasRightsToModifyReview($loggedUser, $review))
+        {
+            return response()->json(['success' => false]);
+        }
+
+        // Because of composite primary key Query Builder must be used instead of Eloquent
+        DB::table('review')
+            ->where('id_user', $request->authorId)
+            ->where('id_product', $request->productId)
+            ->update([
+                'comment' => $request->text,
+                'rating' => $request->rating
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }

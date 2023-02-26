@@ -8,7 +8,7 @@
     <x-other.flashMessage/>
     <x-navbar.navbar :imagePath="$imagePath" :user="$user" :basket="$basket"/>
 
-    <section class="py-5">
+    <section class="py-5 pt-0">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
@@ -23,7 +23,7 @@
                     <h1 class="display-5 fw-bolder mb-0">{{$product->getWarehouseProduct()->product}}</h1>
 
                     <div class="d-flex mb-4">
-                        <div class="d-flex mr-2"><x-shop.stars :product="$product"/></div>
+                        <div class="d-flex mr-2"><x-shop.stars :stars="$product->getStarsCount()"/></div>
                         <x-shop.reviewsCount :product="$product"/>
                     </div>
 

@@ -1,6 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
+    @PHP ('DELETE TEST')
 
     <link rel="stylesheet" href="{{asset('css/editPhotoStyles.css')}}">
 

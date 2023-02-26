@@ -18,4 +18,12 @@ class Review extends Model
     protected $fillable = [
         'id_user', 'id_product', 'rating', 'comment'
     ];
+
+
+    // Relation to WebUser
+    public function getAuthor()
+    {
+        return User::where('id_user', '=', $this->id_user)
+                   ->first();
+    }
 }

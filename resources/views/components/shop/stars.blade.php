@@ -1,7 +1,7 @@
-@aware(['product'])
+@aware(['stars'])
 
 @php
-    $totalHalfStars = $product->getHalfStarsCount();
+    $totalHalfStars = $stars * 2;
 
     $fullStars = intdiv($totalHalfStars, 2);
     $halfStars = $totalHalfStars - ($fullStars * 2);

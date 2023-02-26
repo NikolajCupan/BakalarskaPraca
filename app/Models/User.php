@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helper;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -50,6 +51,13 @@ class User extends Authenticatable
         return $image->image_path;
     }
 
+    // If image on path does not exist, function returns null
+    public function getImagePathIfExists()
+    {
+        $imagePath = $this->getImagePath();
+        return Helper::imageExists($imagePath, 'users') ? $imagePath : null;
+    }
+
     // Function returns true if logged user has role passed as parameter
     public function hasRole($role)
     {
@@ -67,5 +75,12 @@ class User extends Authenticatable
         return Basket::where('id_user', '=', $this->id_user)
                      ->whereNull('date_basket_end')
                      ->first();
+    }
+
+    public function ownsReview($review)
+    {
+        return Review::where('id_product', '=', $review->id_product)
+                     ->where('id_user', '=', $this->id_user)
+                     ->exists();
     }
 }

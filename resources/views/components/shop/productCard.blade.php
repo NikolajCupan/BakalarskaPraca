@@ -13,7 +13,7 @@
         <h5>{{$product->getWarehouseProduct()->product}}</h5>
         <div class="d-flex flex-row">
             <div class="d-flex ratings mr-2">
-                <x-shop.stars :product="$product"/>
+                <x-shop.stars :stars="$product->getStarsCount()"/>
             </div>
 
             <x-shop.reviewsCount :product="$product"/>

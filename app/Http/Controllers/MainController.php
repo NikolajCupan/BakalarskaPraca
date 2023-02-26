@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Product;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +43,11 @@ class MainController extends Controller
     // Page for testing html
     public function test()
     {
-        return view('test');
+        $reviews = Review::all();
+        $product = Product::all()->first();
+        return view('test', [
+            'reviews' => $reviews,
+            'product' => $product
+        ]);
     }
 }

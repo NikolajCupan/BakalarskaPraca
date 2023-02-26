@@ -338,4 +338,15 @@ class Helper
         $date = new DateTime($paramDate);
         return $date->format('d.m.Y H:i:s');
     }
+
+    // Review can be modified by author or moderator
+    public static function hasRightsToModifyReview($user, $review)
+    {
+        if ($user->hasRole('moderator') || $user->ownsReview($review))
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
