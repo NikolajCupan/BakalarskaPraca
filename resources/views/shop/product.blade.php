@@ -70,7 +70,7 @@
             </div>
 
             <div id="collapseRating" class="collapse">
-                <x-shop.collapse.rating :absoluteRatings="$absoluteRatings" :percentageRatings="$percentageRatings"/>
+                <x-shop.collapse.rating :absoluteRatings="$absoluteRatings" :percentageRatings="$percentageRatings" :product="$product"/>
             </div>
 
             <div id="collapseReviews" class="collapse">

@@ -163,4 +163,10 @@ class Product extends Model
 
         return $absoluteRatings;
     }
+
+    public function getBasketProducts()
+    {
+        return BasketProduct::where('id_product', '=', $this->id_product)
+                            ->get();
+    }
 }
