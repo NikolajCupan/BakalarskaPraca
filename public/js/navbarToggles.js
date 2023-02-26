@@ -1,8 +1,8 @@
 $(document).ready(function() {
     // When document loads, show description text
-    $('#collapseDescription').collapse('hide');
-    $('#collapseRating').collapse('show');
-    $('#toggleRating').addClass('toggleActive');
+    $('#collapseDescription').collapse('show');
+    $('#toggleDescription').addClass('toggleActive');
+    $('#collapseRating').collapse('hide');
     $('#collapseReviews').collapse('hide');
 
     var clickable = true;

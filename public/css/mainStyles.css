@@ -90,11 +90,6 @@ table td svg {
     border-radius: 0;
 }
 
-html {
-    margin-left: calc(100vw - 100%);
-    margin-right: 0;
-}
-
 .productImage {
     width: 420px;
     height: 420px;
