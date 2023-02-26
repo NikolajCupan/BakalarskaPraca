@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -32,10 +33,16 @@ class ShopController extends Controller
     {
         $product = Product::where('id_product', '=', $id_product)
                           ->first();
+        $reviews = $product->getReviews();
+        $percentageRatings = $product->getPercentageRatings();
+        $absoluteRatings = $product->getAbsoluteRatings();
 
         // user, basket and imagePath is sent to view using AppServiceProvider
         return view('shop.product', [
-            'product' => $product
+            'product' => $product,
+            'reviews' => $reviews,
+            'percentageRatings' => $percentageRatings,
+            'absoluteRatings' => $absoluteRatings
         ]);
     }
 }

@@ -120,4 +120,47 @@ class Product extends Model
         return Review::where('id_product', '=', $this->id_product)
                      ->count();
     }
+
+    // Relation to Review
+    public function getReviews()
+    {
+        return Review::where('id_product', '=', $this->id_product)
+                     ->get();
+    }
+
+    // Function returns array of 6 elements, each element represent percentage ratio of the rating
+    public function getPercentageRatings()
+    {
+        $numberOfElements = $this->getReviews()->count();
+        $absoluteRatings = $this->getAbsoluteRatings();
+        // Array of 6 elements, every element is initialized to 0
+        $percentageRatings = array_fill(0, 6, 0);
+
+        if ($numberOfElements != 0)
+        {
+            $index = 0;
+            foreach ($absoluteRatings as $absoluteRating)
+            {
+                $percentageRatings[$index] = ($absoluteRating / $numberOfElements) * 100;
+                $index++;
+            }
+        }
+
+        return $percentageRatings;
+    }
+
+    // Function returns array of 6 elements, each element represents how many times product got the rating
+    public function getAbsoluteRatings()
+    {
+        $reviews = $this->getReviews();
+        // Array of 6 elements, every element is initialized to 0
+        $absoluteRatings = array_fill(0, 6, 0);
+
+        foreach ($reviews as $review)
+        {
+            $absoluteRatings[$review->rating] += 1;
+        }
+
+        return $absoluteRatings;
+    }
 }

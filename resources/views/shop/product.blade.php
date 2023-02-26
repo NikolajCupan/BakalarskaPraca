@@ -59,20 +59,21 @@
                 </div>
             </div>
 
-            <div class="mt-4 ms-4 me-4">
-                <div id="collapseDescription" class="collapse">
-                    <x-shop.collapse.description :description="$product->description"/>
-                </div>
+            <div class="container">
+                <div class="row mt-4 ms-4 me-4">
+                    <div id="collapseDescription" class="collapse">
+                        <x-shop.collapse.description :description="$product->description"/>
+                    </div>
 
-                <div id="collapseRating" class="collapse">
-                    <x-shop.collapse.rating/>
-                </div>
+                    <div id="collapseRating" class="collapse">
+                        <x-shop.collapse.rating :absoluteRatings="$absoluteRatings" :percentageRatings="$percentageRatings"/>
+                    </div>
 
-                <div id="collapseReviews" class="collapse">
-                    <x-shop.collapse.reviews/>
+                    <div id="collapseReviews" class="collapse">
+                        <x-shop.collapse.reviews/>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 

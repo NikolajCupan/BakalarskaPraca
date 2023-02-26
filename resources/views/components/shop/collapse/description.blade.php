@@ -7,4 +7,4 @@
     }
 </style>
 
-<div class="content">{{$description}}</div>
+<div class="content mb-4">{{$description}}</div>
