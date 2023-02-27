@@ -106,6 +106,7 @@ class UserShopController extends Controller
                          ->first();
         $loggedUser = Auth::user();
 
+        // Review can be modified by author or moderator
         if (!Helper::hasRightsToModifyReview($loggedUser, $review))
         {
             return response()->json(['success' => false]);

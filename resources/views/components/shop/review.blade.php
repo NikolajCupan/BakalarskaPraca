@@ -19,13 +19,12 @@
     </div>
 
     <div class="comment-text w-100">
-
         <h5 class="reviewTitle mb-1">{{$review->getAuthor()->first_name . ' ' . $review->getAuthor()->last_name}}</h5>
 
         <div class="comment-footer mb-3">
             <span class="date">
                 <div class="d-flex ratings mr-2">
-                    <x-shop.stars :stars="$review->rating"/>
+                    <x-shop.reviewStars :review="$review"/>
 
                     @if ($loggedUser->ownsReview($review) || $loggedUser->hasRole('moderator'))
                     <a class="editReviewClass reviewAction" data-rating="{{$review->rating}}" data-product-id="{{$review->id_product}}" data-author-id="{{$review->id_user}}">
@@ -49,5 +48,4 @@
             {{$review->comment}}
         </p>
     </div>
-
 </div>
