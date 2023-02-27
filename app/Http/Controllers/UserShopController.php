@@ -109,7 +109,20 @@ class UserShopController extends Controller
         // Review can be modified by author or moderator
         if (!Helper::hasRightsToModifyReview($loggedUser, $review))
         {
-            return response()->json(['success' => false]);
+            // Return 403 Forbidden status if user has no right to modify the review
+            return response()->json(['message' => 'Na vykonanie akcie nie ste autorizovany'],403);
+        }
+
+        // Getting hear means the review can be edited by the user
+        // Validate rating and comment
+        $validation = Validator::make($request->all(), [
+            'text' => 'max:' . Constants::MAX_REVIEW_COMMENT_CHARACTERS,
+            'rating' => ['required', 'min:0', 'max:5']
+        ]);
+
+        if ($validation->fails())
+        {
+            return response()->json(['success' => false, 'message' => $validation->errors()->first()]);
         }
 
         // Because of composite primary key Query Builder must be used instead of Eloquent
