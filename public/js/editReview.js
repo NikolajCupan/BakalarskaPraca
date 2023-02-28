@@ -93,7 +93,10 @@ $('.editReviewClass').click(function() {
             class: 'form-control m-b-5 m-t-10',
             width: review.innerWidth(),
             height: review.innerHeight() + 20,
-            css: { 'min-height': '55px' }
+            css: {
+                'min-height': '55px',
+                'width': '100%'
+            }
         }).val(review[0].innerText);
 
         // Modify the edit button
@@ -113,7 +116,7 @@ $('.editReviewClass').click(function() {
 function getSelectElement(productId, authorId, rating)
 {
     return selectElement = $('<select>', {
-        'class': 'mt-1 form-select form-control-color',
+        'class': 'mt-1 form-select form-control-color mb-2',
         'style': 'width: 125px',
         'aria-label': 'Default select example',
         html: '<option value="0">&star;&star;&star;&star;&star;</option>' +

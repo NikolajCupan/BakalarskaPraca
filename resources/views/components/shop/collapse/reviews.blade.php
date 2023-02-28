@@ -13,7 +13,7 @@
 <script src="{{asset('js/editReview.js')}}" defer></script>
 
 <div class="container d-flex mt-100 mb-100">
-    <div class="row">
+    <div class="row w-100">
         <div class="col-md-12 p-0">
             <div class="reviewCard">
                 <div class="reviewCardBody">
@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-12 p-0">
                             @foreach ($reviews as $review)
-                                <x-shop.review :review="$review" :loggedUser="$loggedUser"/>
+                                <x-shop.collapse.review :review="$review" :loggedUser="$loggedUser"/>
                             @endforeach
                         </div>
                     </div>

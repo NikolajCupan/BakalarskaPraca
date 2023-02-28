@@ -23,8 +23,8 @@
                     <h1 class="display-5 fw-bolder mb-0">{{$product->getWarehouseProduct()->product}}</h1>
 
                     <div class="d-flex mb-4">
-                        <div class="d-flex mr-2"><x-shop.productStars :stars="$product->getStarsCount()"/></div>
-                        <x-shop.reviewsCount :product="$product"/>
+                        <div class="d-flex mr-2"><x-shop.elements.productStars :stars="$product->getStarsCount()"/></div>
+                        <x-shop.elements.reviewsCount :product="$product"/>
                     </div>
 
                     @if ($product->isAvailable())
@@ -42,7 +42,7 @@
                             @csrf
                             <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
 
-                            <x-shop.numberSelector/>
+                            <x-shop.elements.numberSelector/>
                             <button class="ms-2 btn btn-dark" type="submit">Pridat do kosika</button>
                         </form>
                     </div>

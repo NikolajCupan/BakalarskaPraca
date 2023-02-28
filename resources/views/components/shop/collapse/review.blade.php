@@ -24,7 +24,7 @@
         <div class="comment-footer mb-3">
             <span class="date">
                 <div class="d-flex ratings mr-2">
-                    <x-shop.reviewStars :review="$review"/>
+                    <x-shop.elements.reviewStars :review="$review"/>
 
                     @if (!is_null($loggedUser))
                         @if ($loggedUser->ownsReview($review) || $loggedUser->hasRole('moderator'))

@@ -46,7 +46,7 @@
 
         <div class="col-md-6">
             <div class="ratingInformation text-center mt-4">
-                <x-shop.reviewsCount :product="$product"/>
+                <x-shop.elements.reviewsCount :product="$product"/>
             </div>
             <div class="ratingInformation text-center mt-4">
                 Priemerne hodnotenie<br>
