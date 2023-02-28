@@ -340,7 +340,7 @@ class Helper
     }
 
     // Review can be modified by author or moderator
-    public static function hasRightsToModifyReview($user, $review)
+    public static function hasRightsToDeleteReview($user, $review)
     {
         if ($user->hasRole('moderator') || $user->ownsReview($review))
         {

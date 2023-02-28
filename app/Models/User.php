@@ -79,8 +79,6 @@ class User extends Authenticatable
 
     public function ownsReview($review)
     {
-        return Review::where('id_product', '=', $review->id_product)
-                     ->where('id_user', '=', $this->id_user)
-                     ->exists();
+        return $review->id_user == $this->id_user;
     }
 }

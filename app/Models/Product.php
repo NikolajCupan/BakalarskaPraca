@@ -141,7 +141,7 @@ class Product extends Model
             $index = 0;
             foreach ($absoluteRatings as $absoluteRating)
             {
-                $percentageRatings[$index] = ($absoluteRating / $numberOfElements) * 100;
+                $percentageRatings[$index] = round(($absoluteRating / $numberOfElements * 100));
                 $index++;
             }
         }

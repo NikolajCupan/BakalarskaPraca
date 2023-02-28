@@ -43,6 +43,7 @@ h5 {
 .cropText3Lines {
     -webkit-line-clamp: 3;
     overflow : hidden;
+    overflow-wrap: anywhere;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;

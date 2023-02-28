@@ -23,7 +23,7 @@
                     <h1 class="display-5 fw-bolder mb-0">{{$product->getWarehouseProduct()->product}}</h1>
 
                     <div class="d-flex mb-4">
-                        <div class="d-flex mr-2"><x-shop.stars :stars="$product->getStarsCount()"/></div>
+                        <div class="d-flex mr-2"><x-shop.productStars :stars="$product->getStarsCount()"/></div>
                         <x-shop.reviewsCount :product="$product"/>
                     </div>
 
@@ -64,7 +64,7 @@
     </div>
 
     <div class="container">
-        <div class="row mt-4 ms-4 me-4">
+        <div class="row mt-4 ms-0 me-0 ms-md-4 me-md-4">
             <div id="collapseDescription" class="collapse">
                 <x-shop.collapse.description :description="$product->description"/>
             </div>
@@ -74,7 +74,7 @@
             </div>
 
             <div id="collapseReviews" class="collapse">
-                <x-shop.collapse.reviews/>
+                <x-shop.collapse.reviews :reviews="$reviews" :product="$product" :loggedUser="$user"/>
             </div>
         </div>
     </div>

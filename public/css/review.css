@@ -1,8 +1,8 @@
 .card-no-border .reviewCard {
-    border: 0px;
+    border: 0;
     border-radius: 4px;
-    -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
+    -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05)
 }
 
 .reviewCardBody {
@@ -17,7 +17,7 @@
 }
 
 .comment-widgets .comment-row {
-    border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+    border-bottom: 2px solid rgba(120, 130, 140, 0.13);
     padding: 15px;
 }
 

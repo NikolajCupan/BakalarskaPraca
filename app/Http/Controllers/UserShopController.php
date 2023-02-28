@@ -77,6 +77,7 @@ class UserShopController extends Controller
     }
 
     // Delete review on product from user
+    // Review can be deleted by its author or user with role 'moderator'
     public function destroyReview(Request $request)
     {
         $loggedUser = Auth::user();
@@ -90,7 +91,7 @@ class UserShopController extends Controller
                         ->where('id_product', '=', $request->productId)
                         ->first();
 
-        if (!Helper::hasRightsToModifyReview($loggedUser, $review))
+        if (!Helper::hasRightsToDeleteReview($loggedUser, $review))
         {
             return back()->with('errorMessage', 'Vymazanie recenzie bolo neuspesne');
         }
@@ -99,6 +100,7 @@ class UserShopController extends Controller
     }
 
     // AJAX call to get edit user's review of product
+    // Review can be edited only by its author
     public function editReview(Request $request)
     {
         $review = Review::where('id_user', '=', $request->authorId)
@@ -107,7 +109,7 @@ class UserShopController extends Controller
         $loggedUser = Auth::user();
 
         // Review can be modified by author or moderator
-        if (!Helper::hasRightsToModifyReview($loggedUser, $review))
+        if (!$loggedUser->ownsReview($review))
         {
             // Return 403 Forbidden status if user has no right to modify the review
             return response()->json(['message' => 'Na vykonanie akcie nie ste autorizovany'],403);
