@@ -114,3 +114,7 @@ a.toggles:not(.toggleActive):hover {
     background-color: #d3d4d5;
     cursor: pointer;
 }
+
+.noWrap {
+    white-space: nowrap;
+}

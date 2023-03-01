@@ -55,7 +55,7 @@ class Basket extends Model
                 $totalPrice += ($basketProduct->getNewestPrice()->price * $basketProduct->quantity);
             }
 
-            return number_format($totalPrice, 2, '.', '');
+            return number_format($totalPrice, 2, '.', ' ');
         }
         else
         {

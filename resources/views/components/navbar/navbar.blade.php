@@ -78,7 +78,7 @@
                                 @else
                                     <img class="mt-2 imageBorder navbarImage img-fluid bg-light" src="{{asset('/images/userNoImage.png')}}" alt="">
                                 @endif
-                                <p class="fw-bold mt-1 mb-0">{{$user->email}}</p>
+                                <p class="fw-bold mt-1 mb-0">{{$user->first_name . ' ' . $user->last_name}}</p>
 
                                 @if ($user->hasRole('admin'))
                                     <a class="navbarButton sideMenuItemSmall" href="/admin">Sprava</a>
@@ -124,14 +124,14 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li class="userMenuItemText">
+                                <li class="userMenuItemText noWrap">
                                 @php $variousProductsCount = $basket->getVariousProductsCount()
                                 @endphp
                                     {{$variousProductsCount}}
                                     @if ($variousProductsCount > 0 && $variousProductsCount < 5)
-                                        produkty
+                                        rozne produkty
                                     @else
-                                        produktov
+                                        roznych produktov
                                     @endif
                                 </li>
 
@@ -159,7 +159,7 @@
                                     @else
                                         <img class="imageBorder navbarImage img-fluid bg-light" src="{{asset('/images/userNoImage.png')}}" alt="">
                                     @endif
-                                    <p style="color: black" class="fw-bold mt-1 mb-0">{{$user->email}}</p>
+                                    <p style="color: black" class="fw-bold mt-1 mb-0">{{$user->first_name . ' ' . $user->last_name}}</p>
                                 </h6>
 
                                 @if ($user->hasRole('admin'))
