@@ -176,4 +176,12 @@ class Product extends Model
                      ->where('id_user', '=', $user->id_user)
                      ->exists();
     }
+
+    // Might return null if product does not have review from user
+    public function getReviewFromUser($user)
+    {
+        return Review::where('id_product', '=', $this->id_product)
+                     ->where('id_user', '=', $user->id_user)
+                     ->first();
+    }
 }

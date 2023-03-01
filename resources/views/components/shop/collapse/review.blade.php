@@ -1,12 +1,6 @@
 @aware(['review'])
 @aware(['loggedUser'])
 
-<style>
-    .wrapText {
-        overflow-wrap: anywhere;
-    }
-</style>
-
 <div class="d-flex flex-row comment-row p-0 pb-1 pt-3">
     <div class="p-2">
         <span class="round">

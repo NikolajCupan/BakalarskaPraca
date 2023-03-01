@@ -33,21 +33,30 @@
         padding: 12px 20px;
         border-radius: 6px;
     }
+
+    .wrapText {
+        overflow-wrap: anywhere;
+    }
+
+    .loggedUserReview {
+        border: 1px solid black;
+    }
 </style>
 
 <link rel="stylesheet" href="{{asset('css/review.css')}}">
 <script src="{{asset('js/editReview.js')}}" defer></script>
 
 <div class="addReviewContainer mt-3 mb-3">
-    <!-- Link is changed if user is not logged in -->
-    <a class="btn btn-dark addReview d-inline justify-content-center fs-5 fw-bold"
-    {!! Auth::check() ? "data-bs-toggle='modal' data-bs-target='#createReview'" : "href='/login'" !!}>
-        Napisat recenziu
-        <svg style="margin-bottom: 2px" class="d-inline-block bi bi-plus-circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-        </svg>
-   </a>
+    @if (is_null($loggedUser) || !$product->hasReviewFromUser($loggedUser))
+        <a class="btn btn-dark addReview d-inline justify-content-center fs-5 fw-bold"
+        {!! Auth::check() ? "data-bs-toggle='modal' data-bs-target='#createReview'" : "href='/login'" !!}>
+            Napisat recenziu
+            <svg style="margin-bottom: 2px" class="d-inline-block bi bi-plus-circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+        </a>
+    @endif
 </div>
 
 <div class="container d-flex">
@@ -57,8 +66,17 @@
                 <div class="comment-widgets m-b-20">
                     <div class="row">
                         <div class="col-12 p-0">
+                            @if ($product->hasReviewFromUser($loggedUser))
+                                @php ($userReview = $product->getReviewFromUser($loggedUser))
+                                <div class="loggedUserReview">
+                                <x-shop.collapse.review :review="$userReview" :loggedUser="$loggedUser"/>
+                                </div>
+                            @endif
+
                             @foreach ($reviews as $review)
+                                @if ($review->id_user != $loggedUser->id_user)
                                 <x-shop.collapse.review :review="$review" :loggedUser="$loggedUser"/>
+                                @endif
                             @endforeach
                         </div>
                     </div>
