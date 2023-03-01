@@ -20,7 +20,7 @@ $('.editReviewClass').click(function() {
             data: {
                 productId: productId,
                 authorId: authorId,
-                text: textArea.val(),
+                comment: textArea.val(),
                 rating: newRating
             },
             // This header must be added otherwise AJAX fails
@@ -118,7 +118,7 @@ function getSelectElement(productId, authorId, rating)
     return selectElement = $('<select>', {
         'class': 'mt-1 form-select form-control-color mb-2',
         'style': 'width: 125px',
-        'aria-label': 'Default select example',
+        'aria-label': 'stars selector',
         html: '<option value="0">&star;&star;&star;&star;&star;</option>' +
             '<option value="1">&starf;&star;&star;&star;&star;</option>' +
             '<option value="2">&starf;&starf;&star;&star;&star;</option>' +

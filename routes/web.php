@@ -114,10 +114,13 @@ Route::get('/user/orderHistory', [UserShopController::class, 'orderHistory'])
 Route::post('/user/addToCart', [UserShopController::class, 'addToCart'])
     ->middleware('auth');
 
-// Delete review on product from user
-Route::post('/user/destroyReview', [UserShopController::class, 'destroyReview'])
+// Create review of product from user
+Route::post('/user/createReview', [UserShopController::class, 'storeReview'])
     ->middleware('auth');
 
+// Delete review of product from user
+Route::post('/user/destroyReview', [UserShopController::class, 'destroyReview'])
+    ->middleware('auth');
 
 // AJAX call to get edit user's review of product
 Route::post('/user/editReview', [UserShopController::class, 'editReview'])

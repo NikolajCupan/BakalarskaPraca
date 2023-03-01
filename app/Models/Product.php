@@ -169,4 +169,11 @@ class Product extends Model
         return BasketProduct::where('id_product', '=', $this->id_product)
                             ->get();
     }
+
+    public function hasReviewFromUser($user)
+    {
+        return Review::where('id_product', '=', $this->id_product)
+                     ->where('id_user', '=', $user->id_user)
+                     ->exists();
+    }
 }

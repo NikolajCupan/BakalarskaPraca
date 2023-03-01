@@ -303,6 +303,7 @@ return [
         'quantity' => 'kvantita',
         'price' => 'cena',
         'category' => 'kategoria',
-        'description' => 'popis'
+        'description' => 'popis',
+        'comment' => 'komentar'
     ],
 ];

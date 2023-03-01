@@ -7,6 +7,19 @@
         let reviewAuthorId = $(this).data('id');
         $("#authorId").val(reviewAuthorId);
     });
+
+    $(document).ready(function() {
+        // Prevents form from submitting when comment has too many characters
+        $("#createReviewForm").submit(function(e) {
+            let charCount = $('#comment').val().length;
+            // 999 might be subject to change (see: Helpers/Constants -> MAX_REVIEW_COMMENT_CHARACTERS)
+            if (charCount > 999)
+            {
+                alert('Pole komentar nemoze mat viac ako 999 znakov.');
+                e.preventDefault(e);
+            }
+        });
+    });
 </script>
 
 <style>
@@ -56,25 +69,34 @@
 </div>
 
 <!-- Review create modal -->
-<div class="modal fade" id="createReview" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="createReview" tabindex="-1" data-bs-backdrop="static" aria-labelledby="newReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalLabel">Potvrdenie zmazania</h1>
+                <h1 class="modal-title fs-5" id="newReviewModalLabel">Nova recenzia</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                Zmazanu recenziu nie je mozne obnovit. Ste si isty, ze chcete vykonat nasledujucu akciu?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Nie</button>
-                <form method="POST" action="/user/destroyReview">
-                    @csrf
-                    <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
-                    <input type="hidden" name="authorId" id="authorId" value="">
-                    <button type="submit" class="btn btn-danger">Zmazat</button>
-                </form>
-            </div>
+
+            <form id="createReviewForm" method="POST" action="/user/createReview">
+                @csrf
+                <div class="modal-body">
+                    <label class="form-label" for="comment">Komentar</label>
+                    <textarea class="form-control" placeholder="nepovinne" name="comment" id="comment" style="height: 200px">{{old('comment')}}</textarea>
+
+                    <select class="mt-3 form-select form-control-color" aria-label="stars selector" name="rating" id="rating">
+                        <option value="0">&star;&star;&star;&star;&star;</option>
+                        <option value="1">&starf;&star;&star;&star;&star;</option>
+                        <option value="2">&starf;&starf;&star;&star;&star;</option>
+                        <option value="3">&starf;&starf;&starf;&star;&star;</option>
+                        <option value="4">&starf;&starf;&starf;&starf;&star;</option>
+                        <option value="5" selected>&starf;&starf;&starf;&starf;&starf;</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="newReviewProductId" id="newReviewProductId" value="{{$product->id_product}}">
+                    <button type="submit" class="btn btn-dark">Odoslat</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -94,7 +116,7 @@
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Nie</button>
                 <form method="POST" action="/user/destroyReview">
                     @csrf
-                    <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
+                    <input type="hidden" name="destroyReviewProductId" id="destroyReviewProductId" value="{{$product->id_product}}">
                     <input type="hidden" name="authorId" id="authorId" value="">
                     <button type="submit" class="btn btn-danger">Zmazat</button>
                 </form>

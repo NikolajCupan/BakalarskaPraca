@@ -21,7 +21,7 @@
         <button id="decrementButton" class="noFocusButton leftButton btn btn-dark" type="button">-</button>
     </span>
 
-    <input id="quantityValue" name="quantityValue" type="number" class="noFocusButton form-control text-center" maxlength="3" value="1">
+    <input id="quantityValue" name="quantityValue" type="number" class="form-control text-center" maxlength="3" value="1">
 
     <span class="input-group-btn">
         <button id="incrementButton" class="noFocusButton rightButton btn btn-dark" type="button">+</button>
