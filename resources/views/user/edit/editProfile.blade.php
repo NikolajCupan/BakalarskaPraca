@@ -96,18 +96,13 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <div class="form-group form-floating">
-                                <select type="text" class="form-select" name="city" id="city">
-                                    @if (isset($currentCity))
-                                        <option value="">Ziadne</option>
-                                    @else
-                                        <option value="">Vyberte mesto</option>
-                                    @endif
-
-                                    @foreach ($cities as $city)
-                                        <option value="{{$city->city}}" {{ (isset($currentCity) && $currentCity->city == $city->city) ? 'selected' : '' }}>{{$city->city}}</option>
-                                    @endforeach
-                                </select>
+                                <input autocomplete="off" type="text" class="form-control" list="cityOptions" name="city" id="city" placeholder="city"  value="{{ old('city') ?? (isset($currentCity) ? $currentCity->city : '') }}">
                                 <label for="city" class="form-label">Mesto</label>
+                                <datalist id="cityOptions">
+                                    @foreach ($cities as $city)
+                                        <option value="{{$city->city}}">
+                                    @endforeach
+                                </datalist>
 
                                 @error('city')
                                 <p class="text-danger">{{$message}}</p>
@@ -116,7 +111,7 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="form-group form-floating">
-                                <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="postalCode" value="{{ isset($currentCity) ? $currentCity->postal_code : '' }}">
+                                <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="postalCode" value="{{ old('postalCode') ?? (isset($currentCity) ? $currentCity->postal_code : '') }}">
                                 <label for="postalCode">PSC</label>
                             </div>
 

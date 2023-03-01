@@ -43,11 +43,10 @@ class MainController extends Controller
     // Page for testing html
     public function test()
     {
-        $reviews = Review::all();
-        $product = Product::all()->first();
+        $cities = City::select('city')->distinct()->get();
+
         return view('test', [
-            'reviews' => $reviews,
-            'product' => $product
+            'cities' => $cities,
         ]);
     }
 }

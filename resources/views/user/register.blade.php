@@ -80,13 +80,13 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-4">
                                                 <div class="form-group form-floating">
-                                                    <select type="text" class="form-select" name="city" id="city">
-                                                        <option value="">Vyberte mesto</option>
-                                                        @foreach ($cities as $city)
-                                                            <option value="{{$city->city}}" {{ old('city') == $city->city ? 'selected' : '' }}>{{$city->city}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <input autocomplete="off" type="text" class="form-control" list="cityOptions" name="city" id="city" placeholder="city"  value="{{old('city')}}">
                                                     <label for="city" class="form-label">Mesto</label>
+                                                    <datalist id="cityOptions">
+                                                        @foreach ($cities as $city)
+                                                            <option value="{{$city->city}}">
+                                                        @endforeach
+                                                    </datalist>
 
                                                     @error('city')
                                                         <p class="text-danger">{{$message}}</p>

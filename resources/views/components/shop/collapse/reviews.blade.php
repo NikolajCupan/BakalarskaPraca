@@ -59,7 +59,7 @@
     @endif
 </div>
 
-<div class="container d-flex">
+<div class="container d-flex mb-4">
     <div class="row w-100">
         <div class="col-md-12 p-0">
             <div class="reviewCard">

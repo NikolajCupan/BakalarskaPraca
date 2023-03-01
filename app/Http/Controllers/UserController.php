@@ -28,7 +28,7 @@ class UserController extends Controller
     // Register form page
     public function register()
     {
-        $cities = DB::table('city')->select('city')->groupBy('city')->get();
+        $cities = City::select('city')->groupBy('city')->get();
         return view('user.register', ['cities' => $cities]);
     }
 
@@ -52,7 +52,7 @@ class UserController extends Controller
         $user = Auth::user();
         $address = $user->getAddress();
         $currentCity = $address->getCity();
-        $cities = DB::table('city')->select('city')->groupBy('city')->get();
+        $cities = City::select('city')->groupBy('city')->get();
 
         return view('user.edit.editProfile', [
             'user' => $user,
