@@ -74,6 +74,18 @@ class UserShopController extends Controller
         return back()->with('message', 'Produkt bol uspesne pridany do kosika');
     }
 
+    // Removes product from user's basket
+    public function destroyBasketProduct(Request $request)
+    {
+        // Because of composite primary key Query Builder must be used instead of Eloquent
+        DB::table('basket_product')
+            ->where('id_basket', $request->destroyBasketId)
+            ->where('id_product', $request->destroyProductId)
+            ->delete();
+
+        return back()->with('message', 'Produkt bol uspesne zmazany z kosika');
+    }
+
     // AJAX call to edit basket product quantity
     public function editBasketProductQuantity(Request $request)
     {

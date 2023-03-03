@@ -118,6 +118,10 @@ Route::post('/user/addToBasket', [UserShopController::class, 'addToBasket'])
 Route::post('/user/editBasketProductQuantity', [UserShopController::class, 'editBasketProductQuantity'])
     ->middleware('ajax');
 
+// Removes product from user's basket
+Route::post('/user/destroyBasketProduct', [UserShopController::class, 'destroyBasketProduct'])
+    ->middleware('auth');
+
 // AJAX call to get total order price
 Route::get('/user/getTotalOrderPrice', [UserShopController::class, 'getTotalOrderPrice'])
     ->middleware('ajax');

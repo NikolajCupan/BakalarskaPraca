@@ -17,10 +17,27 @@
             background: linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
         }
 
-        .editBasketProduct:hover {
+        .editBasketProduct:hover,
+        .deleteBasketProduct:hover {
             cursor: pointer;
         }
+
+        .backArrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
     </style>
+
+    <x-other.flashMessage/>
+
+    <div class="backArrow">
+        <a href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="white" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+            </svg>
+        </a>
+    </div>
 
     <div class="px-4 px-lg-0">
         <div class="container text-white py-5 text-center">
@@ -115,6 +132,32 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrusit</button>
                     <a class="editBasketProductClass btn btn-dark" type="button">Ulozit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete basket product -->
+    <div class="modal fade" id="deleteBasketProductModal" tabindex="-1" aria-labelledby="deleteBasketProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteBasketProductModalLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    Ste si isty, ze chcete zmazat tento tovar z kosiku?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                    <form method="POST" action="/user/destroyBasketProduct">
+                        @csrf
+                        <input type="hidden" name="destroyBasketId" id="destroyBasketId" value="">
+                        <input type="hidden" name="destroyProductId" id="destroyProductId" value="">
+                        <button class="btn btn-danger" type="submit">Zmazat</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,5 +1,16 @@
-console.log('abc');
+// Delete basket product modal
+$(document).on("click", ".openDeleteBasketProductModal", function () {
+    let productName = $(this).data('product-name');
+    $("#deleteBasketProductModalLabel").text(productName);
 
+    let basketId = $(this).data('id-basket');
+    $("#destroyBasketId").val(basketId);
+
+    let productId = $(this).data('id-product');
+    $("#destroyProductId").val(productId);
+});
+
+// Edit basket product modal
 // Sending data to modal
 $(document).on("click", ".openEditBasketProductModal", function () {
     let productName = $(this).data('product-name');
