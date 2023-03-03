@@ -19,6 +19,8 @@
                             @foreach ($productsFromCategory as $productFromCategory)
                                 <x-shop.productCard :product="$productFromCategory"/>
                             @endforeach
+
+                            {{$productsFromCategory->onEachSide(1)->links()}}
                         </div>
                     </div>
                 </div>

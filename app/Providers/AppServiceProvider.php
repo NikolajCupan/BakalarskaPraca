@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\Helper;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
+
         // Sends user and imagePath to views
         view()->composer(['main.index', 'main.contact', 'main.about', 'shop.category', 'shop.product'], function ($view)
         {

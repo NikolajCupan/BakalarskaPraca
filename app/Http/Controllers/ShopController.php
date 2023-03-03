@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Helpers\PaginationHelper;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
@@ -21,11 +22,13 @@ class ShopController extends Controller
         $categories = Category::all();
         $productsFromCategory = $category->getSellingProducts();
 
+        $paginatedProducts = PaginationHelper::paginate($productsFromCategory, 12);
+
         // user, basket and imagePath is sent to view using AppServiceProvider
         return view('shop.category', [
             'categories' => $categories,
             'activeCategory' => $category,
-            'productsFromCategory' => $productsFromCategory
+            'productsFromCategory' => $paginatedProducts
         ]);
     }
 

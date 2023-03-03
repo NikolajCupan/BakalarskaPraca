@@ -24,6 +24,13 @@
         "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
+        "files": [
+           "app/Helpers/PaginationHelper.php"
+        ],
+        "classmap": [
+            "database/seeders",
+            "database/factories"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",

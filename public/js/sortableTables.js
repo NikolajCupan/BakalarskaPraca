@@ -10,8 +10,8 @@ function initializeLanguage(tableClass, sortingOption) {
             search: "Vyhladat",
             lengthMenu: "Zobraz _MENU_ zaznamov na stranu",
             paginate: {
-                "next": "&rarr;",
-                "previous": "&larr;"
+                "previous": "&#8249;",
+                "next": "&#8250;"
             },
             info: "Zobrazene zaznamy _START_ az _END_ z celkovych _TOTAL_ zaznamov",
             infoFiltered: "(vyfiltrovane z _MAX_ zaznamov)",

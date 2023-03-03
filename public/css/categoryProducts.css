@@ -48,3 +48,15 @@ h5 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
 }
+
+@media screen and (max-width: 520px){
+    li.page-item {
+        display: none;
+    }
+
+    .page-item:first-child,
+    .page-item:last-child,
+    .page-item.active {
+        display: block;
+    }
+}
