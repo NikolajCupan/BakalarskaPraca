@@ -38,13 +38,18 @@
                     </div>
 
                     <div class="d-flex">
-                        <form method="POST" action="/user/addToCart" class="d-flex">
+                        @if ($product->isAvailable())
+                        <form method="POST" action="/user/addToBasket" class="d-flex">
                             @csrf
                             <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
 
                             <x-shop.elements.numberSelector/>
                             <button class="ms-2 btn btn-dark" type="submit">Pridat do kosika</button>
                         </form>
+                        @else
+                        <x-shop.elements.numberSelector/>
+                        <button class="ms-2 btn btn-dark" disabled>Pridat do kosika</button>
+                        @endif
                     </div>
                 </div>
             </div>

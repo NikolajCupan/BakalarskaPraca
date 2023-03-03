@@ -102,17 +102,25 @@ Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues'])
  * UserShopController
  */
 
-// Current cart page
-Route::get('/user/cart', [UserShopController::class, 'cart'])
+// Current basket page
+Route::get('/user/basket', [UserShopController::class, 'basket'])
     ->middleware('auth');
 
 // User's order history page
 Route::get('/user/orderHistory', [UserShopController::class, 'orderHistory'])
     ->middleware('auth');
 
-// Add shop product to logged user's cart
-Route::post('/user/addToCart', [UserShopController::class, 'addToCart'])
+// Add shop product to logged user's basket
+Route::post('/user/addToBasket', [UserShopController::class, 'addToBasket'])
     ->middleware('auth');
+
+// AJAX call to edit basket product quantity
+Route::post('/user/editBasketProductQuantity', [UserShopController::class, 'editBasketProductQuantity'])
+    ->middleware('ajax');
+
+// AJAX call to get total order price
+Route::get('/user/getTotalOrderPrice', [UserShopController::class, 'getTotalOrderPrice'])
+    ->middleware('ajax');
 
 // Create review of product from user
 Route::post('/user/createReview', [UserShopController::class, 'storeReview'])
@@ -125,6 +133,8 @@ Route::post('/user/destroyReview', [UserShopController::class, 'destroyReview'])
 // AJAX call to get edit user's review of product
 Route::post('/user/editReview', [UserShopController::class, 'editReview'])
     ->middleware('ajax');
+
+
 
 
 

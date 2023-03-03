@@ -28,4 +28,16 @@ class BasketProduct extends Model
                           ->first();
         return $product->getNewestPrice();
     }
+
+    // Relation to Product
+    public function getProduct()
+    {
+        return Product::where('id_product', '=', $this->id_product)
+                      ->first();
+    }
+
+    public function getTotalPrice()
+    {
+        return number_format(($this->getNewestPrice()->price * $this->quantity), 2, '.', ' ');
+    }
 }

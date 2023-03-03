@@ -42,7 +42,7 @@
                     <a class="navbarButton sideMenuItem row nav-link mx-2" href="/about">O nas</a>
 
                     @auth
-                        <a class="navbarButton sideMenuItem row nav-link mx-2" href="/user/cart">
+                        <a class="navbarButton sideMenuItem row nav-link mx-2" href="/user/basket">
                             <div style="text-align: center">
                                 <div style="display: inline-block; vertical-align: middle;">
                                     Kosik
@@ -128,7 +128,9 @@
                                 @php $variousProductsCount = $basket->getVariousProductsCount()
                                 @endphp
                                     {{$variousProductsCount}}
-                                    @if ($variousProductsCount > 0 && $variousProductsCount < 5)
+                                    @if ($variousProductsCount == 1)
+                                        produkt
+                                    @elseif ($variousProductsCount > 1 && $variousProductsCount < 5)
                                         rozne produkty
                                     @else
                                         roznych produktov
@@ -138,7 +140,7 @@
                                 <li class="userMenuItemText">{{$basket->getTotalPrice()}} &euro;</li>
 
                                 <div class="dropdown-divider"></div>
-                                <li><a class="userMenuItem dropdown-item" href="/user/cart">Zobrazit</a></li>
+                                <li><a class="userMenuItem dropdown-item" href="/user/basket">Zobrazit</a></li>
                             </ul>
                         </div>
                     </li>

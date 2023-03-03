@@ -14,10 +14,15 @@ use Illuminate\Support\Facades\Validator;
 
 class UserShopController extends Controller
 {
-    // Cart page
-    public function cart()
+    // Basket page
+    public function basket()
     {
-        return view('user.shop.cart');
+        $user = Auth::user();
+        $basket = $user->getCurrentBasket();
+
+        return view('user.shop.basket', [
+            'basket' => $basket
+        ]);
     }
 
     // User's order history page
@@ -26,20 +31,13 @@ class UserShopController extends Controller
         return view('user.shop.orderHistory');
     }
 
-    // Add shop product to logged user's cart
-    public function addToCart(Request $request)
+    // Add shop product to logged user's basket
+    public function addToBasket(Request $request)
     {
         // Validate quantity
-        $validation = Validator::make($request->all(), [
-            'quantityValue' => ['numeric', 'min:1', 'max:' . Constants::MAX_PRODUCT_PIECES]
-        ]);
+        $this->validateQuantity($request);
 
-        if ($validation->fails())
-        {
-            return back()->with('errorMessage', 'Produkt sa nepodarilo pridat do kosika');
-        }
-
-        // Getting hear means validation was successful
+        // Getting here means validation was successful
         $user = Auth::user();
         $basket = $user->getCurrentBasket();
 
@@ -74,6 +72,47 @@ class UserShopController extends Controller
         }
 
         return back()->with('message', 'Produkt bol uspesne pridany do kosika');
+    }
+
+    // AJAX call to edit basket product quantity
+    public function editBasketProductQuantity(Request $request)
+    {
+        // Validate quantity
+        $this->validateQuantity($request);
+
+        // Because of composite primary key Query Builder must be used instead of Eloquent
+        DB::table('basket_product')
+            ->where('id_basket', $request->basketId)
+            ->where('id_product', $request->productId)
+            ->update([
+                'quantity' => $request->newBasketQuantity
+        ]);
+
+        $basketProduct = BasketProduct::where('id_basket', '=', $request->basketId)
+                                      ->where('id_product', '=', $request->productId)
+                                      ->first();
+        $newTotalPrice = $basketProduct->getTotalPrice();
+        $enoughInStock = ($request->newBasketQuantity <= $basketProduct->getProduct()->getWarehouseProduct()->quantity);
+
+        return response()->json([
+            'newTotalPrice' => $newTotalPrice,
+            'enoughInStock' => $enoughInStock
+        ]);
+    }
+
+    // AJAX call to get total order price
+    public function getTotalOrderPrice()
+    {
+        $user = Auth::user();
+        $basket = $user->getCurrentBasket();
+
+        $totalOrderPrice = $basket->getTotalPrice();
+        $totalOrderPriceWithFee = $basket->getTotalPriceWithFee();
+
+        return response()->json([
+            'totalOrderPrice' => $totalOrderPrice,
+            'totalOrderPriceWithFee' => $totalOrderPriceWithFee
+        ]);
     }
 
     // Create review of product from user
@@ -170,5 +209,22 @@ class UserShopController extends Controller
         ]);
 
         return response()->json(['success' => true]);
+    }
+
+
+
+    // Helper method, called only internally
+    public function validateQuantity(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'quantityValue' => ['numeric', 'min:1', 'max:' . Constants::MAX_PRODUCT_PIECES]
+        ]);
+
+        if ($validation->fails())
+        {
+            return back()->with('errorMessage', 'Nastala chyba pri validacii poctu kusov produktu');
+        }
+
+        return null;
     }
 }

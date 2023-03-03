@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Constants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,9 +16,7 @@ class Basket extends Model
 
     protected $table = 'basket';
 
-    protected $fillable = [
-        'id_user', 'date_basket_start', 'date_basket_end'
-    ];
+    protected $fillable = ['id_user', 'date_basket_start', 'date_basket_end'];
 
 
     // Primary key information
@@ -28,8 +27,7 @@ class Basket extends Model
     // Relation to BasketProduct
     public function getBasketProducts()
     {
-        return BasketProduct::where('id_basket', '=', $this->id_basket)
-                            ->get();
+        return BasketProduct::where('id_basket', '=', $this->id_basket)->get();
     }
 
 
@@ -42,7 +40,7 @@ class Basket extends Model
     // Function returns total price of the products in the basket taking quantity into account
     // There are two possible situations:
     //      1. Basket is still active => the newest price is taken
-    //      2. Basket was already closed => price according to date of purcahse is taken
+    //      2. Basket was already closed => price according to date of purchase is taken
     public function getTotalPrice()
     {
         $basketProducts = $this->getBasketProducts();
@@ -61,5 +59,15 @@ class Basket extends Model
         {
             return "implement me";
         }
+    }
+
+    public function getTotalPriceWithFee()
+    {
+        // Numbers might be returned as string, thus they need to be formatted
+        $totalPrice = floatval(str_replace(' ', '', $this->getTotalPrice()));
+        $deliveryFee = floatval(str_replace(' ', '', Constants::DELIVERY_FEE));
+        $sum = $totalPrice + $deliveryFee;
+
+        return number_format($sum, 2, '.', ' ');
     }
 }
