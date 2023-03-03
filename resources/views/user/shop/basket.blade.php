@@ -27,6 +27,10 @@
             top: 20px;
             left: 20px;
         }
+
+        .emptyBasket {
+            font-size: 20px;
+        }
     </style>
 
     <x-other.flashMessage/>
@@ -69,13 +73,21 @@
                                         </th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-                                    @foreach ($basket->getBasketProducts() as $basketProduct)
-                                        <x-shop.basket.basketProduct :basketProduct="$basketProduct"/>
-                                    @endforeach
+                                    @if ($basket->getBasketProducts()->count() > 0)
+                                        @foreach ($basket->getBasketProducts() as $basketProduct)
+                                            <x-shop.basket.basketProduct :basketProduct="$basketProduct"/>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
+
+                            @if ($basket->getBasketProducts()->count() == 0)
+                            <div class="mt-5 mb-3 text-center emptyBasket">
+                                <strong class="text-muted">Vas kosik je prazdny</strong>
+                                <a href="/" class="ms-5 btn btn-dark rounded-pill py-2 btn-block">Nakupovat</a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -101,7 +113,7 @@
                                     <h5 id="totalOrderPriceWithFee" class="font-weight-bold">{{$basket->getTotalPriceWithFee()}} &euro;</h5>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Objednat</a>
+                            <a href="#" class="btn btn-dark rounded-pill py-2 btn-block {{$basket->getBasketProducts()->count() == 0 ? "disabled" : ""}}">Objednat</a>
                         </div>
                     </div>
                 </div>
