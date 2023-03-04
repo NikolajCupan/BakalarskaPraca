@@ -126,6 +126,10 @@ Route::post('/user/destroyBasketProduct', [UserShopController::class, 'destroyBa
 Route::get('/user/getTotalOrderPrice', [UserShopController::class, 'getTotalOrderPrice'])
     ->middleware('ajax');
 
+// AJAX call to get information if basket is orderable
+Route::get('/user/isBasketOrderable', [UserShopController::class, 'isBasketOrderable'])
+    ->middleware('ajax');
+
 // Create review of product from user
 Route::post('/user/createReview', [UserShopController::class, 'storeReview'])
     ->middleware('auth');

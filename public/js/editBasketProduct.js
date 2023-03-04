@@ -66,11 +66,12 @@ $(document).ready(function() {
                 actionButton.data('basket-quantity', newBasketQuantity);
 
                 updateTotalOrderPrice();
+                updateOrderButton();
 
                 // Hide modal
                 $('#editBasketProductModal').modal('hide');
             },
-            error: function(response) {
+            error: function() {
                 alert('AJAX zlyhal');
             }
         });
@@ -86,7 +87,23 @@ function updateTotalOrderPrice()
             $('#totalOrderPrice').html(response.totalOrderPrice + ' &euro;');
             $('#totalOrderPriceWithFee').html(response.totalOrderPrice + ' &euro;');
         },
-        error: function(xhr, textStatus, errorThrown) {
+        error: function() {
+            alert('AJAX zlyhal');
+        }
+    });
+}
+
+// If order cannot be made, make button disabled
+function updateOrderButton()
+{
+    $.ajax({
+        type: "GET",
+        url: "/user/isBasketOrderable",
+        success: function(response) {
+            let orderButton = $('#orderButton');
+            orderButton.toggleClass('disabled', !response.isOrderable);
+        },
+        error: function() {
             alert('AJAX zlyhal');
         }
     });

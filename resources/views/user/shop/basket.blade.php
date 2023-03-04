@@ -113,7 +113,7 @@
                                     <h5 id="totalOrderPriceWithFee" class="font-weight-bold">{{$basket->getTotalPriceWithFee()}} &euro;</h5>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-dark rounded-pill py-2 btn-block 
+                            <a id="orderButton" href="#" class="btn btn-dark rounded-pill py-2 btn-block
                             {{($basket->getBasketProducts()->count() == 0 || !$basket->isOrderable()) ? "disabled" : ""}}">
                                 Objednat
                             </a>

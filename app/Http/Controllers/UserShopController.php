@@ -135,6 +135,18 @@ class UserShopController extends Controller
         ]);
     }
 
+    // AJAX call to get information if basket is orderable
+    public function isBasketOrderable()
+    {
+        $user = Auth::user();
+        $basket = $user->getCurrentBasket();
+        $isOrderable = $basket->isOrderable();
+
+        return response()->json([
+            'isOrderable' => $isOrderable
+        ]);
+    }
+
     // Create review of product from user
     public function storeReview(Request $request)
     {
