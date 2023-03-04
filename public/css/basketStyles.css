@@ -1,0 +1,52 @@
+body {
+    /* fallback for old browsers */
+    background: #30cfd0;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
+}
+
+.editBasketProduct:hover,
+.deleteBasketProduct:hover {
+    cursor: pointer;
+}
+
+.backArrow {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+}
+
+.emptyBasket {
+    font-size: 20px;
+}
+
+@media (max-width: 767px) {
+    .basketProductImageSmall {
+        width: 50%;
+    }
+
+    .basketProductImageSmallContainer {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .basketProductDescriptionSmall {
+        text-align: center;
+    }
+}
+
+.iconEdit {
+    top: 0;
+    right: 0;
+    width: auto;
+}
+
+.iconDelete {
+    top: 30px;
+    right: 0;
+    width: auto;
+}

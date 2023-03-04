@@ -133,3 +133,11 @@ a.toggles:not(.toggleActive):hover {
 .imageSaleOver {
     filter: grayscale(100%);
 }
+
+.basketProductName {
+    width: 300px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    color: red;
+}

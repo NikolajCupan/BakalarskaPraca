@@ -5,33 +5,7 @@
     <script type="text/javascript" src="{{asset('js/editBasketProduct.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/numberSelector.js')}}"></script>
 
-    <style>
-        body {
-            /* fallback for old browsers */
-            background: #30cfd0;
-
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
-
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
-        }
-
-        .editBasketProduct:hover,
-        .deleteBasketProduct:hover {
-            cursor: pointer;
-        }
-
-        .backArrow {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        .emptyBasket {
-            font-size: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('css/basketStyles.css')}}">
 
     <x-other.flashMessage/>
 
@@ -52,9 +26,21 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
+                        @if ($basket->getBasketProducts()->count() == 0)
+                            <div class="row mt-3 mb-3 text-center emptyBasket">
+                                <div class="col-12 col-sm-6 mb-3 mb-sm-0">
+                                    <strong class="text-muted">Vas kosik je prazdny</strong>
+                                </div>
+
+                                <div class="col-12 col-sm-6 text-center">
+                                    <a href="/" class=" btn btn-dark rounded-pill py-2 btn-block">Nakupovat</a>
+                                </div>
+                            </div>
+                        @else
+                            <!-- Large screen -->
+                            <div class="d-none d-lg-block table-responsive">
+                                <table class="table">
+                                    <thead>
                                     <tr>
                                         <th scope="col" class="border-0 bg-light">
                                             <div class="p-2 px-3 text-uppercase">Produkt</div>
@@ -72,23 +58,22 @@
                                             <div class="py-2 text-uppercase">Akcia</div>
                                         </th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @if ($basket->getBasketProducts()->count() > 0)
-                                        @foreach ($basket->getBasketProducts() as $basketProduct)
-                                            <x-shop.basket.basketProduct :basketProduct="$basketProduct"/>
-                                        @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
-
-                            @if ($basket->getBasketProducts()->count() == 0)
-                            <div class="mt-5 mb-3 text-center emptyBasket">
-                                <strong class="text-muted">Vas kosik je prazdny</strong>
-                                <a href="/" class="ms-5 btn btn-dark rounded-pill py-2 btn-block">Nakupovat</a>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($basket->getBasketProducts() as $basketProduct)
+                                        <x-shop.basket.basketProduct :basketProduct="$basketProduct"/>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                            @endif
-                        </div>
+
+                            <!-- Small screen -->
+                            <div class="d-lg-none">
+                            @foreach ($basket->getBasketProducts() as $basketProduct)
+                                <x-shop.basket.basketProductSmall :basketProduct="$basketProduct"/>
+                            @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -97,7 +82,15 @@
                         <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Informacie</div>
                         <div class="p-4">
                             <p class="font-italic mb-4">
-                                Nullam sed ipsum congue, iaculis odio sed, tempus turpis. Duis erat augue, tristique vel nulla ac, cursus aliquet erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque ut rutrum turpis, at vulputate massa. Nulla laoreet lobortis enim id ultricies. Pellentesque feugiat congue turpis non laoreet. Nunc turpis lacus, varius id bibendum vulputate, condimentum ut purus. Cras ut finibus augue. Donec scelerisque odio eget sollicitudin venenatis. Donec tincidunt tellus lobortis justo finibus, sed ullamcorper ipsum mattis. Proin finibus lectus et mauris facilisis, vitae lobortis odio pharetra.
+                                Kazda vykonana objednavka je zavazna. V pripade ak chcete objednavku zrusit, mozete tak urobit do 24 hodin od vykonania objednavky.
+                            </p>
+
+                            <p class="font-italic mb-4">
+                                Nakupom na nasom e-shope suhlasite s <a target="_blank" href="/terms" class="link-info">obchodnymi podmienkami</a>. Preto im, prosim, venujte dostatocnu pozornost a dokladne si ich precitajte. E-shop si vyhraduje pravo kedykolvek <a target="_blank" href="/terms" class="link-info">obchodne podmienky</a> zmenit.
+                            </p>
+
+                            <p class="font-italic mb-4">
+                                Majitel e-shopu nenesie zodpovednost za nepravdive informacie v recenciach produktov od zakaznikov.
                             </p>
                         </div>
                     </div>
@@ -105,7 +98,9 @@
                     <div class="col-lg-6">
                         <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Suhrn objednavky</div>
                         <div class="p-4">
-                            <p class="font-italic mb-4">Vivamus posuere vel nunc lobortis tempus. Suspendisse dapibus lorem vel dui blandit, non iaculis lectus pretium.</p>
+                            <p class="font-italic mb-4">
+                                Pred pokracovanim si, prosim, skontrolujte Vas tovar. Objednavku je mozne vykonat len vtedy, ked z kazdeho tovaru v kosiku, je na sklade dostatok kusov.
+                            </p>
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tovar </strong><strong id="totalOrderPrice">{{$basket->getTotalPrice()}} &euro;</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Dovoz </strong><strong>{{\App\Helpers\Constants::getFormattedDeliveryFee()}} &euro;</strong></li>
