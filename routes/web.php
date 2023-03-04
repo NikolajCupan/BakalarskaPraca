@@ -32,6 +32,9 @@ Route::get('/contact', [MainController::class, 'contact']);
 // About us page
 Route::get('/about', [MainController::class, 'about']);
 
+// Terms and conditions page
+Route::get('/terms', [MainController::class, 'terms']);
+
 // Page for testing html
 Route::get('/test', [MainController::class, 'test']);
 

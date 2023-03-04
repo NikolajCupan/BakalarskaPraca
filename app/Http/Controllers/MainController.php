@@ -40,6 +40,12 @@ class MainController extends Controller
         return view('main.about');
     }
 
+    // Terms and conditions page
+    public function terms()
+    {
+        return view('main.terms');
+    }
+
     // Page for testing html
     public function test()
     {

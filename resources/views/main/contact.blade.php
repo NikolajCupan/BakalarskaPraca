@@ -4,4 +4,10 @@
 
     <x-navbar.navbar :imagePath="$imagePath" :user="$user" :basket="$basket"/>
 
+    CONTACT
+
+@endsection
+
+@section('footer')
+    <x-footer.footer/>
 @endsection

@@ -4,7 +4,7 @@
 
     <x-navbar.navbar :imagePath="$imagePath" :user="$user" :basket="$basket"/>
 
-    ABOUT US
+    TERMS AND CONDITIONS
 
 @endsection
 

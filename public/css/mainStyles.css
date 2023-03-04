@@ -24,6 +24,17 @@
     General end
  */
 
+@media (max-width: 991px) {
+    .pageContent {
+        min-height: calc(100vh - 132px);
+    }
+}
+
+@media (min-width: 992px) {
+    .pageContent {
+        min-height: calc(100vh - 100px);
+    }
+}
 
 .imageBorder {
     border: solid 1px black;

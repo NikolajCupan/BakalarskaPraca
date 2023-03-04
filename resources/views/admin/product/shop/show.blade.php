@@ -212,3 +212,7 @@
     </div>
 
 @endsection
+
+        @section('footer')
+            <x-footer.footer/>
+@endsection

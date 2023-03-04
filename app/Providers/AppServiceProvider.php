@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         // Sends user and imagePath to views
-        view()->composer(['main.index', 'main.contact', 'main.about', 'shop.category', 'shop.product'], function ($view)
+        view()->composer(['main.index', 'main.contact', 'main.about', 'main.terms', 'shop.category', 'shop.product'], function ($view)
         {
             $user = Auth::user();
 
