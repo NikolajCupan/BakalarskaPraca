@@ -12,11 +12,8 @@
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                    @if (!is_null($product->getImagePathIfExists()))
-                        <img class="rounded card-img-top mb-5 mb-md-0" src="{{asset('/storage/images/products/' . $product->getImagePathIfExists())}}" alt="">
-                    @else
-                        <img class="rounded card-img-top mb-5 mb-md-0" src="{{asset('/images/imageMissing.jpg')}}" alt="">
-                    @endif
+                    <img src="{{$product->getImagePathIfExists() ? asset('/storage/images/products/' . $product->getImagePathIfExists()) : asset('/images/imageMissing.jpg')}}"
+                         class="rounded card-img-top mb-5 mb-md-0 {{$product->isSaleOver() ? "imageSaleOver" : ""}}" alt="">
                 </div>
                 <div class="col-md-6">
                     <div class="small mb-1">{{$product->getCategory()->category}}</div>
@@ -27,7 +24,9 @@
                         <x-shop.elements.reviewsCount :product="$product"/>
                     </div>
 
-                    @if ($product->isAvailable())
+                    @if ($product->isSaleOver())
+                        <h5 class="text-danger mb-0">Predaj produktu bol ukonceny</h5>
+                    @elseif($product->isAvailable())
                         <h5 class="text-success mb-0">Na sklade ({{$product->getWarehouseProduct()->quantity}} ks)</h5>
                     @else
                         <h5 class="text-danger mb-0">Vypredane</h5>
@@ -38,7 +37,7 @@
                     </div>
 
                     <div class="d-flex">
-                        @if ($product->isAvailable())
+                        @if ($product->isAvailable() && !$product->isSaleOver())
                         <form method="POST" action="/user/addToBasket" class="d-flex">
                             @csrf
                             <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">

@@ -37,6 +37,14 @@ class UserShopController extends Controller
         // Validate quantity
         $this->validateQuantity($request);
 
+        // User should not be able to add product which sale has ended, but it is checked
+        $product = Product::where('id_product', '=', $request->productId)
+                          ->first();
+        if ($product->isSaleOver())
+        {
+            return back()->with('errorMessage', 'Predaj produktu bol ukonceny');
+        }
+
         // Getting here means validation was successful
         $user = Auth::user();
         $basket = $user->getCurrentBasket();
@@ -138,7 +146,13 @@ class UserShopController extends Controller
         $product = Product::where('id_product', '=', $request->newReviewProductId)
                           ->first();
 
-        // User should not be able to post form to create comment if product already has comment from him, but it is checked
+        // User should not be able to post form to create review if product's sale is over, but it is checked
+        if ($product->isSaleOver())
+        {
+            return back()->with('errorMessage', 'Predaj produktu bol ukonceny, nie je mozne napisat recenziu');
+        }
+
+        // User should not be able to post form to create review if product already has review from him, but it is checked
         if ($product->hasReviewFromUser($user))
         {
             return back()->with('errorMessage', 'Na dany produkt ste uz napisali recenziu');

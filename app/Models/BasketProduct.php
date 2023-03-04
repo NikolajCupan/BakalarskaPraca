@@ -40,4 +40,18 @@ class BasketProduct extends Model
     {
         return number_format(($this->getNewestPrice()->price * $this->quantity), 2, '.', ' ');
     }
+
+    // True => Enough quantity in the warehouse, still being sold
+    public function isOrderable()
+    {
+        $product = $this->getProduct();
+        $warehouseQuantity = $product->getWarehouseProduct()->quantity;
+
+        if ($this->quantity > $warehouseQuantity || $product->isSaleOver())
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

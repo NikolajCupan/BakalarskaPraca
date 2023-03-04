@@ -70,4 +70,22 @@ class Basket extends Model
 
         return number_format($sum, 2, '.', ' ');
     }
+
+    // Function returns true of false according to state of the basket
+    // It checks if there is enough quantity of each product in the warehouse
+    // and if all the products are still being sold
+    public function isOrderable()
+    {
+        $basketProducts = $this->getBasketProducts();
+
+        foreach ($basketProducts as $basketProduct)
+        {
+            if (!$basketProduct->isOrderable())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

@@ -25,7 +25,7 @@
         @if (!$basketProduct->getProduct()->isAvailable())
             <span class="text-danger">(vypredane)</span>
         @else
-            <span id="warehouseQuantityBasket{{$basketProduct->id_basket}}product{{$basketProduct->id_product}}" class="{{$basketProduct->getProduct()->getWarehouseProduct()->quantity > $basketProduct->quantity ? 'text-success' : 'text-danger'}}">
+            <span id="warehouseQuantityBasket{{$basketProduct->id_basket}}product{{$basketProduct->id_product}}" class="{{$basketProduct->getProduct()->getWarehouseProduct()->quantity >= $basketProduct->quantity ? 'text-success' : 'text-danger'}}">
                 (na sklade {{$basketProduct->getProduct()->getWarehouseProduct()->quantity}} ks)
             </span>
         @endif

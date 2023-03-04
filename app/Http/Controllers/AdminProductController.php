@@ -199,6 +199,9 @@ class AdminProductController extends Controller
     }
 
     // End sale of shop product
+    // Note: if some user has this product in his basket and its sale is finished,
+    //       it is removed from his basket using trigger, it does not affect closed
+    //       baskets => they have row in purchase table
     public function shopEndSale(Request $request)
     {
         Helper::allow('productManager');

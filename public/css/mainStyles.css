@@ -118,3 +118,7 @@ a.toggles:not(.toggleActive):hover {
 .noWrap {
     white-space: nowrap;
 }
+
+.imageSaleOver {
+    filter: grayscale(100%);
+}

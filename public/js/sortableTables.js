@@ -1,4 +1,5 @@
 function initializeLanguage(tableClass, sortingOption) {
+    $.fn.dataTable.moment( 'DD.MM.YYYY HH:mm:SS' );
     $('.' + tableClass).DataTable({
         columnDefs: [
             { targets: 'noSort', orderable: false }

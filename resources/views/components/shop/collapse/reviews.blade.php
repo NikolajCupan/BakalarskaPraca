@@ -47,7 +47,7 @@
 <script src="{{asset('js/editReview.js')}}" defer></script>
 
 <div class="addReviewContainer mt-3 mb-3">
-    @if (is_null($loggedUser) || !$product->hasReviewFromUser($loggedUser))
+    @if ((is_null($loggedUser) || !$product->hasReviewFromUser($loggedUser)) && !$product->isSaleOver())
         <a class="btn btn-dark addReview d-inline justify-content-center fs-5 fw-bold"
         {!! Auth::check() ? "data-bs-toggle='modal' data-bs-target='#createReview'" : "href='/login'" !!}>
             Napisat recenziu
