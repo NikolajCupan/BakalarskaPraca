@@ -49,10 +49,10 @@ class AuthServiceProvider extends ServiceProvider
             return Auth::user()->hasRole(['reviewManager']);
         });
 
-        // Allow only users with role 'orderManager'
-        Gate::define('orderManager', function()
+        // Allow only users with role 'purchaseManager'
+        Gate::define('purchaseManager', function()
         {
-            return Auth::user()->hasRole(['orderManager']);
+            return Auth::user()->hasRole(['purchaseManager']);
         });
     }
 }

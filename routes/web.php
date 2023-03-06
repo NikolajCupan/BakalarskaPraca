@@ -109,8 +109,8 @@ Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues'])
 Route::get('/user/basket', [UserShopController::class, 'basket'])
     ->middleware('auth');
 
-// User's order history page
-Route::get('/user/orderHistory', [UserShopController::class, 'orderHistory'])
+// User's purchase history page
+Route::get('/user/purchaseHistory', [UserShopController::class, 'purchaseHistory'])
     ->middleware('auth');
 
 // Add shop product to logged user's basket
@@ -125,20 +125,20 @@ Route::post('/user/editBasketProductQuantity', [UserShopController::class, 'edit
 Route::post('/user/destroyBasketProduct', [UserShopController::class, 'destroyBasketProduct'])
     ->middleware('auth');
 
-// AJAX call to get total order price
-Route::get('/user/getTotalOrderPrice', [UserShopController::class, 'getTotalOrderPrice'])
+// AJAX call to get total purchase price
+Route::get('/user/getTotalPurchasePrice', [UserShopController::class, 'getTotalPurchasePrice'])
     ->middleware('ajax');
 
 // AJAX call to get information if basket is orderable
 Route::get('/user/isBasketOrderable', [UserShopController::class, 'isBasketOrderable'])
     ->middleware('ajax');
 
-// Confirm order page
-Route::get('/user/order/confirm', [UserShopController::class, 'confirmOrder'])
+// Confirm purchase page
+Route::get('/user/purchase/confirm', [UserShopController::class, 'confirmPurchase'])
     ->middleware('auth');
 
-// Validate information (address, phone number) in order form
-Route::post('/user/order/validateInformation', [UserShopController::class, 'validateInformation'])
+// Validate information (address, phone number) in purchase form
+Route::post('/user/purchase/validateInformation', [UserShopController::class, 'validateInformation'])
     ->middleware('auth');
 
 // Create review of product from user
@@ -185,8 +185,8 @@ Route::get('/admin/product', [AdminController::class, 'product']);
 // Reviews management page
 Route::get('/admin/review', [AdminController::class, 'review']);
 
-// Order management page
-Route::get('/admin/order', [AdminController::class, 'order']);
+// Purchase management page
+Route::get('/admin/purchase', [AdminController::class, 'purchase']);
 
 
 

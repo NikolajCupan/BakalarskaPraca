@@ -16,7 +16,7 @@ class Purchase extends Model
     protected $table = 'purchase';
 
     protected $fillable = [
-        'id_basket', 'id_address', 'id_status', 'order_date'
+        'id_basket', 'id_address', 'id_status', 'purchase_date', 'payment_date'
     ];
 
 

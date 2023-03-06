@@ -11,7 +11,7 @@ class AdminController extends Controller
     // Select page
     public static function admin()
     {
-        Helper::allow(['accountManager', 'productManager', 'reviewManager', 'orderManager']);
+        Helper::allow(['accountManager', 'productManager', 'reviewManager', 'purchaseManager']);
 
         return view('admin.adminSelect');
     }
@@ -40,11 +40,11 @@ class AdminController extends Controller
         return view('admin.review.index');
     }
 
-    // Orders management page
-    public static function order()
+    // Purchases management page
+    public static function purchase()
     {
-        Helper::allow(['orderManager']);
+        Helper::allow(['purchaseManager']);
 
-        return view('admin.order.index');
+        return view('admin.purchase.index');
     }
 }

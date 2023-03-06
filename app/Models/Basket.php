@@ -89,7 +89,7 @@ class Basket extends Model
         return true;
     }
 
-    // Functions is used when new order is created
+    // Functions is used when new purchase is created
     // Quantity of purchased products is subtracted from related warehouse products
     public function removeProductsFromWarehouse()
     {

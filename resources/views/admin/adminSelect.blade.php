@@ -66,7 +66,7 @@
                         <div class="text">
                             <span>Nasledujuca stranka sluzi na spravu objednavok (zmena stavov objednavov, rusenie objednavok, reklamacie)</span>
                         </div>
-                        <a href="/admin/order">Pokracovat</a>
+                        <a href="/admin/purchase">Pokracovat</a>
                     </div>
                 </div>
 

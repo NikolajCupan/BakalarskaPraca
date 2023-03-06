@@ -301,7 +301,7 @@ class Helper
 
     // Function returns array of shop products
     // that are no longer sold
-    public static function shopinactiveProducts()
+    public static function shopInactiveProducts()
     {
         return Product::whereNotNull('date_sale_end')
                       ->get();

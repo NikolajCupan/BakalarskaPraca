@@ -80,12 +80,12 @@
                                 @endif
                                 <p class="fw-bold mt-1 mb-0">{{$user->first_name . ' ' . $user->last_name}}</p>
 
-                                @if ($user->hasRole(['accountManager', 'productManager', 'reviewManager', 'orderManager']))
+                                @if ($user->hasRole(['accountManager', 'productManager', 'reviewManager', 'purchaseManager']))
                                     <a class="navbarButton sideMenuItemSmall" href="/admin">Sprava</a>
                                 @endif
 
                                 <a class="navbarButton sideMenuItemSmall" href="/user/select">Zmenit udaje</a>
-                                <a class="navbarButton sideMenuItemSmall" href="/user/orderHistory">Objednavky</a>
+                                <a class="navbarButton sideMenuItemSmall" href="/user/purchaseHistory">Objednavky</a>
                                 <form method="POST" action="/logout">
                                     @csrf
                                     <button type="submit" class="navbarButton sideMenuItemSmall">Odhlasit</button>
@@ -164,14 +164,14 @@
                                     <p style="color: black" class="fw-bold mt-1 mb-0">{{$user->first_name . ' ' . $user->last_name}}</p>
                                 </h6>
 
-                                @if ($user->hasRole(['accountManager', 'productManager', 'reviewManager', 'orderManager']))
+                                @if ($user->hasRole(['accountManager', 'productManager', 'reviewManager', 'purchaseManager']))
                                     <div class="dropdown-divider"></div>
                                     <li><a class="userMenuItem dropdown-item" href="/admin">Sprava</a></li>
                                 @endif
 
                                 <div class="dropdown-divider"></div>
                                 <li><a class="userMenuItem dropdown-item" href="/user/select">Zmenit udaje</a></li>
-                                <li><a class="userMenuItem dropdown-item" href="/user/orderHistory">Objednavky</a></li>
+                                <li><a class="userMenuItem dropdown-item" href="/user/purchaseHistory">Objednavky</a></li>
 
                                 <div class="dropdown-divider"></div>
                                 <li>

@@ -95,13 +95,13 @@
                                 Pred pokracovanim si, prosim, skontrolujte Vas tovar. Objednavku je mozne vykonat len vtedy, ked z kazdeho tovaru v kosiku, je na sklade dostatok kusov.
                             </p>
                             <ul class="list-unstyled mb-4">
-                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tovar </strong><strong id="totalOrderPrice">{{$basket->getTotalPrice()}} &euro;</strong></li>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tovar </strong><strong id="totalPurchasePrice">{{$basket->getTotalPrice()}} &euro;</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Dovoz </strong><strong>{{\App\Helpers\Constants::getFormattedDeliveryFee()}} &euro;</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Celkovo </strong>
-                                    <h5 id="totalOrderPriceWithFee" class="font-weight-bold">{{$basket->getTotalPriceWithFee()}} &euro;</h5>
+                                    <h5 id="totalPurchasePriceWithFee" class="font-weight-bold">{{$basket->getTotalPriceWithFee()}} &euro;</h5>
                                 </li>
                             </ul>
-                            <a id="continueButton" href="/user/order/confirm" class="btn btn-dark rounded-pill py-2 btn-block
+                            <a id="continueButton" href="/user/purchase/confirm" class="btn btn-dark rounded-pill py-2 btn-block
                             {{($basket->getBasketProducts()->count() == 0 || !$basket->isOrderable()) ? "disabled" : ""}}">
                                 Pokracovat
                             </a>

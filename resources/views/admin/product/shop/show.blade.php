@@ -10,10 +10,10 @@
                 $('#onLoadModal').modal('show');
 
                 // Disable input fields
-                document.getElementById('price').setAttribute("disabled", "");
-                document.getElementById('idCategory').setAttribute("disabled", "");
-                document.getElementById('image').setAttribute("disabled", "");
-                document.getElementById('description').setAttribute("disabled", "");
+                $('#price').attr("disabled", true);
+                $('#idCategory').attr("disabled", true);
+                $('#image').attr("disabled", true);
+                $('#description').attr("disabled", true);
             }
         });
 
@@ -213,6 +213,6 @@
 
 @endsection
 
-        @section('footer')
-            <x-footer.footer/>
+@section('footer')
+    <x-footer.footer/>
 @endsection

@@ -65,7 +65,7 @@ $(document).ready(function() {
                 let actionButton = $('#actionButtonBasket' + basketId + 'product' + productId);
                 actionButton.data('basket-quantity', newBasketQuantity);
 
-                updateTotalOrderPrice();
+                updateTotalPurchasePrice();
                 updateContinueButton();
 
                 // Hide modal
@@ -78,14 +78,14 @@ $(document).ready(function() {
     });
 });
 
-function updateTotalOrderPrice()
+function updateTotalPurchasePrice()
 {
     $.ajax({
         type: "GET",
-        url: "/user/getTotalOrderPrice",
+        url: "/user/getTotalPurchasePrice",
         success: function(response) {
-            $('#totalOrderPrice').html(response.totalOrderPrice + ' &euro;');
-            $('#totalOrderPriceWithFee').html(response.totalOrderPrice + ' &euro;');
+            $('#totalPurchasePrice').html(response.totalPurchasePrice + ' &euro;');
+            $('#totalPurchasePriceWithFee').html(response.totalPurchasePrice + ' &euro;');
         },
         error: function() {
             alert('AJAX zlyhal');
@@ -93,7 +93,7 @@ function updateTotalOrderPrice()
     });
 }
 
-// If order cannot be made, make button disabled
+// If purchase cannot be made, make button disabled
 function updateContinueButton()
 {
     $.ajax({

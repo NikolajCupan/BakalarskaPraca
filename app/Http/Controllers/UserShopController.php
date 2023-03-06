@@ -32,10 +32,10 @@ class UserShopController extends Controller
         ]);
     }
 
-    // User's order history page
-    public function orderHistory()
+    // User's purchase history page
+    public function purchaseHistory()
     {
-        return view('user.shop.orderHistory');
+        return view('user.shop.purchaseHistory');
     }
 
     // Add shop product to logged user's basket
@@ -127,18 +127,18 @@ class UserShopController extends Controller
         ]);
     }
 
-    // AJAX call to get total order price
-    public function getTotalOrderPrice()
+    // AJAX call to get total purchase price
+    public function getTotalPurchasePrice()
     {
         $user = Auth::user();
         $basket = $user->getCurrentBasket();
 
-        $totalOrderPrice = $basket->getTotalPrice();
-        $totalOrderPriceWithFee = $basket->getTotalPriceWithFee();
+        $totalPurchasePrice = $basket->getTotalPrice();
+        $totalPurchasePriceWithFee = $basket->getTotalPriceWithFee();
 
         return response()->json([
-            'totalOrderPrice' => $totalOrderPrice,
-            'totalOrderPriceWithFee' => $totalOrderPriceWithFee
+            'totalPurchasePrice' => $totalPurchasePrice,
+            'totalPurchasePriceWithFee' => $totalPurchasePriceWithFee
         ]);
     }
 
@@ -153,8 +153,8 @@ class UserShopController extends Controller
         ]);
     }
 
-    // Confirm order page
-    public function confirmOrder()
+    // Confirm purchase page
+    public function confirmPurchase()
     {
         $user = Auth::user();
         $basket = $user->getCurrentBasket();
@@ -179,7 +179,7 @@ class UserShopController extends Controller
         ]);
     }
 
-    // Validate information (address, phone number) in order form
+    // Validate information (address, phone number) in purchase form
     public function validateInformation(Request $request)
     {
         // All fields are required
@@ -209,7 +209,7 @@ class UserShopController extends Controller
         $purchaseStatus = PurchaseStatus::where('status', '=', 'pending')
                                         ->first();
 
-        // Create new order
+        // Create new purchase
         Purchase::create([
             'id_basket' => $basket->id_basket,
             'id_address' => $address->id_address,

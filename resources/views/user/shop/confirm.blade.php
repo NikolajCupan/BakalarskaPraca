@@ -13,7 +13,7 @@
 
         <div class="pb-5">
             <div class="container">
-                <form method="POST" action="/user/order/validateInformation">
+                <form method="POST" action="/user/purchase/validateInformation">
                     @csrf
                     <input name="firstName" type="hidden" value="{{$user->first_name}}">
                     <input name="lastName" type="hidden" value="{{$user->last_name}}">
@@ -129,10 +129,10 @@
                                     Objednavka je <strong>zavazna</strong>.
                                 </p>
                                 <ul class="list-unstyled mb-4">
-                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tovar </strong><strong id="totalOrderPrice">{{$basket->getTotalPrice()}} &euro;</strong></li>
+                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tovar </strong><strong id="totalPurchasePrice">{{$basket->getTotalPrice()}} &euro;</strong></li>
                                     <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Dovoz </strong><strong>{{\App\Helpers\Constants::getFormattedDeliveryFee()}} &euro;</strong></li>
                                     <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Celkovo </strong>
-                                        <h5 id="totalOrderPriceWithFee" class="font-weight-bold">{{$basket->getTotalPriceWithFee()}} &euro;</h5>
+                                        <h5 id="totalPurchasePriceWithFee" class="font-weight-bold">{{$basket->getTotalPriceWithFee()}} &euro;</h5>
                                     </li>
                                 </ul>
                                 <button type="submit" class="btn btn-dark rounded-pill py-2 btn-block">
