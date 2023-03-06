@@ -33,6 +33,17 @@ class Product extends Model
                        ->first();
     }
 
+    // Relation to Purchase
+    // Function returns purchases that contain the product
+    public function getPurchases()
+    {
+        return Purchase::whereIn('id_basket', function($mainQuery) {
+                            $mainQuery->select('id_basket')
+                                      ->from('basket_product')
+                                      ->where('id_product', '=', $this->id_product);
+        })->get();
+    }
+
     // Relation to Warehouse product
     public function getWarehouseProduct()
     {
@@ -66,6 +77,16 @@ class Product extends Model
                         ->latest('date_price_end')
                         ->first();
         }
+    }
+
+    public function getPriceOfDate($date)
+    {
+        return Price::where('id_product', '=', $this->id_product)
+                    ->where('date_price_start', '<=', $date)
+                    ->where(function($mainQuery) use ($date) {
+                        $mainQuery->where('date_price_end', '>=', $date)
+                                  ->orWhereNull('date_price_end');
+                    })->first();
     }
 
     public function isSaleOver()

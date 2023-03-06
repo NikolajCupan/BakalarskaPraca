@@ -189,12 +189,14 @@ class AdminProductController extends Controller
         $warehouseProduct = $product->getWarehouseProduct();
         $prices = $product->getPrices();
         $categories = Category::all();
+        $purchases = $product->getPurchases();
 
         return view('admin.product.shop.show', [
             'product' => $product,
             'warehouseProduct' => $warehouseProduct,
             'prices' => $prices,
-            'categories' => $categories
+            'categories' => $categories,
+            'purchases' => $purchases
         ]);
     }
 

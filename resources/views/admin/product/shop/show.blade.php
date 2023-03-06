@@ -166,7 +166,7 @@
             <x-table.pricesTable :prices="$prices"/>
 
             <h4 class="mt-5 title">Objednavky</h4>
-            <p>TODO</p>
+            <x-table.purchasesTable :purchases="$purchases" :product="$product"/>
         </div>
     </div>
 

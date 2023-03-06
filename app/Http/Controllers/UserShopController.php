@@ -200,7 +200,9 @@ class UserShopController extends Controller
         $basket = $user->getCurrentBasket();
 
         // Close current basket and give new basket to the user
-        $basket->date_basket_end = Carbon::now()->toDateTimeString();
+        $now = Carbon::now()->toDateTimeString();
+
+        $basket->date_basket_end = $now;
         $basket->removeProductsFromWarehouse();
         $basket->save();
         $newBasket = Basket::create(['id_user' => $user->id_user]);
@@ -213,7 +215,8 @@ class UserShopController extends Controller
         Purchase::create([
             'id_basket' => $basket->id_basket,
             'id_address' => $address->id_address,
-            'id_status' => $purchaseStatus->id_status
+            'id_status' => $purchaseStatus->id_status,
+            'purchase_date' => $now
         ]);
 
         return redirect('/');

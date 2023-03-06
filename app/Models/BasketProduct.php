@@ -24,9 +24,14 @@ class BasketProduct extends Model
     // returns the latest price
     public function getNewestPrice()
     {
-        $product = Product::where('id_product', '=', $this->id_product)
-                          ->first();
+        $product = $this->getProduct();
         return $product->getNewestPrice();
+    }
+
+    public function getPriceOfDate($date)
+    {
+        $product = $this->getProduct();
+        return $product->getPriceOfDate($date);
     }
 
     // Relation to Product

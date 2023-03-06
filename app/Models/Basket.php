@@ -40,25 +40,22 @@ class Basket extends Model
     // Function returns total price of the products in the basket taking quantity into account
     // There are two possible situations:
     //      1. Basket is still active => the newest price is taken
-    //      2. Basket was already closed => price according to date of purchase is taken
+    //      2. Basket was already closed => price as of the date of the order
     public function getTotalPrice()
     {
         $basketProducts = $this->getBasketProducts();
+        $totalPrice = 0;
 
-        if (is_null($this->date_basket_end))
+        foreach ($basketProducts as $basketProduct)
         {
-            $totalPrice = 0;
-            foreach ($basketProducts as $basketProduct)
-            {
-                $totalPrice += ($basketProduct->getNewestPrice()->price * $basketProduct->quantity);
-            }
+            $price = is_null($this->date_basket_end)
+                             ? $basketProduct->getNewestPrice()->price
+                             : $basketProduct->getPriceOfDate($this->date_basket_end)->price;
 
-            return number_format($totalPrice, 2, '.', ' ');
+            $totalPrice += ($price * $basketProduct->quantity);
         }
-        else
-        {
-            return "implement me";
-        }
+
+        return number_format($totalPrice, 2, '.', ' ');
     }
 
     public function getTotalPriceWithFee()
