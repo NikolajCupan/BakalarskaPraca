@@ -88,4 +88,18 @@ class Basket extends Model
 
         return true;
     }
+
+    // Functions is used when new order is created
+    // Quantity of purchased products is subtracted from related warehouse products
+    public function removeProductsFromWarehouse()
+    {
+        $basketProducts = $this->getBasketProducts();
+
+        foreach ($basketProducts as $basketProduct)
+        {
+            $warehouseProduct = $basketProduct->getProduct()->getWarehouseProduct();
+            $warehouseProduct->quantity -= $basketProduct->quantity;
+            $warehouseProduct->save();
+        }
+    }
 }

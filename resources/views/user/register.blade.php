@@ -23,21 +23,21 @@
                                                 <div class="form-group form-floating">
                                                     <input type="text" class="form-control" name="firstName" id="firstName" placeholder="firstName" value="{{old('firstName')}}">
                                                     <label for="firstName">Meno <span class="text-danger fw-bold">*</span></label>
-                                                </div>
 
-                                                @error('firstName')
+                                                    @error('firstName')
                                                     <p class="text-danger">{{$message}}</p>
-                                                @enderror
+                                                    @enderror
+                                                </div>
                                             </div>
                                             <div class="col-md-6 mb-4">
                                                 <div class="form-group form-floating">
                                                     <input type="text" class="form-control" name="lastName" id="lastName" placeholder="lastName" value="{{old('lastName')}}">
                                                     <label for="lastName">Priezvisko <span class="text-danger fw-bold">*</span></label>
-                                                </div>
 
-                                                @error('lastName')
+                                                    @error('lastName')
                                                     <p class="text-danger">{{$message}}</p>
-                                                @enderror
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
 
@@ -97,11 +97,11 @@
                                                 <div class="form-group form-floating">
                                                     <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="postalCode" value="{{old('postalCode')}}">
                                                     <label for="postalCode">PSC</label>
-                                                </div>
 
-                                                @error('postalCode')
+                                                    @error('postalCode')
                                                     <p class="text-danger">{{$message}}</p>
-                                                @enderror
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
 
@@ -127,9 +127,7 @@
                                             <a href="/" type="button" class="btn btn-light btn-lg">Domov</a>
                                             <button type="submit" class="btn btn-dark btn-lg ms-2">Registrovat</button>
                                         </div>
-
                                     </form>
-
                                 </div>
                             </div>
                         </div>

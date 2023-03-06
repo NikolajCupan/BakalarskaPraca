@@ -13,16 +13,16 @@
                         let address = data.address;
                         let city = data.city;
 
-                        document.getElementById("firstName").value = user.first_name;
-                        document.getElementById("lastName").value = user.last_name;
-                        document.getElementById("email").value = user.email;
-                        document.getElementById("phoneNumber").value = user.phone_number;
+                        $("#firstName").val(user.first_name);
+                        $("#lastName").val(user.last_name);
+                        $("#email").val(user.email);
+                        $("#phoneNumber").val(user.phone_number);
 
-                        document.getElementById("city").value = city.city;
-                        document.getElementById("postalCode").value = city.postal_code;
+                        $("#city").val(city.city);
+                        $("#postalCode").val(city.postal_code);
 
-                        document.getElementById("street").value = address.street;
-                        document.getElementById("houseNumber").value = address.house_number;
+                        $("#street").val(address.street);
+                        $("#houseNumber").val(address.house_number);
                     }
                 });
             });
@@ -57,21 +57,21 @@
                             <div class="form-group form-floating">
                                 <input type="text" class="form-control" name="firstName" id="firstName" placeholder="firstName" value="{{old('firstName') ?? $user->first_name}}">
                                 <label for="firstName">Meno</label>
-                            </div>
 
-                            @error('firstName')
-                            <p class="text-danger">{{$message}}</p>
-                            @enderror
+                                @error('firstName')
+                                <p class="text-danger">{{$message}}</p>
+                                @enderror
+                            </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="form-group form-floating">
                                 <input type="text" class="form-control" name="lastName" id="lastName" placeholder="lastName" value="{{old('lastName') ?? $user->last_name}}">
                                 <label for="lastName">Priezvisko</label>
-                            </div>
 
-                            @error('lastName')
-                            <p class="text-danger">{{$message}}</p>
-                            @enderror
+                                @error('lastName')
+                                <p class="text-danger">{{$message}}</p>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <div class="form-group form-floating">
-                                <input autocomplete="off" type="text" class="form-control" list="cityOptions" name="city" id="city" placeholder="city"  value="{{ old('city') ?? (isset($currentCity) ? $currentCity->city : '') }}">
+                                <input autocomplete="off" type="text" class="form-control" list="cityOptions" name="city" id="city" placeholder="city" value="{{old('city') ?? (isset($currentCity) ? $currentCity->city : '')}}">
                                 <label for="city" class="form-label">Mesto</label>
                                 <datalist id="cityOptions">
                                     @foreach ($cities as $city)
@@ -111,13 +111,13 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="form-group form-floating">
-                                <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="postalCode" value="{{ old('postalCode') ?? (isset($currentCity) ? $currentCity->postal_code : '') }}">
+                                <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="postalCode" value="{{old('postalCode') ?? (isset($currentCity) ? $currentCity->postal_code : '')}}">
                                 <label for="postalCode">PSC</label>
-                            </div>
 
-                            @error('postalCode')
-                            <p class="text-danger">{{$message}}</p>
-                            @enderror
+                                @error('postalCode')
+                                <p class="text-danger">{{$message}}</p>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -143,10 +143,9 @@
                         <a href="/" type="button" class="btn btn-light btn-lg">Domov</a>
                         <button type="submit" class="btn btn-dark btn-lg ms-2">Ulozit</button>
                     </div>
-
                 </form>
-
             </div>
         </div>
     </x-other.profileEditFrame>
+
 @endsection

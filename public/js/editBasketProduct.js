@@ -66,7 +66,7 @@ $(document).ready(function() {
                 actionButton.data('basket-quantity', newBasketQuantity);
 
                 updateTotalOrderPrice();
-                updateOrderButton();
+                updateContinueButton();
 
                 // Hide modal
                 $('#editBasketProductModal').modal('hide');
@@ -94,14 +94,14 @@ function updateTotalOrderPrice()
 }
 
 // If order cannot be made, make button disabled
-function updateOrderButton()
+function updateContinueButton()
 {
     $.ajax({
         type: "GET",
         url: "/user/isBasketOrderable",
         success: function(response) {
-            let orderButton = $('#orderButton');
-            orderButton.toggleClass('disabled', !response.isOrderable);
+            let continueButton = $('#continueButton');
+            continueButton.toggleClass('disabled', !response.isOrderable);
         },
         error: function() {
             alert('AJAX zlyhal');

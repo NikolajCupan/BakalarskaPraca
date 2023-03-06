@@ -8,14 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/basketStyles.css')}}">
 
     <x-other.flashMessage/>
-
-    <div class="backArrow">
-        <a href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="white" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-            </svg>
-        </a>
-    </div>
+    <x-other.backArrow path="/"/>
 
     <div class="px-4 px-lg-0">
         <div class="container text-white py-5 text-center">
@@ -80,9 +73,9 @@
                 <div class="row py-5 p-4 bg-white rounded shadow-sm">
                     <div class="col-lg-6">
                         <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Informacie</div>
-                        <div class="p-4">
+                        <div class="ps-0 pe-0 pt-4 pb-4 p-md-4">
                             <p class="font-italic mb-4">
-                                Kazda vykonana objednavka je zavazna. V pripade ak chcete objednavku zrusit, mozete tak urobit do 24 hodin od vykonania objednavky.
+                                Kazda vykonana objednavka je zavazna. Umyselne neuhradenie objednavky bude viest k zruseniu Vasho uctu.
                             </p>
 
                             <p class="font-italic mb-4">
@@ -97,7 +90,7 @@
 
                     <div class="col-lg-6">
                         <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Suhrn objednavky</div>
-                        <div class="p-4">
+                        <div class="ps-0 pe-0 pt-4 pb-4 p-md-4">
                             <p class="font-italic mb-4">
                                 Pred pokracovanim si, prosim, skontrolujte Vas tovar. Objednavku je mozne vykonat len vtedy, ked z kazdeho tovaru v kosiku, je na sklade dostatok kusov.
                             </p>
@@ -108,9 +101,9 @@
                                     <h5 id="totalOrderPriceWithFee" class="font-weight-bold">{{$basket->getTotalPriceWithFee()}} &euro;</h5>
                                 </li>
                             </ul>
-                            <a id="orderButton" href="#" class="btn btn-dark rounded-pill py-2 btn-block
+                            <a id="continueButton" href="/user/order/confirm" class="btn btn-dark rounded-pill py-2 btn-block
                             {{($basket->getBasketProducts()->count() == 0 || !$basket->isOrderable()) ? "disabled" : ""}}">
-                                Objednat
+                                Pokracovat
                             </a>
                         </div>
                     </div>

@@ -133,6 +133,14 @@ Route::get('/user/getTotalOrderPrice', [UserShopController::class, 'getTotalOrde
 Route::get('/user/isBasketOrderable', [UserShopController::class, 'isBasketOrderable'])
     ->middleware('ajax');
 
+// Confirm order page
+Route::get('/user/order/confirm', [UserShopController::class, 'confirmOrder'])
+    ->middleware('auth');
+
+// Validate information (address, phone number) in order form
+Route::post('/user/order/validateInformation', [UserShopController::class, 'validateInformation'])
+    ->middleware('auth');
+
 // Create review of product from user
 Route::post('/user/createReview', [UserShopController::class, 'storeReview'])
     ->middleware('auth');

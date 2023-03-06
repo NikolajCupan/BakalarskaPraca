@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
 use App\Helpers\Helper;
+use App\Helpers\RecordCreatorHelper;
+use App\Helpers\ValidationHelper;
+use App\Models\Basket;
 use App\Models\BasketProduct;
+use App\Models\City;
 use App\Models\Product;
+use App\Models\Purchase;
+use App\Models\PurchaseStatus;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -138,13 +145,78 @@ class UserShopController extends Controller
     // AJAX call to get information if basket is orderable
     public function isBasketOrderable()
     {
-        $user = Auth::user();
-        $basket = $user->getCurrentBasket();
+        $basket = Auth::user()->getCurrentBasket();
         $isOrderable = $basket->isOrderable();
 
         return response()->json([
             'isOrderable' => $isOrderable
         ]);
+    }
+
+    // Confirm order page
+    public function confirmOrder()
+    {
+        $user = Auth::user();
+        $basket = $user->getCurrentBasket();
+        $isOrderable = $basket->isOrderable();
+
+        if (!$isOrderable || $basket->getBasketProducts()->count() == 0)
+        {
+            // Do not allow user to enter confirm page, if basket is not orderable or is empty
+            return redirect('/user/basket');
+        }
+
+        $cities = City::select('city')->groupBy('city')->get();
+        $address = $user->getAddress();
+        $currentCity = $address->getCity();
+
+        return view('user.shop.confirm', [
+            'user' => $user,
+            'address' => $address,
+            'currentCity' => $currentCity,
+            'basket' => $basket,
+            'cities' => $cities
+        ]);
+    }
+
+    // Validate information (address, phone number) in order form
+    public function validateInformation(Request $request)
+    {
+        // All fields are required
+        $request->validate([
+            '*' => 'required',
+        ]);
+
+        // If city/postal_code combination is not found, function returns false
+        if (!ValidationHelper::validateCommon($request))
+        {
+            $validator = Validator::make($request->all(), []);
+            $validator->errors()->add('city', 'Dana kombinacia PSC a mesta neexistuje.');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Getting here means validation was successful
+        $user = Auth::user();
+        $basket = $user->getCurrentBasket();
+
+        // Close current basket and give new basket to the user
+        $basket->date_basket_end = Carbon::now()->toDateTimeString();
+        $basket->removeProductsFromWarehouse();
+        $basket->save();
+        $newBasket = Basket::create(['id_user' => $user->id_user]);
+
+        $address = RecordCreatorHelper::createAddress($request);
+        $purchaseStatus = PurchaseStatus::where('status', '=', 'pending')
+                                        ->first();
+
+        // Create new order
+        Purchase::create([
+            'id_basket' => $basket->id_basket,
+            'id_address' => $address->id_address,
+            'id_status' => $purchaseStatus->id_status
+        ]);
+
+        return redirect('/');
     }
 
     // Create review of product from user

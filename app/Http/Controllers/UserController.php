@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Helpers\RecordCreatorHelper;
+use App\Helpers\ValidationHelper;
 use App\Models\Address;
 use App\Models\Basket;
 use App\Models\City;
@@ -100,8 +102,8 @@ class UserController extends Controller
     // Register new user
     public function store(Request $request)
     {
-        // If city/postal_code combination is not found, error is thrown
-        if (!$this->validateCommon($request))
+        // If city/postal_code combination is not found, function returns false
+        if (!ValidationHelper::validateCommon($request))
         {
             $validator = Validator::make($request->all(), []);
             $validator->errors()->add('city', 'Dana kombinacia PSC a mesta neexistuje.');
@@ -114,27 +116,9 @@ class UserController extends Controller
             'email' => ['required', 'email', 'max:50', Rule::unique('web_user', 'email')],
         ]);
 
-        // If entered, remove spaces
-        $normalizedPostalCode = $request->postalCode ? Helper::removeSpaces($request->postalCode) : null;
-
         // Getting here means values in all fields are valid
         // First, create address row and image row
-        $city = City::where('city', '=', $request->city)
-                    ->where('postal_code', '=', $normalizedPostalCode)
-                    ->first();
-
-        $address = Address::create([
-            'street' => $request->street,
-            'house_number' => $request->houseNumber
-        ]);
-
-        // User might not fill city and postal code fields
-        if (!is_null($city))
-        {
-            $address->id_city = $city->id_city;
-            $address->save();
-        }
-
+        $address = RecordCreatorHelper::createAddress($request);
         $image = Image::create();
 
         // Hash password
@@ -194,8 +178,8 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        // If city/postal_code combination is not found, error is thrown
-        if (!$this->validateCommon($request))
+        // If city/postal_code combination is not found, function returns false
+        if (!ValidationHelper::validateCommon($request))
         {
             $validator = Validator::make($request->all(), []);
             $validator->errors()->add('city', 'Dana kombinacia PSC a mesta neexistuje.');
@@ -355,43 +339,5 @@ class UserController extends Controller
         $city = Helper::getEmptyCity($address->getCity());
 
         return response()->json(['user' => $user, 'address' => $address, 'city' => $city]);
-    }
-
-
-
-    // Common validation for edit and register
-    // If city/postal_code combination is not found, function returns false
-    public function validateCommon(Request $parRequest)
-    {
-        // If entered, remove spaces
-        $normalizedPostalCode = $parRequest->postalCode ? Helper::removeSpaces($parRequest->postalCode) : null;
-
-        $parRequest->validate([
-            'firstName' => ['required', 'max:30'],
-            'lastName' => ['required', 'max:30'],
-
-            'phoneNumber' => ['nullable', 'numeric', 'digits_between:1,15'],
-            $normalizedPostalCode => ['nullable', 'digits:5'],
-            'city' => ['nullable', 'max:30'],
-            'street' => ['nullable', 'max:15'],
-            'houseNumber' => ['nullable', 'numeric', 'between:0,1000000']
-        ]);
-
-        // Check only if entered
-        if (!is_null($parRequest->postalCode) || !is_null($parRequest->city))
-        {
-            // Find if there is a row in the table city
-            $foundCity = City::where('city', '=', $parRequest->city)
-                             ->where('postal_code', '=', $normalizedPostalCode)
-                             ->first();
-
-            // If combination was not found, throw an error
-            if (!$foundCity)
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

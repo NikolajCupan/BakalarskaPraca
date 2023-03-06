@@ -39,4 +39,19 @@ $(document).ready(function() {
             this.value = 1;
         }
     })
+
+    // Limit input field to 3 characters
+    let max_chars = 3;
+
+    $('#quantityValue').keydown(function() {
+        if ($(this).val().length >= max_chars) {
+            $(this).val($(this).val().substring(0, max_chars));
+        }
+    });
+
+    $('#quantityValue').keyup(function() {
+        if ($(this).val().length >= max_chars) {
+            $(this).val($(this).val().substring(0, max_chars));
+        }
+    });
 });
