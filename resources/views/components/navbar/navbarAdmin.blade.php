@@ -1,5 +1,5 @@
 @aware(['user'])
-@aware(['imagePath'])
+@aware(['homePath'])
 
 <link rel="stylesheet" href="{{asset('css/navbarStyles.css')}}">
 
@@ -7,7 +7,7 @@
     <div class="container">
 
         <!-- Logo on the left side (always visible) -->
-        <a class="navbar-brand" href="/admin/product">
+        <a class="navbar-brand" href="{{$homePath}}">
             <img id="eshopLogo" src="{{asset('/images/logo.png')}}" alt="eshopLogo" draggable="false" height="30"/>
         </a>
 

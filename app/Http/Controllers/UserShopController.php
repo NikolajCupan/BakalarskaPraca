@@ -253,7 +253,7 @@ class UserShopController extends Controller
     }
 
     // Delete review of product from user
-    // Review can be deleted by its author or user with role 'moderator'
+    // Review can be deleted by its author or user with role 'reviewManager'
     public function destroyReview(Request $request)
     {
         $loggedUser = Auth::user();
@@ -290,7 +290,7 @@ class UserShopController extends Controller
                          ->first();
         $loggedUser = Auth::user();
 
-        // Review can be modified by author or moderator
+        // Review can be modified by author or user with role 'reviewManager'
         if (!$loggedUser->ownsReview($review))
         {
             // Return 403 Forbidden status if user has no right to modify the review

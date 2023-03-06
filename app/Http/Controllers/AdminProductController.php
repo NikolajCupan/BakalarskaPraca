@@ -20,7 +20,7 @@ class AdminProductController extends Controller
     // Warehouse active products page
     public function warehouseActive()
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $warehouseActiveProducts = Helper::warehouseActiveProducts();
 
@@ -32,7 +32,7 @@ class AdminProductController extends Controller
     // Warehouse inactive products page
     public function warehouseInactive()
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $warehouseInactiveProducts = Helper::warehouseInactiveProducts();
         return view('admin.product.warehouse.inactive', [
@@ -43,7 +43,7 @@ class AdminProductController extends Controller
     // Create warehouse product page
     public function warehouseCreate()
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         return view('admin.product.warehouse.create');
     }
@@ -51,7 +51,7 @@ class AdminProductController extends Controller
     // Edit warehouse product page
     public function warehouseEdit($id_warehouse_product)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
                                             ->first();
@@ -66,7 +66,7 @@ class AdminProductController extends Controller
     // Store new warehouse product
     public function warehouseStore(Request $request)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $request->validate([
             'product' => ['required', 'max:50', Rule::unique('warehouse_product', 'product')],
@@ -84,7 +84,7 @@ class AdminProductController extends Controller
     // Update warehouse product
     public function warehouseUpdate(Request $request)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $request->validate([
             'quantity' => ['required', 'numeric', 'between:0,100000']
@@ -103,12 +103,12 @@ class AdminProductController extends Controller
     // Delete warehouse product
     public function warehouseDestroy(Request $request)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $request->warehouseProductId)
                                             ->first();
 
-        // Administrator should not be able to post form to delete warehouse product that cannot be deleted, but it is checked
+        // ProductManager should not be able to post form to delete warehouse product that cannot be deleted, but it is checked
         if (!$warehouseProduct->canBeDeleted())
         {
             return redirect('/admin/product');
@@ -122,7 +122,7 @@ class AdminProductController extends Controller
     // Shop active products page
     public function shopActive()
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $shopActiveProducts = Helper::shopActiveProducts();
 
@@ -134,7 +134,7 @@ class AdminProductController extends Controller
     // Shop inactive products page
     public function shopInactive()
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $shopInactiveProducts = Helper::shopInactiveProducts();
 
@@ -146,7 +146,7 @@ class AdminProductController extends Controller
     // Create shop product page
     public function shopSalable()
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $inStock = Helper::warehouseSalableInStock();
         $outOfStock = Helper::warehouseSalableOutOfStock();
@@ -160,12 +160,12 @@ class AdminProductController extends Controller
     // Create shop product page
     public function shopCreate($id_warehouse_product)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $id_warehouse_product)
                                             ->first();
 
-        // Administrator should not be able to access form for product that is already being sold, but it is checked
+        // ProductManager should not be able to access form for product that is already being sold, but it is checked
         if ($warehouseProduct->isSold())
         {
             return redirect('/admin/product/');
@@ -182,7 +182,7 @@ class AdminProductController extends Controller
     // Show single shop product page
     public function shopShow($id_product)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $product = Product::where('id_product', '=', $id_product)
                           ->first();
@@ -204,12 +204,12 @@ class AdminProductController extends Controller
     //       baskets => they have row in purchase table
     public function shopEndSale(Request $request)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $product = Product::where('id_product', '=', $request->productId)
                           ->first();
 
-        // Administrator should not be able to post form for product to end its sale if its sale is already over, but it is checked
+        // ProductManager should not be able to post form for product to end its sale if its sale is already over, but it is checked
         if ($product->isSaleOver())
         {
             return redirect('/admin/product/');
@@ -230,7 +230,7 @@ class AdminProductController extends Controller
     // Show image of shop product page
     public function shopImage($id_image)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         // Image path is sent, only if photo on the path exists
         $image = Image::where('id_image', '=', $id_image)
@@ -249,12 +249,12 @@ class AdminProductController extends Controller
     // Update shop product
     public function shopUpdate(Request $request)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $product = Product::where('id_product', '=', $request->shopProductId)
                           ->first();
 
-        // Administrator should not be able to update shop product that is not sold anymore, but it is checked
+        // ProductManager should not be able to update shop product that is not sold anymore, but it is checked
         if ($product->isSaleOver())
         {
             return redirect('/admin/product/');
@@ -325,12 +325,12 @@ class AdminProductController extends Controller
     // Store new shop product
     public function shopStore(Request $request)
     {
-        Helper::allow('productManager');
+        Helper::allow(['productManager']);
 
         $warehouseProduct = WarehouseProduct::where('id_warehouse_product', '=', $request->warehouseProductId)
                                             ->first();
 
-        // Administrator should not be able to post form with product that is already being sold, but it is checked
+        // ProductManager should not be able to post form with product that is already being sold, but it is checked
         if ($warehouseProduct->isSold())
         {
             return redirect('/admin/product/');

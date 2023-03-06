@@ -217,13 +217,18 @@ class Helper
         return false;
     }
 
-    // Abort if user does not have role
-    public static function allow($role)
+    // Abort if user does not have role any role from the array
+    public static function allow(array $roles)
     {
-        if (!Gate::allows($role))
+        foreach ($roles as $role)
         {
-            abort(403);
+            if (Gate::allows($role))
+            {
+                return;
+            }
         }
+
+        abort(403);
     }
 
     // Function returns array of active warehouse products
@@ -339,10 +344,10 @@ class Helper
         return $date->format('d.m.Y H:i:s');
     }
 
-    // Review can be modified by author or moderator
+    // Review can be modified by author or user with role 'reviewManager'
     public static function hasRightsToDeleteReview($user, $review)
     {
-        if ($user->hasRole('moderator') || $user->ownsReview($review))
+        if ($user->hasRole(['reviewManager']) || $user->ownsReview($review))
         {
             return true;
         }

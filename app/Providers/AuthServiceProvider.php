@@ -31,22 +31,28 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Allow only users with role 'admin'
-        Gate::define('admin', function()
-        {
-            return Auth::user()->hasRole('admin');
-        });
-
         // Allow only users with role 'accountManager'
         Gate::define('accountManager', function()
         {
-            return Auth::user()->hasRole('accountManager');
+            return Auth::user()->hasRole(['accountManager']);
         });
 
         // Allow only users with role 'productManager'
         Gate::define('productManager', function()
         {
-            return Auth::user()->hasRole('productManager');
+            return Auth::user()->hasRole(['productManager']);
+        });
+
+        // Allow only users with role 'reviewManager'
+        Gate::define('reviewManager', function()
+        {
+            return Auth::user()->hasRole(['reviewManager']);
+        });
+
+        // Allow only users with role 'orderManager'
+        Gate::define('orderManager', function()
+        {
+            return Auth::user()->hasRole(['orderManager']);
         });
     }
 }

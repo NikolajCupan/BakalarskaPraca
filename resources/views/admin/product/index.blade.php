@@ -3,7 +3,7 @@
 @section('content')
 
     <x-other.flashMessage/>
-    <x-navbar.navbarAdmin/>
+    <x-navbar.navbarAdmin homePath="/admin/product"/>
 
     <div class="container">
         <div class="mt-4 row">

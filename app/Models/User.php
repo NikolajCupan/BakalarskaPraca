@@ -58,14 +58,22 @@ class User extends Authenticatable
         return Helper::imageExists($imagePath, 'users') ? $imagePath : null;
     }
 
-    // Function returns true if logged user has role passed as parameter
-    public function hasRole($role)
+    // Function returns true if logged user has at least one role from the array
+    public function hasRole(array $roleNames)
     {
-        $dbRole = WebRole::where('name', '=', $role)->first();
+        foreach ($roleNames as $roleName)
+        {
+            $dbRole = WebRole::where('name', '=', $roleName)->first();
 
-        return UserRole::where('id_user', '=', $this->id_user)
-                       ->where('id_role', '=', $dbRole->id_role)
-                       ->exists();
+            if (UserRole::where('id_user', '=', $this->id_user)
+                        ->where('id_role', '=', $dbRole->id_role)
+                        ->exists())
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Relation to Basket

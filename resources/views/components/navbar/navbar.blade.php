@@ -80,7 +80,7 @@
                                 @endif
                                 <p class="fw-bold mt-1 mb-0">{{$user->first_name . ' ' . $user->last_name}}</p>
 
-                                @if ($user->hasRole('admin'))
+                                @if ($user->hasRole(['accountManager', 'productManager', 'reviewManager', 'orderManager']))
                                     <a class="navbarButton sideMenuItemSmall" href="/admin">Sprava</a>
                                 @endif
 
@@ -164,7 +164,7 @@
                                     <p style="color: black" class="fw-bold mt-1 mb-0">{{$user->first_name . ' ' . $user->last_name}}</p>
                                 </h6>
 
-                                @if ($user->hasRole('admin'))
+                                @if ($user->hasRole(['accountManager', 'productManager', 'reviewManager', 'orderManager']))
                                     <div class="dropdown-divider"></div>
                                     <li><a class="userMenuItem dropdown-item" href="/admin">Sprava</a></li>
                                 @endif

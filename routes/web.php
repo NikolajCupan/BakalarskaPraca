@@ -182,6 +182,12 @@ Route::get('/admin/user', [AdminController::class, 'user']);
 // Products management page
 Route::get('/admin/product', [AdminController::class, 'product']);
 
+// Reviews management page
+Route::get('/admin/review', [AdminController::class, 'review']);
+
+// Order management page
+Route::get('/admin/order', [AdminController::class, 'order']);
+
 
 
 /*

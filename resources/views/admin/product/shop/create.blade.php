@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="{{asset('css/adminProduct.css')}}">
 
-    <x-navbar.navbarAdmin/>
+    <x-navbar.navbarAdmin homePath="/admin/product"/>
 
 
     <div class="container">
