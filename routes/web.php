@@ -255,10 +255,8 @@ Route::post('/admin/product/shop/update', [AdminProductController::class, 'shopU
 /*
  * PdfController
  */
+Route::post('/pdf/purchase', [PdfController::class, 'pdfPurchase']);
 
-Route::get('/pdf', [PdfController::class, 'viewPdf']);
-
-Route::get('/download-pdf', [PdfController::class, 'downloadPdf']);
 
 
 /*

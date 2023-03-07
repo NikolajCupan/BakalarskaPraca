@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Product;
+use App\Models\Purchase;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,10 +50,10 @@ class MainController extends Controller
     // Page for testing html
     public function test()
     {
-        $cities = City::select('city')->distinct()->get();
+        $purchase = Purchase::first();
 
         return view('test', [
-            'cities' => $cities,
+            'purchase' => $purchase,
         ]);
     }
 }

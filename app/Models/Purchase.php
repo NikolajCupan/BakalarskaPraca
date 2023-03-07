@@ -32,6 +32,13 @@ class Purchase extends Model
                              ->first();
     }
 
+    // Relation to Address
+    public function getAddress()
+    {
+        return Address::where('id_address', '=', $this->id_address)
+                      ->first();
+    }
+
     // Relation to Basket
     public function getBasket()
     {

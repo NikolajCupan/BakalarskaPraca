@@ -8,6 +8,12 @@
 
     {{$purchase}}
 
+    <form action="/pdf/purchase" method="POST" target="_blank">
+        @csrf
+        <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
+        <button type="submit" class="btn btn-success">Otvor PDF</button>
+    </form>
+
 @endsection
 
 @section('footer')
