@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Product;
+use App\Models\Purchase;
 use App\Models\WarehouseProduct;
 use DateTime;
 use http\Env\Request;
@@ -237,7 +238,7 @@ class Helper
     {
         return WarehouseProduct::where('quantity', '>', 0)
                                ->orWhere(function ($mainQuery) {
-                               $mainQuery->whereIn('id_warehouse_product', function ($subquery) {
+                               $mainQuery->whereIn('id_warehouse_product', function($subquery) {
                                    $subquery->select('id_warehouse_product')
                                             ->from('Product')
                                             ->whereNull('date_sale_end')
@@ -353,5 +354,14 @@ class Helper
         }
 
         return false;
+    }
+
+    public static function getPurchasesFromUser($user)
+    {
+        return Purchase::whereIn('id_basket', function($mainQuery) use ($user) {
+            $mainQuery->select('id_basket')
+                ->from('basket')
+                ->where('id_user', '=', $user->id_user);
+        })->get();
     }
 }

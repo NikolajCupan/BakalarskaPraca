@@ -28,4 +28,6 @@ $(document).ready(function () {
     initializeLanguage('warehouseProductsTable', [[1, 'asc']]);
     initializeLanguage('pricesTable', [[1, 'desc']]);
     initializeLanguage('productsTable', [[4, 'desc']]);
+    initializeLanguage('productPurchasesTable', [[5, 'desc']]);
+    initializeLanguage('userPurchasesTable', [[4, 'desc']]);
 });

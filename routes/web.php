@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserShopController;
@@ -106,7 +107,7 @@ Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues'])
  */
 
 // Current basket page
-Route::get('/user/basket', [UserShopController::class, 'basket'])
+Route::get('/user/basket/show', [UserShopController::class, 'basket'])
     ->middleware('auth');
 
 // User's purchase history page
@@ -134,11 +135,15 @@ Route::get('/user/isBasketOrderable', [UserShopController::class, 'isBasketOrder
     ->middleware('ajax');
 
 // Confirm purchase page
-Route::get('/user/purchase/confirm', [UserShopController::class, 'confirmPurchase'])
+Route::get('/user/basket/confirm', [UserShopController::class, 'confirmPurchase'])
     ->middleware('auth');
 
-// Validate information (address, phone number) in purchase form
-Route::post('/user/purchase/validateInformation', [UserShopController::class, 'validateInformation'])
+// Confirmed purchase page
+Route::get('/user/basket/confirmed', [UserShopController::class, 'confirmedPurchase'])
+    ->middleware('auth');
+
+// Validate information (address, phone number) and make the purchase
+Route::post('/user/purchase/makePurchase', [UserShopController::class, 'makePurchase'])
     ->middleware('auth');
 
 // Create review of product from user
@@ -245,6 +250,13 @@ Route::post('/admin/product/shop/update', [AdminProductController::class, 'shopU
 
 
 
+/*
+ * PdfController
+ */
+
+Route::get('/pdf', [PdfController::class, 'viewPdf']);
+
+Route::get('/download-pdf', [PdfController::class, 'downloadPdf']);
 
 
 /*

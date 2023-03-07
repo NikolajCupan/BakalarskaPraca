@@ -35,7 +35,11 @@ class UserShopController extends Controller
     // User's purchase history page
     public function purchaseHistory()
     {
-        return view('user.shop.purchaseHistory');
+        $userPurchases = Helper::getPurchasesFromUser(Auth::user());
+        // user, basket and imagePath is sent to view using AppServiceProvider
+        return view('user.purchase.purchaseHistory', [
+            'userPurchases' => $userPurchases
+        ]);
     }
 
     // Add shop product to logged user's basket
@@ -163,7 +167,7 @@ class UserShopController extends Controller
         if (!$isOrderable || $basket->getBasketProducts()->count() == 0)
         {
             // Do not allow user to enter confirm page, if basket is not orderable or is empty
-            return redirect('/user/basket');
+            return redirect('/user/basket/show');
         }
 
         $cities = City::select('city')->groupBy('city')->get();
@@ -180,7 +184,7 @@ class UserShopController extends Controller
     }
 
     // Validate information (address, phone number) in purchase form
-    public function validateInformation(Request $request)
+    public function makePurchase(Request $request)
     {
         // All fields are required
         $request->validate([
@@ -219,7 +223,13 @@ class UserShopController extends Controller
             'purchase_date' => $now
         ]);
 
-        return redirect('/');
+        return redirect('/user/basket/confirmed')->with(['something' => 'hi']);
+    }
+
+    // Confirmed purchase page
+    public function confirmedPurchase()
+    {
+        return view('user.shop.confirmed');
     }
 
     // Create review of product from user

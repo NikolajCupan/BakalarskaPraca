@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" href="{{asset('css/basketStyles.css')}}">
 
-    <x-other.backArrow path="/user/basket"/>
+    <x-other.backArrow path="/user/basket/show"/>
 
     <div class="px-4 px-lg-0">
         <div class="container text-white py-5 text-center">
@@ -13,11 +13,12 @@
 
         <div class="pb-5">
             <div class="container">
-                <form method="POST" action="/user/purchase/validateInformation">
+                <form method="POST" action="/user/purchase/makePurchase">
                     @csrf
                     <input name="firstName" type="hidden" value="{{$user->first_name}}">
                     <input name="lastName" type="hidden" value="{{$user->last_name}}">
                     <input name="email" type="hidden" value="{{$user->email}}">
+                    <input name="phoneNumber" type="hidden" value="{{$user->phone_number}}">
 
                     <div class="row">
                         <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
@@ -47,12 +48,8 @@
                             <div class="row">
                                 <div class="col-12 col-xl-12 col-xxl-4 mb-4">
                                     <div class="form-group form-floating">
-                                        <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="phoneNumber" value="{{old('phoneNumber') ?? $user->phone_number}}">
-                                        <label for="phoneNumber">Telefonne cislo <span class="text-danger fw-bold">*</span></label>
-
-                                        @error('phoneNumber')
-                                        <p class="text-danger">{{$message}}</p>
-                                        @enderror
+                                        <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="phoneNumber" value="{{$user->phone_number}}" disabled>
+                                        <label for="phoneNumber">Telefonne cislo</label>
                                     </div>
                                 </div>
                                 <div class="col-12 col-xl-6 col-xxl-4 mb-4">

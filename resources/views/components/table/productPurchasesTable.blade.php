@@ -1,7 +1,7 @@
 @aware(['purchases'])
 @aware(['product'])
 
-<table class="pricesTable mt-4 table table-striped display nowrap" style="width: 100%">
+<table class="productPurchasesTable mt-4 table table-striped display nowrap" style="width: 100%">
     <thead class="table-dark">
     <tr>
         <th class="noSort" scope="col">Typ</th>

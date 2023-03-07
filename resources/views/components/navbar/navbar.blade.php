@@ -42,7 +42,7 @@
                     <a class="navbarButton sideMenuItem row nav-link mx-2" href="/about">O nas</a>
 
                     @auth
-                        <a class="navbarButton sideMenuItem row nav-link mx-2" href="/user/basket">
+                        <a class="navbarButton sideMenuItem row nav-link mx-2" href="/user/basket/show">
                             <div style="text-align: center">
                                 <div style="display: inline-block; vertical-align: middle;">
                                     Kosik
@@ -140,7 +140,7 @@
                                 <li class="userMenuItemText">{{$basket->getTotalPrice()}} &euro;</li>
 
                                 <div class="dropdown-divider"></div>
-                                <li><a class="userMenuItem dropdown-item" href="/user/basket">Zobrazit</a></li>
+                                <li><a class="userMenuItem dropdown-item" href="/user/basket/show">Zobrazit</a></li>
                             </ul>
                         </div>
                     </li>

@@ -101,7 +101,7 @@
                                     <h5 id="totalPurchasePriceWithFee" class="font-weight-bold">{{$basket->getTotalPriceWithFee()}} &euro;</h5>
                                 </li>
                             </ul>
-                            <a id="continueButton" href="/user/purchase/confirm" class="btn btn-dark rounded-pill py-2 btn-block
+                            <a id="continueButton" href="/user/basket/confirm" class="btn btn-dark rounded-pill py-2 btn-block
                             {{($basket->getBasketProducts()->count() == 0 || !$basket->isOrderable()) ? "disabled" : ""}}">
                                 Pokracovat
                             </a>
