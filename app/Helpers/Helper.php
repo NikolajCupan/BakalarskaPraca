@@ -359,9 +359,9 @@ class Helper
     public static function getPurchasesFromUser($user)
     {
         return Purchase::whereIn('id_basket', function($mainQuery) use ($user) {
-            $mainQuery->select('id_basket')
-                ->from('basket')
-                ->where('id_user', '=', $user->id_user);
+                                    $mainQuery->select('id_basket')
+                                        ->from('basket')
+                                        ->where('id_user', '=', $user->id_user);
         })->get();
     }
 }

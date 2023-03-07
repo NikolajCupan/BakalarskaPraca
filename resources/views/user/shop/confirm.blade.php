@@ -18,7 +18,6 @@
                     <input name="firstName" type="hidden" value="{{$user->first_name}}">
                     <input name="lastName" type="hidden" value="{{$user->last_name}}">
                     <input name="email" type="hidden" value="{{$user->email}}">
-                    <input name="phoneNumber" type="hidden" value="{{$user->phone_number}}">
 
                     <div class="row">
                         <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
@@ -48,8 +47,12 @@
                             <div class="row">
                                 <div class="col-12 col-xl-12 col-xxl-4 mb-4">
                                     <div class="form-group form-floating">
-                                        <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="phoneNumber" value="{{$user->phone_number}}" disabled>
-                                        <label for="phoneNumber">Telefonne cislo</label>
+                                        <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="phoneNumber" value="{{old('phoneNumber') ?? $user->phone_number}}">
+                                        <label for="phoneNumber">Telefonne cislo <span class="text-danger fw-bold">*</span></label>
+
+                                        @error('phoneNumber')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 col-xl-6 col-xxl-4 mb-4">
@@ -106,7 +109,7 @@
                             <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Informacie</div>
                             <div class="p-4">
                                 <p class="font-italic mb-4">
-                                    Zmena dodacich udajov pri objednavke nema vplyv na adresu, ktoru mate nastavenu na Vasom ucte. Adresa aj telefonne cislo musia byt vyplnene.
+                                    Zmena dodacich udajov pri objednavke nema vplyv na adresu, ktoru mate nastavenu na Vasom ucte. Naopak zmena telefonneho cisla sa ulozi aj vo Vasom profile. Adresa aj telefonne cislo musia byt vyplnene.
                                 </p>
 
                                 <p class="font-italic mb-4">

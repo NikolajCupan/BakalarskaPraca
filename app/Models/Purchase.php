@@ -67,4 +67,11 @@ class Purchase extends Model
                             ->where('id_basket', '=', $basketId)
                             ->first();
     }
+
+    public function isOwnedByUser($user)
+    {
+        return Basket::where('id_user', '=', $user->id_user)
+                     ->where('id_basket', '=', $this->id_basket)
+                     ->exists();
+    }
 }

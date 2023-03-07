@@ -106,12 +106,16 @@ Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues'])
  * UserShopController
  */
 
-// Current basket page
-Route::get('/user/basket/show', [UserShopController::class, 'basket'])
-    ->middleware('auth');
-
 // User's purchase history page
 Route::get('/user/purchaseHistory', [UserShopController::class, 'purchaseHistory'])
+    ->middleware('auth');
+
+// Purchase detail page
+Route::get('/user/purchaseDetail/{id_purchase}', [UserShopController::class, 'purchaseDetail'])
+    ->middleware('auth');
+
+// Current basket page
+Route::get('/user/basket/show', [UserShopController::class, 'basket'])
     ->middleware('auth');
 
 // Add shop product to logged user's basket
@@ -157,8 +161,6 @@ Route::post('/user/destroyReview', [UserShopController::class, 'destroyReview'])
 // AJAX call to get edit user's review of product
 Route::post('/user/editReview', [UserShopController::class, 'editReview'])
     ->middleware('ajax');
-
-
 
 
 

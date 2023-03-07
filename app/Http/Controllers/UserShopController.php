@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class UserShopController extends Controller
@@ -39,6 +40,25 @@ class UserShopController extends Controller
         // user, basket and imagePath is sent to view using AppServiceProvider
         return view('user.purchase.purchaseHistory', [
             'userPurchases' => $userPurchases
+        ]);
+    }
+
+    // Purchase detail page
+    public function purchaseDetail($id_purchase)
+    {
+        $purchase = Purchase::where('id_purchase', '=', $id_purchase)
+                            ->first();
+
+        // If user does not own purchase, redirect to main page
+        if (!$purchase->isOwnedByUser(Auth::user()))
+        {
+            return redirect('/');
+        }
+
+        // Getting here means user owns the purchase, thus he can see it
+        // user, basket and imagePath is sent to view using AppServiceProvider
+        return view('user.purchase.purchaseDetail', [
+            'purchase' => $purchase
         ]);
     }
 
@@ -203,6 +223,17 @@ class UserShopController extends Controller
         $user = Auth::user();
         $basket = $user->getCurrentBasket();
 
+        // User's phone number is updated to one entered in the form
+        $user->phone_number = $request->phoneNumber;
+        $user->save();
+
+        // When user goes one page back after making the order he has empty basket, yet he can still
+        // access the form, thus it is necessary to check if basket is empty
+        if ($basket->getBasketProducts()->count() == 0)
+        {
+            return redirect('/');
+        }
+
         // Close current basket and give new basket to the user
         $now = Carbon::now()->toDateTimeString();
 
@@ -216,19 +247,22 @@ class UserShopController extends Controller
                                         ->first();
 
         // Create new purchase
-        Purchase::create([
+        $purchase = Purchase::create([
             'id_basket' => $basket->id_basket,
             'id_address' => $address->id_address,
             'id_status' => $purchaseStatus->id_status,
             'purchase_date' => $now
         ]);
 
-        return redirect('/user/basket/confirmed')->with(['something' => 'hi']);
+        return redirect('/user/basket/confirmed')->with(['purchaseId' => $purchase->id_purchase]);
     }
 
     // Confirmed purchase page
     public function confirmedPurchase()
     {
+        //$purchaseId = Session::get('purchaseId');
+
+        //return is_null($purchaseId) ? redirect('/') : view('user.shop.confirmed');
         return view('user.shop.confirmed');
     }
 

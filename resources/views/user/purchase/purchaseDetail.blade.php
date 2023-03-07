@@ -6,10 +6,7 @@
 
     <x-navbar.navbar :imagePath="$imagePath" :user="$user" :basket="$basket"/>
 
-    <div class="container mt-4">
-        <h3 class="title">Historia objednavok</h3>
-        <x-table.userPurchasesTable :purchases="$userPurchases"/>
-    </div>
+    {{$purchase}}
 
 @endsection
 
