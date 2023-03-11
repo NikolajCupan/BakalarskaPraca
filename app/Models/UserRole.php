@@ -18,4 +18,12 @@ class UserRole extends Model
     protected $fillable = [
         'id_user', 'id_role'
     ];
+
+
+    // Relation to WebRole
+    public function getWebRole()
+    {
+        return WebRole::where('id_role', '=', $this->id_role)
+                      ->first();
+    }
 }

@@ -205,6 +205,9 @@ Route::post('/admin/user/users', [AdminUserController::class, 'showUsers']);
 // Single user information page
 Route::get('/admin/user/show/{id_user}', [AdminUserController::class, 'showUser']);
 
+// Modify user's roles
+Route::post('/admin/user/modifyUserRoles', [AdminUserController::class, 'modifyUserRoles']);
+
 
 
 /*

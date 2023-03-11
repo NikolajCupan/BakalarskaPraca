@@ -35,6 +35,13 @@ class User extends Authenticatable
         return Address::where('id_address', '=', $this->id_address)->first();
     }
 
+    // Relation to UserRole
+    public function getUserRoles()
+    {
+        return UserRole::where('id_user', '=', $this->id_user)
+                       ->get();
+    }
+
     // Relation to Image
     // Never returns null, user might not have image, but he always has record in Image table
     public function getImage()
@@ -42,6 +49,15 @@ class User extends Authenticatable
         return Image::where('id_image', '=', $this->id_image)->first();
     }
 
+    // Relation to Purchase
+    public function getPurchases()
+    {
+        return Purchase::whereIn('id_basket', function($mainQuery) {
+                                 $mainQuery->select('id_basket')
+                                           ->from('basket')
+                                           ->where('id_user', '=', $this->id_user);
+        })->get();
+    }
 
     // Might return null if user has no image
     public function getImagePath()

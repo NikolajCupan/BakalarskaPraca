@@ -37,7 +37,7 @@
         <ul class="purchaseDetailList">
             <li><strong>ID:</strong> {{$purchase->id_purchase}}</li>
             <li><strong>Suma:</strong> {{$purchase->getTotalPrice()}} &euro;</li>
-            <li><strong>Status:</strong> {{$purchase->getStatus()->status}}</li>
+            <li><strong>Status:</strong> {{$purchase->getStatus()->getSlovakStatusName()}}</li>
             <li><strong>Datum objednavky:</strong> {{\App\Helpers\Helper::getFormattedDate($purchase->purchase_date)}}</li>
             <li><strong>Datum platby:</strong><span class="{{is_null($purchase->payment_date) ? "text-danger" : ""}}"> {{\App\Helpers\Helper::getFormattedDate($purchase->payment_date) ?? "neuhradene"}}</span></li>
         </ul>

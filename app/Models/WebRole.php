@@ -23,4 +23,24 @@ class WebRole extends Model
     // Primary key information
     protected $primaryKey = 'id_role';
     public $incrementing = true;
+
+
+    public function getSlovakRoleName()
+    {
+        switch ($this->name)
+        {
+            case "customer":
+                return "zakaznik";
+            case "accountManager":
+                return "manazer uctov";
+            case "productManager":
+                return "manazer produktov";
+            case "purchaseManager":
+                return "manazer objednavok";
+            case "reviewManager":
+                return "manazer recenzii";
+        }
+
+        return "neznama rola";
+    }
 }

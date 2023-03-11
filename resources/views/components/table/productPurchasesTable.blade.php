@@ -24,7 +24,7 @@
                 </svg>
             </td>
             <td>{{$purchase->id_purchase}}</td>
-            <td>{{$purchase->getStatus()->status}}</td>
+            <td>{{$purchase->getStatus()->getSlovakStatusName()}}</td>
             <td>{{$purchase->getFormattedProductPrice($product->id_product)}} &euro;</td>
             <td>{{$purchase->getBasketProduct($product->id_product)->quantity}}</td>
             <td>{{\App\Helpers\Helper::getFormattedDate($purchase->purchase_date)}}</td>

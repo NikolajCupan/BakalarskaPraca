@@ -18,7 +18,7 @@
     @foreach ($purchases as $purchase)
         <tr>
             <td>{{$purchase->id_purchase}}</td>
-            <td>{{$purchase->getStatus()->status}}</td>
+            <td>{{$purchase->getStatus()->getSlovakStatusName()}}</td>
             <td>{{$purchase->getTotalPrice()}} &euro;</td>
             <td>{{$purchase->getBasket()->getVariousProductsCount()}}</td>
             <td>{{\App\Helpers\Helper::getFormattedDate($purchase->purchase_date)}}</td>

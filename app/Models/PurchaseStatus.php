@@ -23,4 +23,24 @@ class PurchaseStatus extends Model
     // Primary key information
     protected $primaryKey = 'id_status';
     public $incrementing = true;
+
+
+    public function getSlovakStatusName()
+    {
+        switch ($this->status)
+        {
+            case "pending":
+                return "cakajuca";
+            case "shipped":
+                return "odoslana";
+            case "delivered":
+                return "dorucena";
+            case "cancelled":
+                return "zrusena";
+            case "confirmed":
+                return "potvrdena";
+        }
+
+        return "neznama rola";
+    }
 }

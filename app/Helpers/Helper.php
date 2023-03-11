@@ -356,15 +356,6 @@ class Helper
         return false;
     }
 
-    public static function getPurchasesFromUser($user)
-    {
-        return Purchase::whereIn('id_basket', function($mainQuery) use ($user) {
-                                    $mainQuery->select('id_basket')
-                                        ->from('basket')
-                                        ->where('id_user', '=', $user->id_user);
-        })->get();
-    }
-
     // Function adds leading zeros to the input number
     public static function addLeadingZeros($digits, $number)
     {

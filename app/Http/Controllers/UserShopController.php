@@ -36,7 +36,8 @@ class UserShopController extends Controller
     // User's purchase history page
     public function purchaseHistory()
     {
-        $userPurchases = Helper::getPurchasesFromUser(Auth::user());
+        $user = Auth::user();
+        $userPurchases = $user->getPurchases();
         // user, basket and imagePath is sent to view using AppServiceProvider
         return view('user.purchase.purchaseHistory', [
             'userPurchases' => $userPurchases
@@ -260,10 +261,9 @@ class UserShopController extends Controller
     // Confirmed purchase page
     public function confirmedPurchase()
     {
-        //$purchaseId = Session::get('purchaseId');
+        $purchaseId = Session::get('purchaseId');
 
-        //return is_null($purchaseId) ? redirect('/') : view('user.shop.confirmed');
-        return view('user.shop.confirmed');
+        return is_null($purchaseId) ? redirect('/') : view('user.shop.confirmed');
     }
 
     // Create review of product from user
