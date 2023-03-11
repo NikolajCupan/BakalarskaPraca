@@ -19,10 +19,10 @@
         <tr>
             <td>{{$purchase->id_purchase}}</td>
             <td>{{$purchase->getStatus()->status}}</td>
-            <td>{{$purchase->getTotalPrice()}}</td>
+            <td>{{$purchase->getTotalPrice()}} &euro;</td>
             <td>{{$purchase->getBasket()->getVariousProductsCount()}}</td>
             <td>{{\App\Helpers\Helper::getFormattedDate($purchase->purchase_date)}}</td>
-            <td>{{\App\Helpers\Helper::getFormattedDate($purchase->payment_date)}}</td>
+            <td class="{{is_null($purchase->payment_date) ? "text-danger" : ""}}">{{\App\Helpers\Helper::getFormattedDate($purchase->payment_date) ?? "neuhradene"}}</td>
             <td>
                 <a href="/user/purchaseDetail/{{$purchase->id_purchase}}">
                     <svg class="ms-1 bi bi-info-circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">

@@ -53,7 +53,7 @@ class Purchase extends Model
         return $basket->getTotalPrice();
     }
 
-    // Price of product as of the date of the order
+    // Price of the product as of the date of the order
     public function getProductPrice($productId)
     {
         $product = Product::where('id_product', '=', $productId)

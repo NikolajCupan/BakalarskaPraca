@@ -364,4 +364,11 @@ class Helper
                                         ->where('id_user', '=', $user->id_user);
         })->get();
     }
+
+    // Function adds leading zeros to the input number
+    public static function addLeadingZeros($digits, $number)
+    {
+        $stringNumber = (string)$number;
+        return str_pad($stringNumber, $digits, '0', STR_PAD_LEFT);
+    }
 }
