@@ -47,9 +47,28 @@
 <script src="{{asset('js/editReview.js')}}" defer></script>
 
 <div class="addReviewContainer mt-3 mb-3">
-    @if ((is_null($loggedUser) || !$product->hasReviewFromUser($loggedUser)) && !$product->isSaleOver())
-        <a class="btn btn-dark addReview d-inline justify-content-center fs-5 fw-bold"
-        {!! Auth::check() ? "data-bs-toggle='modal' data-bs-target='#createReview'" : "href='/login'" !!}>
+    @if ($product->isSaleOver())
+        <!-- In such case, show nothing -->
+    @elseif (is_null($loggedUser))
+        <a class="btn btn-dark addReview d-inline justify-content-center fs-5 fw-bold" href="/login">
+            Napisat recenziu
+            <svg style="margin-bottom: 2px" class="d-inline-block bi bi-plus-circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+        </a>
+    @elseif ($product->hasReviewFromUser($loggedUser))
+        <!-- In such case, show nothing -->
+    @elseif ($product->didUserBuy($loggedUser))
+        <a class="btn btn-dark addReview d-inline justify-content-center fs-5 fw-bold" data-bs-toggle="modal" data-bs-target="#createReview">
+            Napisat recenziu
+            <svg style="margin-bottom: 2px" class="d-inline-block bi bi-plus-circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+        </a>
+    @else
+        <a class="btn btn-dark addReview d-inline justify-content-center fs-5 fw-bold" data-bs-toggle="modal" data-bs-target="#cannotCreateReview">
             Napisat recenziu
             <svg style="margin-bottom: 2px" class="d-inline-block bi bi-plus-circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -66,18 +85,20 @@
                 <div class="comment-widgets m-b-20">
                     <div class="row">
                         <div class="col-12 p-0">
-                            @if ($product->hasReviewFromUser($loggedUser))
-                                @php ($userReview = $product->getReviewFromUser($loggedUser))
-                                <div class="loggedUserReview">
-                                <x-shop.collapse.review :review="$userReview" :loggedUser="$loggedUser"/>
-                                </div>
-                            @endif
-
-                            @foreach ($reviews as $review)
-                                @if ($review->id_user != $loggedUser->id_user)
-                                <x-shop.collapse.review :review="$review" :loggedUser="$loggedUser"/>
+                            @if (!is_null($loggedUser))
+                                @if ($product->hasReviewFromUser($loggedUser))
+                                    @php ($userReview = $product->getReviewFromUser($loggedUser))
+                                    <div class="loggedUserReview">
+                                    <x-shop.collapse.review :review="$userReview" :loggedUser="$loggedUser"/>
+                                    </div>
                                 @endif
-                            @endforeach
+
+                                @foreach ($reviews as $review)
+                                    @if ($review->id_user != $loggedUser->id_user)
+                                    <x-shop.collapse.review :review="$review" :loggedUser="$loggedUser"/>
+                                    @endif
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -119,12 +140,30 @@
     </div>
 </div>
 
-<!-- Review deletion confirmation modal -->
-<div class="modal fade" id="confirmDeleteReview" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+<!-- Modal informing user that it is not possible to add review to a product he did not buy -->
+<div class="modal fade" id="cannotCreateReview" tabindex="-1" aria-labelledby="cannotCreateReviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalLabel">Potvrdenie zmazania</h1>
+                <h1 class="modal-title fs-5" id="cannotCreateReviewModalLabel">Upozornenie</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Recenziu je mozne pridat iba na produkt, ktory ste si zakupili.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Rozumiem</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Review deletion confirmation modal -->
+<div class="modal fade" id="confirmDeleteReview" tabindex="-1" aria-labelledby="deleteReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteReviewModalLabel">Potvrdenie zmazania</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

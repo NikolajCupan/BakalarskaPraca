@@ -198,6 +198,21 @@ class Product extends Model
                      ->exists();
     }
 
+    public function didUserBuy($user)
+    {
+        return Purchase::whereIn('id_basket', function($mainQuery) use ($user) {
+                                 $mainQuery->select('id_basket')
+                                           ->from('basket')
+                                           ->where('id_user', '=', $user->id_user)
+                                           ->whereNotNull('date_basket_end')
+                                           ->whereIn('id_basket', function($subQuery) {
+                                                     $subQuery->select('id_basket')
+                                                              ->from('basket_product')
+                                                              ->where('id_product', '=', $this->id_product);
+                                           });
+        })->exists();
+    }
+
     // Might return null if product does not have review from user
     public function getReviewFromUser($user)
     {

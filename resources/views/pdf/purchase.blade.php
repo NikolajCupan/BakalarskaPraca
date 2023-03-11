@@ -19,19 +19,19 @@
         }
 
         .borderLeft {
-            border-left: 1px black solid;
+            border-left: 1px black dashed;
         }
 
         .borderRight {
-            border-right: 1px black solid;
+            border-right: 1px black dashed;
         }
 
         .borderTop {
-            border-top: 1px black solid;
+            border-top: 1px black dashed;
         }
 
         .borderBottom {
-            border-bottom: 1px black solid;
+            border-bottom: 1px black dashed;
         }
 
         .paddingLeft {
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div class="column borderTop borderBottom">
+        <div class="column borderTop borderBottom borderRight">
             <div class="paddingTop paddingLeft paddingBottom">
                 <p class="textBold smallMargin">Odberatel:</p>
                 <p class="smallMargin">{{$user->first_name . ' ' . $user->last_name}}</p>
