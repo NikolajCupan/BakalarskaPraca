@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\WebRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -30,14 +31,6 @@ class AdminController extends Controller
         Helper::allow(['productManager']);
 
         return view('admin.product.index');
-    }
-
-    // Reviews management page
-    public static function review()
-    {
-        Helper::allow(['reviewManager']);
-
-        return view('admin.review.index');
     }
 
     // Purchases management page

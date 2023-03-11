@@ -210,7 +210,7 @@ class UserController extends Controller
         $address = $user->getAddress();
         if (!is_null($request->postalCode) && !is_null($request->city))
         {
-            $city = City::where('postal_code', '=', $request->postalCode)
+            $city = City::where('postal_code', '=', $normalizedPostalCode)
                         ->where('city', '=', $request->city)
                         ->first();
 

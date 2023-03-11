@@ -289,6 +289,12 @@ class UserShopController extends Controller
             return back()->with('errorMessage', 'Na dany produkt ste uz napisali recenziu');
         }
 
+        // User should not be able to post form to create review for product he did not buy, but it is checked
+        if ($product->didUserBuy($user))
+        {
+            return back()->with('errorMessage', 'Nie je mozne pridat recenziu na produkt, ktory ste nekupili');
+        }
+
         Review::create([
             'id_user' => $user->id_user,
             'id_product' => $product->id_product,

@@ -30,8 +30,8 @@ class ValidationHelper
         {
             // Find if there is a row in the table city
             $foundCity = City::where('city', '=', $parRequest->city)
-                ->where('postal_code', '=', $normalizedPostalCode)
-                ->first();
+                             ->where('postal_code', '=', $normalizedPostalCode)
+                             ->first();
 
             // If combination was not found, return false
             if (!$foundCity)

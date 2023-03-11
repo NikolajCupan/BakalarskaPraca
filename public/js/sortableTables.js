@@ -31,4 +31,5 @@ $(document).ready(function () {
     initializeLanguage('productPurchasesTable', [[5, 'desc']]);
     initializeLanguage('userPurchasesTable', [[4, 'desc']]);
     initializeLanguage('purchaseProductsTable', [[0, 'asc']]);
+    initializeLanguage('usersTable', [[0, 'asc']]);
 });

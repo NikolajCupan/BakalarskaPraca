@@ -8,7 +8,7 @@
         })
     </script>
 
-    <link rel="stylesheet" href="{{asset('css/adminProduct.css')}}">
+    <link rel="stylesheet" href="{{asset('css/adminStyles.css')}}">
 
     <x-navbar.navbarAdmin homePath="/admin/product"/>
 

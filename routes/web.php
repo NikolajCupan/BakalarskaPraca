@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ShopController;
@@ -189,11 +190,20 @@ Route::get('/admin/user', [AdminController::class, 'user']);
 // Products management page
 Route::get('/admin/product', [AdminController::class, 'product']);
 
-// Reviews management page
-Route::get('/admin/review', [AdminController::class, 'review']);
-
 // Purchase management page
 Route::get('/admin/purchase', [AdminController::class, 'purchase']);
+
+
+
+/*
+ * AdminProductController
+ */
+
+// Table with users with some web role page
+Route::post('/admin/user/users', [AdminUserController::class, 'showUsers']);
+
+// Single user information page
+Route::get('/admin/user/show/{id_user}', [AdminUserController::class, 'showUser']);
 
 
 

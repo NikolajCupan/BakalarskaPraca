@@ -125,16 +125,16 @@
 
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li class="userMenuItemText noWrap">
-                                @php $variousProductsCount = $basket->getVariousProductsCount()
-                                @endphp
-                                    {{$variousProductsCount}}
-                                    @if ($variousProductsCount == 1)
-                                        produkt
-                                    @elseif ($variousProductsCount > 1 && $variousProductsCount < 5)
-                                        rozne produkty
-                                    @else
-                                        roznych produktov
-                                    @endif
+                                @php($variousProductsCount = $basket->getVariousProductsCount())
+
+                                {{$variousProductsCount}}
+                                @if ($variousProductsCount == 1)
+                                    produkt
+                                @elseif ($variousProductsCount > 1 && $variousProductsCount < 5)
+                                    rozne produkty
+                                @else
+                                    roznych produktov
+                                @endif
                                 </li>
 
                                 <li class="userMenuItemText">{{$basket->getTotalPrice()}} &euro;</li>
