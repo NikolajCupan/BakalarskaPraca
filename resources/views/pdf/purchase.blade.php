@@ -1,7 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="sk">
 <head>
     <title>objednavka-cislo-{{$purchase->id_purchase}}</title>
+    @php ($basketProducts = $purchase->getBasket()->getBasketProducts())
 
     <style>
         .column {
@@ -67,6 +70,11 @@
             margin-top: 20px;
         }
 
+        table td {
+            padding-left: 10px;
+            overflow-wrap: anywhere;
+        }
+
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -124,28 +132,35 @@
 
     <!-- Empty space -->
     <div class="emptySpace"></div>
-        <div class="borderTop borderLeft borderRight">
-            <div class="paddingLeft paddingRight paddingTop">
-                <p class="textBold smallMargin">Produkty:</p>
 
-                <table style="margin-top: 5px; width: 100%">
+    <div class="borderTop borderBottom borderLeft borderRight">
+        <div class="paddingTop paddingBottom paddingLeft paddingRight">
+            <p class="textBold smallMargin">Produkty:</p>
+
+            <table style="margin-top: 5px; width: 100%">
+                <tr>
+                    <th style="width: 50%">Produkt</th>
+                    <th style="width: 20%">Cena</th>
+                    <th style="width: 15%">Kvantita</th>
+                    <th style="width: 25%">Celkova cena</th>
+                </tr>
+
+                @foreach ($basketProducts as $basketProduct)
+                    @php ($price = $basketProduct->getPriceOfDate($purchase->purchase_date)->price)
                     <tr>
-                        <th>Produkt</th>
-                        <th>Cena</th>
-                        <th>Kvantita</th>
-                        <th>Celkova cena</th>
+                        <td>{{$basketProduct->getProduct()->getWarehouseProduct()->product}}</td>
+                        <td>{{$price}} &euro;</td>
+                        <td>{{$basketProduct->quantity}}</td>
+                        <td>{{number_format($price * $basketProduct->quantity, 2, '.', ' ')}} &euro;</td>
                     </tr>
+                @endforeach
 
-                    <tr></tr>
-                    @php ($basketProducts = $purchase->getBasket()->getBasketProducts())
-                    @foreach ($basketProducts as $basketProduct)
-
-                    @endforeach
-                </table>
-            </div>
+                <tr>
+                    <td colspan="3"><strong>Spolu</strong></td>
+                    <td colspan="1">{{$purchase->getTotalPrice()}} &euro;</td>
+                </tr>
+            </table>
         </div>
-    <div class="row">
-
     </div>
 
 </body>
