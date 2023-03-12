@@ -16,7 +16,7 @@ class AdminUserController
     {
         Helper::allow(['accountManager']);
 
-        $roleName = $request->webRoleName;
+        $roleName = $request->category;
         $users = User::whereIn('id_user', function($mainQuery) use ($roleName) {
                                $mainQuery->select('id_user')
                                          ->from('user_role')

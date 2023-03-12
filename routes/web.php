@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminPurchaseController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PdfController;
@@ -196,7 +197,7 @@ Route::get('/admin/purchase', [AdminController::class, 'purchase']);
 
 
 /*
- * AdminProductController
+ * AdminUserController
  */
 
 // Table with users with some web role page
@@ -207,6 +208,15 @@ Route::get('/admin/user/show/{id_user}', [AdminUserController::class, 'showUser'
 
 // Modify user's roles
 Route::post('/admin/user/modifyUserRoles', [AdminUserController::class, 'modifyUserRoles']);
+
+
+
+/*
+ * AdminPurchaseController
+ */
+
+// Table with purchases with some purchase status page
+Route::post('/admin/purchase/purchases', [AdminPurchaseController::class, 'showPurchases']);
 
 
 

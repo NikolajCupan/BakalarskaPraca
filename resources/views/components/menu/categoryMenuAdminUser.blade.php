@@ -7,9 +7,9 @@
 </style>
 
 <ul class="sticky-lg-top stickyOffset list-group">
-    <x-menu.other.webRoleForm webRoleName="customer" buttonText="Vsetci pouzivatelia" :activeCategory="$activeCategory"/>
-    <x-menu.other.webRoleForm webRoleName="accountManager" buttonText="Manazeri uctov" :activeCategory="$activeCategory"/>
-    <x-menu.other.webRoleForm webRoleName="productManager" buttonText="Manazeri produktov" :activeCategory="$activeCategory"/>
-    <x-menu.other.webRoleForm webRoleName="purchaseManager" buttonText="Manazeri objednavok" :activeCategory="$activeCategory"/>
-    <x-menu.other.webRoleForm webRoleName="reviewManager" buttonText="Manazeri recenzii" :activeCategory="$activeCategory"/>
+    <x-menu.other.menuButton buttonValue="customer" buttonText="Vsetci pouzivatelia" :activeCategory="$activeCategory" action="/admin/user/users"/>
+    <x-menu.other.menuButton buttonValue="accountManager" buttonText="Manazeri uctov" :activeCategory="$activeCategory" action="/admin/user/users"/>
+    <x-menu.other.menuButton buttonValue="productManager" buttonText="Manazeri produktov" :activeCategory="$activeCategory" action="/admin/user/users"/>
+    <x-menu.other.menuButton buttonValue="purchaseManager" buttonText="Manazeri objednavok" :activeCategory="$activeCategory" action="/admin/user/users"/>
+    <x-menu.other.menuButton buttonValue="reviewManager" buttonText="Manazeri recenzii" :activeCategory="$activeCategory" action="/admin/user/users"/>
 </ul>

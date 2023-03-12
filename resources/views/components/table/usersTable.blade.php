@@ -7,7 +7,7 @@
         <th scope="col">ID</th>
         <th scope="col">Meno</th>
         <th scope="col">Email</th>
-        <th scope="col">Detail</th>
+        <th class="noSort" scope="col">Detail</th>
     </tr>
     </thead>
 

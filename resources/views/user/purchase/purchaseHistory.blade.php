@@ -8,7 +8,7 @@
 
     <div class="container mt-4">
         <h3 class="title">Historia objednavok</h3>
-        <x-table.user.userPurchasesTable :purchases="$userPurchases"/>
+        <x-table.purchasesTable :purchases="$userPurchases"/>
     </div>
 
 @endsection

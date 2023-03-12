@@ -1,8 +1,10 @@
-function initializeLanguage(tableClass, sortingOption) {
+function initializeTable(tableClass, sortingOption, currencyColumnIndex) {
     $.fn.dataTable.moment( 'DD.MM.YYYY HH:mm:SS' );
+
     $('.' + tableClass).DataTable({
         columnDefs: [
-            { targets: 'noSort', orderable: false }
+            { targets: 'noSort', orderable: false },
+            { 'sType': 'currency', 'aTargets': [currencyColumnIndex] }
         ],
         order: sortingOption,
         scrollX: true,
@@ -24,12 +26,36 @@ function initializeLanguage(tableClass, sortingOption) {
     });
 }
 
-$(document).ready(function () {
-    initializeLanguage('warehouseProductsTable', [[1, 'asc']]);
-    initializeLanguage('pricesTable', [[1, 'desc']]);
-    initializeLanguage('productsTable', [[4, 'desc']]);
-    initializeLanguage('productPurchasesTable', [[5, 'desc']]);
-    initializeLanguage('userPurchasesTable', [[4, 'desc']]);
-    initializeLanguage('purchaseProductsTable', [[0, 'asc']]);
-    initializeLanguage('usersTable', [[0, 'asc']]);
+$(document).on('ready', function () {
+    initializeCurrency();
+
+    initializeTable('warehouseProductsTable', [[1, 'asc']]);
+    initializeTable('productsTable', [[4, 'desc']]);
+    initializeTable('productPurchasesTable', [[5, 'desc']], 3);
+    initializeTable('pricesTable', [[1, 'desc']], 3);
+
+    initializeTable('purchasesTable', [[5, 'asc']], 3);
+    initializeTable('purchaseProductsTable', [[1, 'asc']], 2);
+
+    initializeTable('usersTable', [[2, 'asc']]);
 });
+
+function initializeCurrency()
+{
+    // This script is needed to make currency sorting working
+    // Every table with currency column must be initialized using a following line
+    // { 'sType': 'currency', 'aTargets': [x] }
+    // where x refers to a column with currency
+    jQuery.extend(jQuery.fn.dataTableExt.oSort,{
+        "currency-pre": function (a) {
+            a = (a === "-") ? 0 : a.replace(/[^\d\-\.]/g, "");
+            return parseFloat(a);
+        },
+        "currency-asc": function (a, b) {
+            return a - b;
+        },
+        "currency-desc": function (a, b) {
+            return b - a;
+        }
+    });
+}

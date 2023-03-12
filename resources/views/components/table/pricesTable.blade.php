@@ -22,7 +22,7 @@
             </td>
             <td>{{\App\Helpers\Helper::getFormattedDate($price->date_price_start)}}</td>
             <td>{{\App\Helpers\Helper::getFormattedDate($price->date_price_end)}}</td>
-            <td>{{$price->price}}</td>
+            <td>{{$price->price}} &euro;</td>
         </tr>
     @endforeach
     </tbody>

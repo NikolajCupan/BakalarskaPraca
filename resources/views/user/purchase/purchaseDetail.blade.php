@@ -51,7 +51,7 @@
         </ul>
 
         <h3 class="mt-5 title">Objednane produkty</h3>
-        <x-table.user.purchaseProductsTable :purchaseDate="$purchase->purchase_date" :basketProducts="$purchase->getBasket()->getBasketProducts()"/>
+        <x-table.purchaseProductsTable :purchaseDate="$purchase->purchase_date" :basketProducts="$purchase->getBasket()->getBasketProducts()"/>
     </div>
 @endsection
 
