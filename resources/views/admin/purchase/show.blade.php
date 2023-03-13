@@ -26,7 +26,6 @@
             // Check current (one stored in database) radio
             currentPurchaseStatus.prop("checked", true);
         }
-
     </script>
 
     <div class="container">

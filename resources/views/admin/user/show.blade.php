@@ -6,6 +6,36 @@
 
     <x-navbar.navbarAdmin homePath="/admin/user"/>
 
+    <script>
+        // Variable must be defined outside the event handlers, so it is accessible anywhere
+        let initialCheckboxValues = {};
+        $(document).on("click", "#modifyRolesModalOpen", function() {
+            // Save states of checkboxes
+            $('input[type="checkbox"]').each(function() {
+                initialCheckboxValues[this.id] = this.checked;
+            });
+        });
+
+        $(document).on("click", "#modifyRolesModalClose", function() {
+            // Delay function so checkboxes changes are not visible
+            // It takes modal some time to close itself
+            setTimeout(resetCheckboxes, 200);
+        });
+
+        function resetCheckboxes()
+        {
+            // Restore values when modal is closed
+
+            // First, uncheck all the boxes
+            $('input[type="checkbox"]').prop('checked', false);
+
+            // Then restore the saved checkboxes states
+            $('input[type="checkbox"]').each(function() {
+                this.checked = initialCheckboxValues[this.id];
+            });
+        }
+    </script>
+
     <div class="container">
         <div class="mt-4 row">
             <div class="mb-5 col-md-12 col-lg-3">
@@ -16,7 +46,7 @@
                     <h3 class="title">Informacie o pouzivatelovi</h3>
 
                     @if ($user->id_user != $loggedUser->id_user)
-                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modifyRolesModal">
+                        <button type="button" class="btn btn-dark" id="modifyRolesModalOpen" data-bs-toggle="modal" data-bs-target="#modifyRolesModal">
                             Editovat role
                         </button>
                     @endif
@@ -79,7 +109,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrusit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modifyRolesModalClose">Zrusit</button>
                         <button type="submit" class="btn btn-dark">Potvrdit</button>
                     </div>
                 </form>
