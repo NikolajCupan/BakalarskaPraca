@@ -224,6 +224,9 @@ Route::get('/admin/purchase/show/{id_purchase}', [AdminPurchaseController::class
 // Cancel purchase
 Route::post('/admin/purchase/cancelPurchase', [AdminPurchaseController::class, 'cancelPurchase']);
 
+// Modify status of purchase (cannot be modified to cancelled status this way)
+Route::post('/admin/purchase/modifyPurchaseStatus', [AdminPurchaseController::class, 'modifyPurchaseStatus']);
+
 
 
 /*

@@ -45,12 +45,14 @@ class AdminPurchaseController
 
         $purchase = Purchase::where('id_purchase', '=', $id_purchase)
                             ->first();
+        $purchaseStatuses = PurchaseStatus::all();
 
         // Might return null if user no longer has an account
         $user = $purchase->getBasket()->getUser();
 
         return view('admin.purchase.show', [
             'purchase' => $purchase,
+            'purchaseStatuses' => $purchaseStatuses,
             'user' => $user
         ]);
     }
@@ -86,5 +88,29 @@ class AdminPurchaseController
         }
 
         return redirect('admin/purchase')->with('message', 'Objednavka bola uspesne zrusena');
+    }
+
+    // Modify status of purchase (cannot be modified to cancelled status this way)
+    public function modifyPurchaseStatus(Request $request)
+    {
+        Helper::allow(['purchaseManager']);
+
+        $purchase = Purchase::where('id_purchase', '=', $request->purchaseId)
+                            ->first();
+
+        // PurchaseManager should not be able to modify purchase status to cancelled using this form,
+        // and also should not be able to modify purchase that already has status cancelled, but it is checked
+        if ($purchase->hasStatus('cancelled') || $request->flexRadioStatus == "cancelled")
+        {
+            return redirect('admin/purchase')->with('errorMessage', 'Neplatna zmena statusu objednavky');
+        }
+
+        // Getting here means status of the purchase can be changed
+        $purchaseStatus = PurchaseStatus::where('status', '=', $request->flexRadioStatus)
+                                        ->first();
+        $purchase->id_status = $purchaseStatus->id_status;
+        $purchase->save();
+
+        return redirect('admin/purchase')->with('message', 'Status objednavky bol uspesne zmeneny');
     }
 }
