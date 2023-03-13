@@ -36,4 +36,21 @@ class AdminPurchaseController
             'activeCategory' => $purchaseStatus
         ]);
     }
+
+    // Single purchase information page
+    public function showPurchase($id_purchase)
+    {
+        Helper::allow(['purchaseManager']);
+
+        $purchase = Purchase::where('id_purchase', '=', $id_purchase)
+                            ->first();
+
+        // Might return null if user no longer has an account
+        $user = $purchase->getBasket()->getUser();
+
+        return view('admin.purchase.show', [
+            'purchase' => $purchase,
+            'user' => $user
+        ]);
+    }
 }

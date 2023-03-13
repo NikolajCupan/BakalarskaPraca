@@ -99,4 +99,12 @@ class Basket extends Model
             $warehouseProduct->save();
         }
     }
+
+    // Relation to User
+    // Might return null of user does not exist anymore
+    public function getUser()
+    {
+        return User::where('id_user', '=', $this->id_user)
+                   ->first();
+    }
 }

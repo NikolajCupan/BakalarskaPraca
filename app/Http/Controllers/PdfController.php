@@ -12,12 +12,13 @@ class PdfController extends Controller
 {
     public function pdfPurchase(Request $request)
     {
-        $user = Auth::user();
         $purchase = Purchase::where('id_purchase', '=', $request->purchaseId)
                             ->first();
+        $user = $purchase->getBasket()->getUser();
+        $loggedUser = Auth::user();
 
         // Allow only owner of the purchase and users with role 'purchaseManager'
-        if (!$purchase->isOwnedByUser($user) && !$user->hasRole(['purchaseManager']))
+        if (!$purchase->isOwnedByUser($loggedUser) && !$loggedUser->hasRole(['purchaseManager']))
         {
             return redirect('/');
         }

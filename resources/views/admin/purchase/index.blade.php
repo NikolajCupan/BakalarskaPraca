@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="{{asset('css/adminStyles.css')}}">
+
     <x-other.flashMessage/>
     <x-navbar.navbarAdmin homePath="/admin/purchase"/>
 

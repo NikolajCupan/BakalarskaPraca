@@ -34,7 +34,7 @@ $(document).on('ready', function () {
     initializeTable('productPurchasesTable', [[5, 'desc']], 3);
     initializeTable('pricesTable', [[1, 'desc']], 3);
 
-    initializeTable('purchasesTable', [[5, 'asc']], 3);
+    initializeTable('purchasesTable', [[5, 'desc']], 3);
     initializeTable('purchaseProductsTable', [[1, 'asc']], 2);
 
     initializeTable('usersTable', [[2, 'asc']]);

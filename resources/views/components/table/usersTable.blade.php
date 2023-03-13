@@ -12,6 +12,16 @@
     </thead>
 
     <tbody>
+
+    @php
+        // In some cases only single element can be passed, if so
+        // element is wrapped to Collection
+        if ($users instanceof App\Models\User)
+        {
+            $users = collect([$users]);
+        }
+    @endphp
+
     @foreach ($users as $user)
         <tr>
             <td>

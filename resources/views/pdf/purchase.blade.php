@@ -115,7 +115,12 @@
         <div class="column borderTop borderBottom borderRight">
             <div class="paddingTop paddingLeft paddingBottom">
                 <p class="textBold smallMargin">Odberatel:</p>
-                <p class="smallMargin">{{$user->first_name . ' ' . $user->last_name}}</p>
+                <!-- User might have deleted his account -->
+                @if (is_null($user))
+                    <p class="smallMargin">[pouzivatel zmazal svoj ucet]</p>
+                @else
+                    <p class="smallMargin">{{$user->first_name . ' ' . $user->last_name}}</p>
+                @endif
                 <p class="smallMargin">{{$purchase->getAddress()->street . ' ' . $purchase->getAddress()->house_number}}</p>
                 <p class="smallMargin">{{substr_replace($purchase->getAddress()->getCity()->postal_code, " ", 3, 0) . ' ' . $purchase->getAddress()->getCity()->city}}</p>
 

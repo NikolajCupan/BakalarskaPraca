@@ -47,7 +47,7 @@
                 </ul>
 
                 <h3 class="mt-5 title">Objednavky</h3>
-                <x-table.purchasesTable :purchases="$userPurchases"/>
+                <x-table.purchasesTable :purchases="$userPurchases" path="/admin/purchase/show/"/>
             </div>
         </div>
     </div>

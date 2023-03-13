@@ -12,7 +12,7 @@
                 <x-menu.categoryMenuAdminPurchase :activeCategory="$activeCategory"/>
             </div>
             <div class="col-md-12 col-lg-9">
-                <x-table.purchasesTable :purchases="$purchases"/>
+                <x-table.purchasesTable :purchases="$purchases" path="/admin/purchase/show/"/>
             </div>
         </div>
     </div>

@@ -218,6 +218,9 @@ Route::post('/admin/user/modifyUserRoles', [AdminUserController::class, 'modifyU
 // Table with purchases with some purchase status page
 Route::post('/admin/purchase/purchases', [AdminPurchaseController::class, 'showPurchases']);
 
+// Single purchase information page
+Route::get('/admin/purchase/show/{id_purchase}', [AdminPurchaseController::class, 'showPurchase']);
+
 
 
 /*
