@@ -171,7 +171,7 @@
         </div>
     </div>
 
-    <!-- Image upload information modal -->
+    <!-- End of sale information modal -->
     <div id="onLoadModal" class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -1,21 +1,20 @@
-<!DOCTYPE html>
-<html lang="sk">
-<head>
-    <title>Title of the document</title>
+@extends('layout.layout')
 
-    <style>
-        .mojBorder {
-            border: 1px solid black;
-        }
-    </style>
-</head>
+@section('content')
 
-<body>
+    <label for="date-input">Select a date:</label>
+    <input type="text" id="date-input">
 
-    <div class="mojBorder">
-        NIECO NIECO
-    </div>
 
-</body>
+    <script>
+        flatpickr("#date-input", {
+            enableTime: true,
+            dateFormat: "d.m.y H:i",
+        });
+    </script>
 
-</html>
+@endsection
+
+@section('footer')
+    <x-footer.footer/>
+@endsection

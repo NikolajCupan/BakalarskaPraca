@@ -81,4 +81,19 @@ class Purchase extends Model
                      ->where('id_basket', '=', $this->id_basket)
                      ->exists();
     }
+
+    // Function returns true if purchase has status
+    public function hasStatus($status)
+    {
+        $dbStatus = PurchaseStatus::where('status', '=', $status)
+                                  ->first();
+
+        // If such status does not exist, false can be returned already
+        if (is_null($dbStatus))
+        {
+            return false;
+        }
+
+        return $this->id_status == $dbStatus->id_status;
+    }
 }

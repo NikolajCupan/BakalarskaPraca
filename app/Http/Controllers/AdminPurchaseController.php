@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Purchase;
+use App\Models\PurchaseStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -52,5 +53,38 @@ class AdminPurchaseController
             'purchase' => $purchase,
             'user' => $user
         ]);
+    }
+
+    // Cancel purchase
+    public function cancelPurchase(Request $request)
+    {
+        Helper::allow(['purchaseManager']);
+
+        $purchase = Purchase::where('id_purchase', '=', $request->purchaseId)
+                            ->first();
+
+        // PurchaseManager should not be able to update purchase status to cancelled if it already has that status, but it is checked
+        if ($purchase->hasStatus('cancelled'))
+        {
+            return redirect('admin/purchase')->with('errorMessage', 'Objednavka uz bola zrusena');
+        }
+
+        // First, set purchase's status to 'cancelled'
+        $cancelledStatus = PurchaseStatus::where('status', '=', 'cancelled')
+                                         ->first();
+        $purchase->id_status = $cancelledStatus->id_status;
+        $purchase->save();
+
+        // Return all products from the purchase back to the warehouse
+        $basketProducts = $purchase->getBasket()->getBasketProducts();
+
+        foreach ($basketProducts as $basketProduct)
+        {
+            $warehouseProduct = $basketProduct->getProduct()->getWarehouseProduct();
+            $warehouseProduct->quantity += $basketProduct->quantity;
+            $warehouseProduct->save();
+        }
+
+        return redirect('admin/purchase')->with('message', 'Objednavka bola uspesne zrusena');
     }
 }

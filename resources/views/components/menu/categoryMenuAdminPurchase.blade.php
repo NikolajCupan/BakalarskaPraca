@@ -11,6 +11,6 @@
     <x-menu.other.menuButton buttonValue="pending" buttonText="Cakajuca" :activeCategory="$activeCategory" action="/admin/purchase/purchases"/>
     <x-menu.other.menuButton buttonValue="shipped" buttonText="Odoslana" :activeCategory="$activeCategory" action="/admin/purchase/purchases"/>
     <x-menu.other.menuButton buttonValue="delivered" buttonText="Dorucena" :activeCategory="$activeCategory" action="/admin/purchase/purchases"/>
-    <x-menu.other.menuButton buttonValue="cancelled" buttonText="Zrusena" :activeCategory="$activeCategory" action="/admin/purchase/purchases"/>
     <x-menu.other.menuButton buttonValue="confirmed" buttonText="Potvrdena" :activeCategory="$activeCategory" action="/admin/purchase/purchases"/>
+    <x-menu.other.menuButton buttonValue="cancelled" buttonText="Zrusena" :activeCategory="$activeCategory" action="/admin/purchase/purchases"/>
 </ul>

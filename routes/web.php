@@ -221,6 +221,9 @@ Route::post('/admin/purchase/purchases', [AdminPurchaseController::class, 'showP
 // Single purchase information page
 Route::get('/admin/purchase/show/{id_purchase}', [AdminPurchaseController::class, 'showPurchase']);
 
+// Cancel purchase
+Route::post('/admin/purchase/cancelPurchase', [AdminPurchaseController::class, 'cancelPurchase']);
+
 
 
 /*

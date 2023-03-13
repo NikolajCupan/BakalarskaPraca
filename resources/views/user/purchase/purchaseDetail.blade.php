@@ -17,6 +17,24 @@
             </form>
         </div>
 
+        @if ($purchase->hasStatus('cancelled'))
+            <p class="mt-2 mb-2 text-danger">Objednavka bola zrusena</p>
+        @elseif (is_null($purchase->payment_date))
+            <p class="mt-2 mb-2 text-danger">Platba za objednavku nebola vykonana. Vykonajte platbu na ucet:</p>
+            <ul class="purchaseDetailList">
+                <li><strong>IBAN:</strong> {{\App\Helpers\Constants::COMPANY_IBAN}}</li>
+                <li><strong>Suma:</strong> {{$purchase->getTotalPrice()}} &euro;</li>
+                <li><strong>Variabilny symbol:</strong> {{\App\Helpers\Helper::addLeadingZeros(10, $purchase->id_purchase)}}</li>
+                <li><strong>Specificky symbol:</strong> {{\App\Helpers\Helper::addLeadingZeros(10, $purchase->id_purchase)}}</li>
+                <li><strong>Konstantny symbol:</strong> {{\App\Helpers\Constants::CONSTANT_SYMBOL_PURCHASE}}</li>
+            </ul>
+        @else
+            <p class="mt-2 mb-2 text-success">Platba za objednavku bola vykonana dna:</p>
+            <ul class="purchaseDetailList">
+                <li><strong>Datum platby:</strong> {{\App\Helpers\Helper::getFormattedDate($purchase->payment_date)}}</li>
+            </ul>
+        @endif
+
         <x-shop.purchaseInformation :purchase="$purchase"/>
 
         <h3 class="mt-5 title">Objednane produkty</h3>
