@@ -13,7 +13,7 @@
             <form action="/pdf/purchase" method="POST" target="_blank">
                 @csrf
                 <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
-                <button type="submit" class="btn btn-dark">Otvor PDF</button>
+                <button type="submit" class="btn btn-dark">Otvorit PDF</button>
             </form>
         </div>
 

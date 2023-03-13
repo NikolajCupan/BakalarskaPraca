@@ -6,21 +6,27 @@
 
     <x-navbar.navbarAdmin homePath="/admin/purchase"/>
 
-
-    <form action="/pdf/purchase" method="POST" target="_blank">
-        @csrf
-        <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
-        <button type="submit" class="btn btn-dark">Otvor PDF</button>
-    </form>
-
-
     <div class="container">
         <div class="mt-4 row">
             <div class="mb-5 col-md-12 col-lg-3">
                 <x-menu.categoryMenuAdminPurchase/>
             </div>
             <div class="col-md-12 col-lg-9">
-                <h3 class="title">Informacie o objednavke</h3>
+                <h3 class="title">Objednavka cislo {{$purchase->id_purchase}}</h3>
+
+                <div class="d-inline-block">
+                    <button type="submit" class="btn btn-danger mb-2">Zrusit objednavku</button>
+                    <button type="submit" class="btn btn-dark mb-2">Nastavit datum platby</button>
+                    <button type="submit" class="btn btn-dark mb-2">Nastavit status</button>
+
+                    <form class="d-inline-block" action="/pdf/purchase" method="POST" target="_blank">
+                        @csrf
+                        <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
+                        <button type="submit" class="btn btn-dark mb-2">Otvorit PDF</button>
+                    </form>
+                </div>
+
+                <h3 class="mt-5 title">Informacie o objednavke</h3>
                 <x-shop.purchaseInformation :purchase="$purchase"/>
 
                 <h3 class="mt-5 title">Informacie o pouzivatelovi</h3>
