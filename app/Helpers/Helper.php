@@ -240,7 +240,7 @@ class Helper
                                ->orWhere(function ($mainQuery) {
                                $mainQuery->whereIn('id_warehouse_product', function($subquery) {
                                    $subquery->select('id_warehouse_product')
-                                            ->from('Product')
+                                            ->from('product')
                                             ->whereNull('date_sale_end')
                                             ->orWhere('date_sale_end', '>', Carbon::now());
             });
@@ -256,7 +256,7 @@ class Helper
                                ->where(function ($mainQuery) {
                                $mainQuery->whereNotIn('id_warehouse_product', function ($subquery) {
                                     $subquery->select('id_warehouse_product')
-                                             ->from('Product')
+                                             ->from('product')
                                              ->whereNull('date_sale_end')
                                              ->orWhere('date_sale_end', '>', Carbon::now());
             });
@@ -271,7 +271,7 @@ class Helper
         return WarehouseProduct::where('quantity', '>', 0)
                                ->whereNotIn('id_warehouse_product', function ($mainQuery) {
                                  $mainQuery->select('id_warehouse_product')
-                                           ->from('Product')
+                                           ->from('product')
                                            ->whereNull('date_sale_end')
                                            ->orWhere('date_sale_end', '>', Carbon::now());
         })->get();
@@ -286,7 +286,7 @@ class Helper
         return WarehouseProduct::where('quantity', '<=', 0)
                                ->whereNotIn('id_warehouse_product', function ($mainQuery) {
                                $mainQuery->select('id_warehouse_product')
-                                         ->from('Product')
+                                         ->from('product')
                                          ->whereNull('date_sale_end')
                                          ->orWhere('date_sale_end', '>', Carbon::now());
         })->get();

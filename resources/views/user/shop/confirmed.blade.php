@@ -15,25 +15,7 @@
         });
     </script>
 
-    <style>
-        body {
-            background: #30cfd0;
-            background: -webkit-linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
-            background: linear-gradient(to bottom right, rgba(48,207,208,0.5), rgba(51,8,103,0.5));
-        }
-
-        .topBorderCard {
-            height: 10px;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            background: green;
-        }
-
-        .mainCard {
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('css/elementCenter.css')}}">
 
     <div class="vh-100 d-flex justify-content-center align-items-center">
         <div class="col-md-4">
