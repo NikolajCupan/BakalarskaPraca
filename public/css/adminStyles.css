@@ -43,3 +43,12 @@
     padding: 0;
     margin: 0;
 }
+
+.tableCellWrap {
+    /*
+        Important must be used to override "nowrap" style on table itself
+     */
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    min-width: 250px;
+}

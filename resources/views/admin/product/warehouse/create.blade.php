@@ -15,8 +15,8 @@
             <div class="col-md-12 col-lg-9">
 
                 <h3 class="title">Novy produkt na sklade</h3>
-                <p>Nasledujuci formular sluzi na pridanie noveho produktu na sklad. Produkt nachadzajuci sa na sklade nemusi byt predavany.
-                   Zo skladu mozno odstranit iba take produkty, ktore nikdy neboli predavane. Mnozstvo skladovaneho produktu je mozne menit
+                <p>Nasledujuci formular sluzi na pridanie noveho produktu na sklad. Nazov skladovaneho produktu musi byt unikatny. Produkt nachadzajuci sa na sklade
+                   nemusi byt predavany. Zo skladu mozno odstranit iba take produkty, ktore nikdy neboli predavane. Mnozstvo skladovaneho produktu je mozne menit
                    - vhodne ak dojde napriklad k poskodeniu tovaru, dodavke tovaru a podobne.</p>
 
                 <form method="POST" action="/admin/product/warehouse/create">

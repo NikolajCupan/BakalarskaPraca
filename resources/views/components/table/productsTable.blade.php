@@ -6,6 +6,7 @@
         <th class="noSort" scope="col">Typ</th>
         <th scope="col">ID</th>
         <th scope="col">Produkt</th>
+        <th scope="col">Cena</th>
         <th scope="col">Kategoria</th>
         <th scope="col">Predaj od</th>
         <th scope="col">Predaj do</th>
@@ -33,7 +34,8 @@
                 </svg>
             </td>
             <td>{{$product->id_product}}</td>
-            <td>{{$product->getWarehouseProduct()->product}}</td>
+            <td class="tableCellWrap">{{$product->getWarehouseProduct()->product}}</td>
+            <td>{{number_format($product->getNewestPrice()->price, 2, '.', ' ')}} &euro;</td>
             <td>{{$product->getCategory()->category}}</td>
             <td>{{\App\Helpers\Helper::getFormattedDate($product->date_sale_start)}}</td>
             <td>{{\App\Helpers\Helper::getFormattedDate($product->date_sale_end)}}</td>

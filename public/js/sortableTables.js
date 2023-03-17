@@ -30,7 +30,7 @@ $(document).on('ready', function () {
     initializeCurrency();
 
     initializeTable('warehouseProductsTable', [[1, 'asc']]);
-    initializeTable('productsTable', [[4, 'desc']]);
+    initializeTable('productsTable', [[5, 'desc']]);
     initializeTable('productPurchasesTable', [[5, 'desc']], 3);
     initializeTable('pricesTable', [[1, 'desc']], 3);
 

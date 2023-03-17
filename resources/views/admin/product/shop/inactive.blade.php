@@ -15,9 +15,8 @@
             <div class="col-md-12 col-lg-9">
 
                 <h3 class="title">Ukonceny predaj</h3>
-                <p>Nasledujuca tabulka zobrazuje historiu predavanych produktov. Detail zobrazuje za ake ceny bol produkt predavany
-                   a kolkokrat bol zakupeny. Predaj produktu nie je mozne opatovne obnovit - je potrebne vytvorit novy predaj
-                   skladovaneho produktu.</p>
+                <p>Nasledujuca tabulka zobrazuje ukoncene predaje produktov. Predaj produktu nie je mozne opatovne obnovit - je potrebne vytvorit novy predaj
+                   skladovaneho produktu. Detail zobrazuje za ake ceny bol produkt predavany a objednavky, v ktorych sa bol zakupeny.</p>
 
                 <x-table.productsTable :products="$shopInactiveProducts"/>
             </div>

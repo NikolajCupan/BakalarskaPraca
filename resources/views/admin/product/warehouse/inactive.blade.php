@@ -16,7 +16,7 @@
 
                 <h3 class="title">Neaktivne produkty na sklade</h3>
                 <p>Nasledujuca tabulka zobazuje neaktivne produkty na sklade. Za neaktivny produkt sa povazuje taky, ktory sa nepredava
-                    a zaroven pocet skladovanych kusov je 0. Detail produktu zobrazuje, kedy bol produkt predavany. Produktu mozno manualne
+                    a zaroven pocet skladovanych kusov je 0. Detail produktu zobrazuje historiu predavania produktu. Produktu mozno manualne
                     menit kvantitu a ak nebol nikdy predavany mozno ho zmazat.</p>
 
                 <x-table.warehouseProductsTable :warehouseProducts="$warehouseInactiveProducts"/>

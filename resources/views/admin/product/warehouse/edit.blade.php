@@ -36,8 +36,9 @@
                     </div>
                 </div>
 
-                <p>Nasledujuca stranka zobrazuje informacie o produkte na sklade. Tabulka obsahuje historicke udaje o tom, kedy bol produkt predavany.
-                   Detail predavaneho produktu zobrazuje informacie o cenach pocas predaja. Predaj produktu mozno kedykolvek zastavit.</p>
+                <p>Nasledujuca stranka zobrazuje informacie o produkte na sklade. Tabulka obsahuje historiu predavania produktu.
+                   Detail predavaneho produktu zobrazuje informacie o cenach pocas predaja a objednavky, v ktorych bol produkt zakupeny.
+                   Predaj produktu mozno kedykolvek zastavit.</p>
 
                 @if ($warehouseProduct->isActive())
                     <h4 class="mt-2 mb-1 activeProduct">Produkt je aktivny:</h4>

@@ -31,7 +31,7 @@
                 </svg>
             </td>
             <td>{{$warehouseProduct->id_warehouse_product}}</td>
-            <td>{{$warehouseProduct->product}}</td>
+            <td class="tableCellWrap">{{$warehouseProduct->product}}</td>
             <td>{{$warehouseProduct->quantity}}</td>
             @if ($warehouseProduct->isSold())
             <td class="text-success">Ano</td>
