@@ -126,7 +126,7 @@
                     <x-shop.elements.numberSelector/>
 
                     <p class="mt-4 mb-1">Pocet kusov na sklade</p>
-                    <input id="warehouseQuantity" class="form-control" type="text" placeholder="" aria-label="Disabled input example" disabled readonly>
+                    <input id="warehouseQuantity" class="form-control" type="text" placeholder="" aria-label="disabled input" disabled readonly>
 
                     <input id="basketId" type="hidden">
                     <input id="productId" type="hidden">

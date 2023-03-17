@@ -4,29 +4,26 @@
 
     <link rel="stylesheet" href="{{asset('css/adminStyles.css')}}">
 
+    <script type="text/javascript" src="{{asset('js/numberSelector.js')}}"></script>
+
     <x-other.flashMessage/>
     <x-navbar.navbarAdmin homePath="/admin/purchase"/>
 
     <script>
-        $(document).on("click", "#setPurchaseStatusModalClose", function() {
-            // Delay function so radio changes are not visible
-            // It takes modal some time to close itself
-            setTimeout(resetRadios, 200);
+        // Sending necessary data to reclaim product modal
+        $(document).on("click", ".productReclaimModalOpen", function() {
+            // Product name
+            let product = $(this).data('product');
+            $(".modal-body #modalProduct").attr('placeholder', product);
+
+            // Product quantity
+            let quantity = $(this).data('product-quantity');
+            $(".modal-body #modalProductQuantity").attr('placeholder', quantity);
+
+            // Product ID (necessary in back-end)
+            let productId = $(this).data('product-id');
+            $('#reclaimedProductId').val(productId);
         });
-
-        function resetRadios()
-        {
-            // Get current (one stored in database) radio
-            let currentPurchaseStatusName = $('#currentPurchaseStatus').val();
-            let currentPurchaseStatus = $('#' + currentPurchaseStatusName);
-
-            // Uncheck newly selected radio
-            let selectedPurchaseStatus = $('input[name="flexRadioStatus"]:checked');
-            selectedPurchaseStatus.removeAttr("checked");
-
-            // Check current (one stored in database) radio
-            currentPurchaseStatus.prop("checked", true);
-        }
     </script>
 
     <div class="container">
@@ -62,7 +59,7 @@
                 @endif
 
                 <h3 class="mt-5 title">Objednane produkty</h3>
-                <x-table.purchaseProductsTable :purchaseDate="$purchase->purchase_date" :basketProducts="$purchase->getBasket()->getBasketProducts()" path="/admin/product/shop/show/"/>
+                <x-table.purchaseProductsTable :purchaseDate="$purchase->purchase_date" :basketProducts="$purchase->getBasket()->getBasketProducts()" path="/admin/product/shop/show/" withReclaimButton="true"/>
             </div>
         </div>
     </div>
@@ -82,7 +79,7 @@
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Nie</button>
                     <form method="POST" action="/admin/purchase/cancelPurchase/">
                         @csrf
-                        <input type="hidden" name="purchaseId" id="purchaseId" value="{{$purchase->id_purchase}}">
+                        <input type="hidden" name="cancelledPurchaseId" id="cancelledPurchaseId" value="{{$purchase->id_purchase}}">
                         <button type="submit" class="btn btn-danger">Zrusit</button>
                     </form>
                 </div>
@@ -120,7 +117,7 @@
                         @endforeach
                     </div>
                     <div class="modal-footer">
-                        <button id="setPurchaseStatusModalClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrusit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrusit</button>
                         <button type="submit" class="btn btn-dark">Potvrdit</button>
                     </div>
                 </form>
@@ -140,7 +137,7 @@
                 <form method="POST" action="/admin/purchase/modifyPurchasePaymentDate">
                     @csrf
 
-                    <input type="hidden" name="purchaseId" id="purchaseId" value="{{$purchase->id_purchase}}"/>
+                    <input type="hidden" name="modifiedPurchaseId" id="modifiedPurchaseId" value="{{$purchase->id_purchase}}"/>
 
                     <div class="modal-body">
                         <p class="mb-1">Aktualny datum platby</p>
@@ -154,7 +151,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary dateInputFlatpickrClose" data-bs-dismiss="modal">Zrusit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrusit</button>
                         <button type="submit" class="btn btn-dark">Potvrdit</button>
                     </div>
                 </form>
@@ -162,8 +159,74 @@
         </div>
     </div>
 
-    <!-- Script must be placed underneath the input field -->
+    <!-- Script must be placed underneath the date input field -->
     <script type="text/javascript" src="{{asset('js/flatpickr.js')}}"></script>
+
+    <!-- Product reclaim modal -->
+    <div class="modal fade" id="productReclaimModal" tabindex="-1" aria-labelledby="productReclaimModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="productReclaimModalLabel">Reklamovat produkt</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form method="POST" action="/admin/purchase/productReclaim">
+                    @csrf
+
+                    <input type="hidden" id="reclaimedProductId" name="reclaimedProductId" value=""/>
+                    <input type="hidden" id="reclaimedPurchaseId" name="reclaimedPurchaseId" value={{$purchase->id_purchase}}/>
+
+                    <div class="modal-body">
+                        <p class="mb-1">Produkt</p>
+                        <input id="modalProduct" class="form-control" type="text" placeholder="" aria-label="disabled input" disabled>
+
+                        <p class="mt-4 mb-1">Kvantita</p>
+                        <input id="modalProductQuantity" class="form-control" type="text" placeholder="" aria-label="disabled input" disabled>
+
+                        <p class="mt-4 mb-1">Pocet reklamovanych kusov</p>
+                        <x-shop.elements.numberSelector/>
+
+                        <div class="mt-4 mb-1 form-check">
+                            <input class="form-check-input" type="checkbox" value="checkboxReturnToWarehouse" id="checkboxReturnToWarehouse" name="checkboxReturnToWarehouse" checked>
+                            <label class="form-check-label" for="checkboxReturnToWarehouse">
+                                Vratit reklamovany tovar naspat do skladu
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrusit</button>
+                        <button type="submit" class="btn btn-dark">Potvrdit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Must be placed after modal -->
+    <script>
+        $('#setPurchaseStatusModal').on('hidden.bs.modal', function() {
+            // Get current (one stored in database) radio
+            let currentPurchaseStatusName = $('#currentPurchaseStatus').val();
+            let currentPurchaseStatus = $('#' + currentPurchaseStatusName);
+
+            // Uncheck newly selected radio
+            let selectedPurchaseStatus = $('input[name="flexRadioStatus"]:checked');
+            selectedPurchaseStatus.removeAttr("checked");
+
+            // Check current (one stored in database) radio
+            currentPurchaseStatus.prop("checked", true);
+        });
+
+        $('#productReclaimModal').on('hidden.bs.modal', function() {
+            // Make checkbox checked
+            $('#checkboxReturnToWarehouse').prop('checked', true);
+
+            // Set number selector value to 1
+            $('#quantityValue').val(1);
+        });
+    </script>
 @endsection
 
 @section('footer')

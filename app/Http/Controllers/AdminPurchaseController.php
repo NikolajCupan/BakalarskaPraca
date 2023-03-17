@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\BasketProduct;
 use App\Models\Purchase;
 use App\Models\PurchaseStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class AdminPurchaseController
 {
@@ -62,7 +65,7 @@ class AdminPurchaseController
     {
         Helper::allow(['purchaseManager']);
 
-        $purchase = Purchase::where('id_purchase', '=', $request->purchaseId)
+        $purchase = Purchase::where('id_purchase', '=', $request->cancelledPurchaseId)
                             ->first();
 
         // PurchaseManager should not be able to update purchase status to cancelled if it already has that status, but it is checked
@@ -119,7 +122,7 @@ class AdminPurchaseController
     {
         Helper::allow(['purchaseManager']);
 
-        $purchase = Purchase::where('id_purchase', '=', $request->purchaseId)
+        $purchase = Purchase::where('id_purchase', '=', $request->modifiedPurchaseId)
                             ->first();
 
         // PurchaseManager should not be able to modify payment date of purchase if its status is set to cancelled, but it is checked
@@ -141,5 +144,68 @@ class AdminPurchaseController
         $purchase->save();
 
         return redirect('admin/purchase')->with('message', 'Datum platby za objednavku bol uspesne nastaveny');
+    }
+
+    // Reclaim product from a purchase
+    public function productReclaim(Request $request)
+    {
+        Helper::allow(['purchaseManager']);
+
+        $request->validate([
+            'quantityValue' => 'required|min:1'
+        ]);
+
+        $purchase = Purchase::where('id_purchase', '=', $request->reclaimedPurchaseId)
+                            ->first();
+
+        // PurchaseManager should not be able to reclaim product of purchase if its status is set to cancelled, but it is checked
+        if ($purchase->hasStatus('cancelled'))
+        {
+            return redirect('admin/purchase')->with('errorMessage', 'Neplatna zmena datumu platby za objednavku');
+        }
+
+        $basketProduct = BasketProduct::where('id_basket', '=', $purchase->id_basket)
+                                      ->where('id_product', '=', $request->reclaimedProductId)
+                                      ->first();
+
+        // Check if reclaimed quantity is larger than basket product quantity
+        if ($request->quantityValue > $basketProduct->quantity)
+        {
+            return back()->with('errorMessage', 'Pocet reklamovanych produktov nemoze byt vacsi ako pocet zakupenych produktov');
+        }
+
+        // Decrement quantity of basket product
+        // Because of composite primary key Query Builder must be used instead of Eloquent
+        $newQuantity = $basketProduct->quantity - $request->quantityValue;
+        DB::table('basket_product')
+                ->where('id_basket', $purchase->id_basket)
+                ->where('id_product', $request->reclaimedProductId)
+                ->update([
+                    'quantity' => $newQuantity
+        ]);
+
+        if ($newQuantity == 0)
+        {
+            // Basket product with 0 quantity will not be stored in the purchase anymore
+            // Because of composite primary key Query Builder must be used instead of Eloquent
+            DB::table('basket_product')
+                    ->where('id_basket', $purchase->id_basket)
+                    ->where('id_product', $request->reclaimedProductId)
+                    ->delete();
+        }
+
+        if ($request->has('checkboxReturnToWarehouse'))
+        {
+            // Return products back to warehouse only if checked
+            $warehouseProduct = $basketProduct->getProduct()->getWarehouseProduct();
+            $warehouseProduct->quantity += $request->quantityValue;
+            $warehouseProduct->save();
+        }
+
+        // Note:
+        //      Hypothetically all products from purchase can be reclaimed,
+        //      thus purchase would be left with no products afterwards
+
+        return redirect('admin/purchase')->with('message', 'Reklamacia produktu bola uspesna');
     }
 }

@@ -230,6 +230,9 @@ Route::post('/admin/purchase/modifyPurchaseStatus', [AdminPurchaseController::cl
 // Modify payment date of purchase (cancelled purchase cannot be modified)
 Route::post('/admin/purchase/modifyPurchasePaymentDate', [AdminPurchaseController::class, 'modifyPurchasePaymentDate']);
 
+// Reclaim product from a purchase
+Route::post('/admin/purchase/productReclaim', [AdminPurchaseController::class, 'productReclaim']);
+
 
 
 /*

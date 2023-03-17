@@ -18,13 +18,7 @@ flatpickr(".dateInputFlatpickr", {
     }
 });
 
-$('.dateInputFlatpickrClose').on("click", function() {
+$('#setPaymentDateModal').on('hidden.bs.modal', function() {
     // Upon closing the modal flatpickr is reseted
-
-    // Delay function so input change is not visible
-    // It takes modal some time to close itself
-    setTimeout(function() {
-        $(".dateInputFlatpickr")[0]._flatpickr.clear();
-    }, 200);
+    $(".dateInputFlatpickr")[0]._flatpickr.clear();
 });
-
