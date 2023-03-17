@@ -20,7 +20,7 @@
                     <li><strong>Odoslana</strong> - Produkty su na ceste ku zakaznikovi.</li>
                     <li><strong>Dorucena</strong> - Produkty boli dorucene zakaznikovi.</li>
                     <li><strong>Potvrdena</strong> - Zakaznik potvrdil dorucenie produktov.</li>
-                    <li><strong>Zrusena</strong> - Anulovana objednavka, vsetky produkty z takejto objednavky boli vratene na sklad.</li>
+                    <li><strong>Zrusena</strong> - Manualne zrusena objednavka alebo objednavka, ktorej vsetky produkty boli reklamovane.</li>
                 </ul>
 
                 <p class="mb-0">S objednavkamami, ktore nemaju status Zrusena, je mozne vykonavat nasledujuce akcie:</p>
@@ -35,6 +35,7 @@
                 <p class="mb-0">S objednavkamami, ktore maju status Zrusena, je mozne vykonavat nasledujuce akcie:</p>
                 <ul>
                     <li><strong>Otvorit PDF</strong> - Zobrazi PDF s informaciami o objednavke.</li>
+                    <li><strong>Zmazat objednavku</strong> - V pripade ak objednavka neobsahuje ziadne produkty.</li>
                 </ul>
             </div>
         </div>

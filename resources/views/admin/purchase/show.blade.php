@@ -39,6 +39,8 @@
                         <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#cancelPurchaseModal">Zrusit objednavku</button>
                         <button type="button" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#setPurchaseStatusModal">Nastavit status</button>
                         <button type="button" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#setPaymentDateModal">Nastavit datum platby</button>
+                    @elseif ($purchase->getBasket()->getVariousProductsCount() == 0)
+                        <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#destroyPurchaseModal">Zmazat</button>
                     @endif
 
                     <form class="d-inline-block" action="/pdf/purchase" method="POST" target="_blank">
@@ -59,7 +61,11 @@
                 @endif
 
                 <h3 class="mt-5 title">Objednane produkty</h3>
-                <x-table.purchaseProductsTable :purchaseDate="$purchase->purchase_date" :basketProducts="$purchase->getBasket()->getBasketProducts()" path="/admin/product/shop/show/" withReclaimButton="true"/>
+                <x-table.purchaseProductsTable :purchaseDate="$purchase->purchase_date"
+                                               :basketProducts="$purchase->getBasket()->getBasketProducts()"
+                                               path="/admin/product/shop/show/"
+                                               withReclaimButton="true"
+                                               :purchaseStatus="$purchase->getStatus()->status"/>
             </div>
         </div>
     </div>
@@ -227,6 +233,29 @@
             $('#quantityValue').val(1);
         });
     </script>
+
+    <!-- Destroy purchase modal -->
+    <div class="modal fade" id="destroyPurchaseModal" tabindex="-1" aria-labelledby="destroyPurchaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="destroyPurchaseModalLabel">Zmazat objednavku</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Ste si isty, ze chcete zmazat objednavku? Akciu nie je mozne vratit.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Nie</button>
+                    <form action="/admin/purchase/destroyPurchase" method="POST">
+                        @csrf
+                        <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
+                        <button type="submit" class="btn btn-danger mb-2">Zmazat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('footer')

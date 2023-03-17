@@ -196,16 +196,47 @@ class AdminPurchaseController
 
         if ($request->has('checkboxReturnToWarehouse'))
         {
-            // Return products back to warehouse only if checked
+            // Return products back to warehouse only if checkbox was checked
             $warehouseProduct = $basketProduct->getProduct()->getWarehouseProduct();
             $warehouseProduct->quantity += $request->quantityValue;
             $warehouseProduct->save();
         }
 
         // Note:
-        //      Hypothetically all products from purchase can be reclaimed,
-        //      thus purchase would be left with no products afterwards
+        //      Theoretically all products from purchase can be reclaimed,
+        //      thus purchase would be left with no products afterwards,
+        //      if it is the case, set purchase status to cancelled
+        if ($purchase->getBasket()->getVariousProductsCount() == 0)
+        {
+            $cancelledStatus = PurchaseStatus::where('status', '=', 'cancelled')
+                                             ->first();
+            $purchase->id_status = $cancelledStatus->id_status;
+            $purchase->save();
+        }
 
         return redirect('admin/purchase')->with('message', 'Reklamacia produktu bola uspesna');
+    }
+
+    // Deletes purchase from database
+    public function destroyPurchase(Request $request)
+    {
+        Helper::allow(['purchaseManager']);
+
+        $purchase = Purchase::where('id_purchase', '=', $request->purchaseId)
+                            ->first();
+
+        // PurchaseManager should not be able to delete purchase if its status is not cancelled
+        // or if there are products in it, it is checked
+        if (!$purchase->hasStatus('cancelled') || $purchase->getBasket()->getVariousProductsCount() > 0)
+        {
+            return redirect('admin/purchase')->with('errorMessage', 'Objednavku sa nepodarilo zmazat');
+        }
+
+        // Note:
+        //      Address and Basket are deleted using trigger
+        //      BasketProducts are not deleted because Basket must be empty
+        $purchase->delete();
+
+        return redirect('admin/purchase')->with('message', 'Zmazanie objednavky bolo uspesne');
     }
 }

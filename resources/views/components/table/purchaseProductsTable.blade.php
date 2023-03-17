@@ -2,6 +2,7 @@
 @aware(['purchaseDate'])
 @aware(['path'])
 @aware(['withReclaimButton'])
+@aware(['purchaseStatus'])
 
 <table class="purchaseProductsTable mt-4 table table-striped display nowrap" style="width: 100%">
     <thead class="table-dark">
@@ -11,7 +12,7 @@
         <th scope="col">Cena</th>
         <th scope="col">Kvantita</th>
         <th scope="col">Celkova cena</th>
-        @if ($withReclaimButton && Auth::user()->hasRole(['purchaseManager']))
+        @if ($withReclaimButton && Auth::user()->hasRole(['purchaseManager']) && $purchaseStatus != "cancelled")
             <th class="noSort" scope="col">Reklamovat</th>
         @endif
         <th class="noSort" scope="col">Detail</th>
@@ -33,7 +34,7 @@
             <td>{{$price}} &euro;</td>
             <td>{{$basketProduct->quantity}}</td>
             <td>{{number_format($price * $basketProduct->quantity, 2, '.', ' ')}} &euro;</td>
-            @if ($withReclaimButton && Auth::user()->hasRole(['purchaseManager']))
+            @if ($withReclaimButton && Auth::user()->hasRole(['purchaseManager']) && $purchaseStatus != "cancelled")
                 <td>
                     <a class="productReclaimModalOpen" href="" data-bs-toggle="modal" data-bs-target="#productReclaimModal"
                        data-product="{{$basketProduct->getProduct()->getWarehouseProduct()->product}}"

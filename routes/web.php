@@ -239,6 +239,9 @@ Route::post('/admin/purchase/modifyPurchasePaymentDate', [AdminPurchaseControlle
 // Reclaim product from a purchase
 Route::post('/admin/purchase/productReclaim', [AdminPurchaseController::class, 'productReclaim']);
 
+// Deletes purchase from database
+Route::post('/admin/purchase/destroyPurchase', [AdminPurchaseController::class, 'destroyPurchase']);
+
 
 
 /*
