@@ -374,6 +374,28 @@ class UserShopController extends Controller
         return response()->json(['success' => true]);
     }
 
+    // Confirm purchase delivery (user can confirm purchase delivery if it has status delivered)
+    public function confirmPurchaseDelivery(Request $request)
+    {
+        $user = Auth::user();
+        $purchase = Purchase::where('id_purchase', '=', $request->purchaseId)
+                            ->first();
+
+        // Only the purchase owner should be able to post the form to confirm the purchase delivery
+        // and only a purchase with status delivered can be confirmed, but it is checked
+        if (!$purchase->isOwnedByUser($user) || !$purchase->hasStatus('delivered'))
+        {
+            return redirect('/')->with('errorMessage', 'Potvrdenie dorucenia objednavky bolo neuspesne');
+        }
+
+        // Getting here means purchase delivery can be confirmed
+        $deliveredStatus = PurchaseStatus::where('status', '=', 'confirmed')
+                                         ->first();
+        $purchase->id_status = $deliveredStatus->id_status;
+        $purchase->save();
+
+        return back()->with('message', 'Dorucenie objedavnky bolo uspesne potvrdene');
+    }
 
 
     // Helper method, called only internally

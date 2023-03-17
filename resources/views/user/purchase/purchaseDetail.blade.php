@@ -4,17 +4,32 @@
 
     <link rel="stylesheet" href="{{asset('css/userPurchasesStyles.css')}}">
 
+    <x-other.flashMessage/>
     <x-navbar.navbar :imagePath="$imagePath" :user="$user" :basket="$basket"/>
 
     <div class="container mt-4">
-        <div class="d-sm-flex justify-content-between">
+        <div class="d-md-flex justify-content-between">
             <h3 class="title">Informacie o objednavke</h3>
 
-            <form action="/pdf/purchase" method="POST" target="_blank">
-                @csrf
-                <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
-                <button type="submit" class="btn btn-dark">Otvorit PDF</button>
-            </form>
+            <div class="mb-lg-3 mb-xl-0">
+                @if ($purchase->hasStatus('delivered'))
+                    <div class="d-inline-block">
+                        <form class="d-inline-block" action="/user/purchase/confirm" method="POST">
+                            @csrf
+                            <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
+                            <button type="submit" class="btn btn-dark">Potvrdit dorucenie</button>
+                        </form>
+                    </div>
+                @endif
+
+                <div class="d-inline-block">
+                    <form action="/pdf/purchase" method="POST" target="_blank">
+                        @csrf
+                        <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
+                        <button type="submit" class="btn btn-dark">Otvorit PDF</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
         @if ($purchase->hasStatus('cancelled'))

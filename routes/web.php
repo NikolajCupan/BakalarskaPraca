@@ -104,6 +104,7 @@ Route::get('/getPreviousValues', [UserController::class, 'getPreviousValues'])
     ->middleware('ajax');
 
 
+
 /*
  * UserShopController
  */
@@ -115,6 +116,11 @@ Route::get('/user/purchaseHistory', [UserShopController::class, 'purchaseHistory
 // Purchase detail page
 Route::get('/user/purchaseDetail/{id_purchase}', [UserShopController::class, 'purchaseDetail'])
     ->middleware('auth');
+
+// Confirm purchase delivery (user can confirm purchase delivery if it has status delivered)
+Route::post('/user/purchase/confirm', [UserShopController::class, 'confirmPurchaseDelivery'])
+    ->middleware('auth');
+
 
 // Current basket page
 Route::get('/user/basket/show', [UserShopController::class, 'basket'])
