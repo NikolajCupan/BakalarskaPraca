@@ -32,7 +32,7 @@
                             <h4>Sprava tovarov</h4>
                         </div>
                         <div class="text">
-                            <span>Nasledujuca stranka sluzi na spravu skladovanych produktov a predavanych produktor</span>
+                            <span>Nasledujuca stranka sluzi na spravu skladovanych produktov a predavanych produktov</span>
                         </div>
                         <a href="/admin/product">Pokracovat</a>
                     </div>

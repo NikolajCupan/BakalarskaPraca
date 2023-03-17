@@ -128,10 +128,15 @@ class AdminPurchaseController
             return redirect('admin/purchase')->with('errorMessage', 'Neplatna zmena datumu platby za objednavku');
         }
 
+        // Payment date cannot happen before purchase date
+        $newPaymentDate = $request->newPaymentDate ? date('Y-m-d H:i:s', strtotime($request->newPaymentDate)) : null;
+        if ($newPaymentDate < $purchase->purchase_date)
+        {
+            return back()->with('errorMessage', 'Datum platby za objednavku nemoze byt mensi ako datum objednavky');
+        }
+
         // Getting here means purchase's payment date can be changed
         // The $request->newPaymentDate might be null
-        $newPaymentDate = $request->newPaymentDate ? date('Y-m-d H:i:s', strtotime($request->newPaymentDate)) : null;
-
         $purchase->payment_date = $newPaymentDate;
         $purchase->save();
 

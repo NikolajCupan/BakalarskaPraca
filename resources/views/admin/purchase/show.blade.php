@@ -4,6 +4,7 @@
 
     <link rel="stylesheet" href="{{asset('css/adminStyles.css')}}">
 
+    <x-other.flashMessage/>
     <x-navbar.navbarAdmin homePath="/admin/purchase"/>
 
     <script>
@@ -148,7 +149,7 @@
                         <div class="form-group">
                             <p class="mb-0 mt-4">Novy datum platby</p>
                             <p class="mb-1 text-muted" style="font-size: 13px">(ak chcete zmazat aktualny datum platby, nechajte pole prazdne)</p>
-                            <input type="text" class="form-control dateInputFlatpickr" name="newPaymentDate" id="newPaymentDate" placeholder="DD.MM.YYYY">
+                            <input type="text" class="form-control dateInputFlatpickr" name="newPaymentDate" id="newPaymentDate" placeholder="DD.MM.RRRR HH:MM:SS">
                         </div>
                     </div>
 

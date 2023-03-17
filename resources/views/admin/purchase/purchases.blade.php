@@ -12,6 +12,8 @@
                 <x-menu.categoryMenuAdminPurchase :activeCategory="$activeCategory"/>
             </div>
             <div class="col-md-12 col-lg-9">
+                <h3 class="mb-3 title">Objednavky</h3>
+
                 <x-table.purchasesTable :purchases="$purchases" path="/admin/purchase/show/"/>
             </div>
         </div>

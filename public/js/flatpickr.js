@@ -1,7 +1,9 @@
 flatpickr(".dateInputFlatpickr", {
-    enableTime: false,
-    disableMobile: "true",
-    dateFormat: "d.m.Y 00:00.00",
+    enableTime: true,
+    time_24hr: true,
+    minuteIncrement: 5,
+    disableMobile: "true",  // Needed in order to be shown correctly on small screens/mobile devices
+    dateFormat: "d.m.Y H:i:00",
     weekdays: ["Pon", "Uto", "Str", "Stv", "Pia", "Sob", "Ned"],
     locale: {
         months: {
