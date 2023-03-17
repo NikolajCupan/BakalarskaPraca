@@ -113,4 +113,28 @@ class AdminPurchaseController
 
         return redirect('admin/purchase')->with('message', 'Status objednavky bol uspesne zmeneny');
     }
+
+    // Modify payment date of purchase (cancelled purchase cannot be modified)
+    public function modifyPurchasePaymentDate(Request $request)
+    {
+        Helper::allow(['purchaseManager']);
+
+        $purchase = Purchase::where('id_purchase', '=', $request->purchaseId)
+                            ->first();
+
+        // PurchaseManager should not be able to modify payment date of purchase if its status is set to cancelled, but it is checked
+        if ($purchase->hasStatus('cancelled'))
+        {
+            return redirect('admin/purchase')->with('errorMessage', 'Neplatna zmena datumu platby za objednavku');
+        }
+
+        // Getting here means purchase's payment date can be changed
+        // The $request->newPaymentDate might be null
+        $newPaymentDate = $request->newPaymentDate ? date('Y-m-d H:i:s', strtotime($request->newPaymentDate)) : null;
+
+        $purchase->payment_date = $newPaymentDate;
+        $purchase->save();
+
+        return redirect('admin/purchase')->with('message', 'Datum platby za objednavku bol uspesne nastaveny');
+    }
 }

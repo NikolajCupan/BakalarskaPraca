@@ -2,16 +2,10 @@
 
 @section('content')
 
-    <label for="date-input">Select a date:</label>
-    <input type="text" id="date-input">
+    <label for="dateInputFlatpickr">Select a date:</label>
+    <input type="text" id="dateInputFlatpickr">
 
-
-    <script>
-        flatpickr("#date-input", {
-            enableTime: true,
-            dateFormat: "d.m.y H:i",
-        });
-    </script>
+    <script type="text/javascript" src="{{asset('js/flatpickr.js')}}"></script>
 
 @endsection
 

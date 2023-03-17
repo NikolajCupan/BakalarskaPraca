@@ -48,7 +48,7 @@
                             <h4>Sprava objednavok</h4>
                         </div>
                         <div class="text">
-                            <span>Nasledujuca stranka sluzi na spravu objednavok (zmena stavov objednavov, rusenie objednavok, reklamacie)</span>
+                            <span>Nasledujuca stranka sluzi na spravu objednavok (zmena stavov objednavok, rusenie objednavok, reklamacie)</span>
                         </div>
                         <a href="/admin/purchase">Pokracovat</a>
                     </div>

@@ -227,6 +227,9 @@ Route::post('/admin/purchase/cancelPurchase', [AdminPurchaseController::class, '
 // Modify status of purchase (cannot be modified to cancelled status this way)
 Route::post('/admin/purchase/modifyPurchaseStatus', [AdminPurchaseController::class, 'modifyPurchaseStatus']);
 
+// Modify payment date of purchase (cancelled purchase cannot be modified)
+Route::post('/admin/purchase/modifyPurchasePaymentDate', [AdminPurchaseController::class, 'modifyPurchasePaymentDate']);
+
 
 
 /*

@@ -40,8 +40,9 @@
                     @if (!$purchase->hasStatus('cancelled'))
                         <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#cancelPurchaseModal">Zrusit objednavku</button>
                         <button type="button" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#setPurchaseStatusModal">Nastavit status</button>
+                        <button type="button" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#setPaymentDateModal">Nastavit datum platby</button>
                     @endif
-                    <button type="button" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#setPaymentDateModal">Nastavit datum platby</button>
+
                     <form class="d-inline-block" action="/pdf/purchase" method="POST" target="_blank">
                         @csrf
                         <input type="hidden" name="purchaseId" value="{{$purchase->id_purchase}}">
@@ -98,11 +99,12 @@
                 </div>
 
                 <form method="POST" action="/admin/purchase/modifyPurchaseStatus">
+                    @csrf
+
                     <input type="hidden" name="currentPurchaseStatus" id="currentPurchaseStatus" value="{{$purchase->getStatus()->status}}"/>
                     <input type="hidden" name="purchaseId" id="purchaseId" value="{{$purchase->id_purchase}}"/>
 
                     <div class="modal-body">
-                        @csrf
                         @foreach ($purchaseStatuses as $purchaseStatus)
                             <!-- Do not show radio for cancelled status -->
                             @if ($purchaseStatus->status != 'cancelled')
@@ -133,17 +135,34 @@
                     <h1 class="modal-title fs-5" id="setPaymentDateModalLabel">Nastavit datum platby</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+
+                <form method="POST" action="/admin/purchase/modifyPurchasePaymentDate">
+                    @csrf
+
+                    <input type="hidden" name="purchaseId" id="purchaseId" value="{{$purchase->id_purchase}}"/>
+
+                    <div class="modal-body">
+                        <p class="mb-1">Aktualny datum platby</p>
+                        <input type="text" class="form-control" name="currentPaymentDate" id="currentPaymentDate" placeholder="currentPaymentDate" value="{{\App\Helpers\Helper::getFormattedDate($purchase->payment_date) ?? "nezadany"}}" disabled>
+
+                        <div class="form-group">
+                            <p class="mb-0 mt-4">Novy datum platby</p>
+                            <p class="mb-1 text-muted" style="font-size: 13px">(ak chcete zmazat aktualny datum platby, nechajte pole prazdne)</p>
+                            <input type="text" class="form-control dateInputFlatpickr" name="newPaymentDate" id="newPaymentDate" placeholder="DD.MM.YYYY">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary dateInputFlatpickrClose" data-bs-dismiss="modal">Zrusit</button>
+                        <button type="submit" class="btn btn-dark">Potvrdit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
+    <!-- Script must be placed underneath the input field -->
+    <script type="text/javascript" src="{{asset('js/flatpickr.js')}}"></script>
 @endsection
 
 @section('footer')

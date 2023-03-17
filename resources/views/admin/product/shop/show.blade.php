@@ -133,7 +133,7 @@
                                         </svg>
                                     </div>
 
-                                    <input type="file" class="form-control" name="image" id="image">
+                                    <input type="file" class="form-control" name="image" id="image" accept="image/jpg, image/jpeg, image/png, image/bmp">
 
                                     @error('image')
                                     <p class="text-danger">{{$message}}</p>
