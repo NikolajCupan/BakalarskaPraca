@@ -29,7 +29,8 @@ class AdminUserController
 
         return view('admin.user.users', [
             'users' => $users,
-            'activeCategory' => $roleName
+            'activeCategory' => $roleName,
+            'title' => $request->title
         ]);
     }
 

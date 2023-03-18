@@ -12,6 +12,8 @@
                 <x-menu.categoryMenuAdminUser :activeCategory="$activeCategory"/>
             </div>
             <div class="col-md-12 col-lg-9">
+                <h3 class="mb-3 title">{{$title}}</h3>
+
                 <x-table.usersTable :users="$users"/>
             </div>
         </div>

@@ -37,7 +37,8 @@ class AdminPurchaseController
 
         return view('admin.purchase.purchases', [
             'purchases' => $purchases,
-            'activeCategory' => $purchaseStatus
+            'activeCategory' => $purchaseStatus,
+            'title' => $request->title
         ]);
     }
 

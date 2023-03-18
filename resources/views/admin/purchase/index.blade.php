@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-12 col-lg-9">
                 <h3 class="title">Sprava objednavok</h3>
-                <p class="mb-0">Nasledujuca sekcia sluzi na spravovanie objednavok. Objednavky mozu nadobudnut 5 roznych statusov:</p>
+                <p class="mb-0">Nasledujuca sekcia sluzi na spravovanie objednavok. Objednavky mozu nadobudnut nasledujuce statusy:</p>
                 <ul>
                     <li><strong>Cakajuca</strong> - Objednavka nadobuda tento status ihned po svojom vzniku.</li>
                     <li><strong>Odoslana</strong> - Produkty su na ceste ku zakaznikovi.</li>

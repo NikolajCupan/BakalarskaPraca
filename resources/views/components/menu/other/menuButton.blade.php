@@ -6,6 +6,8 @@
 <form method="POST" action="{{$action}}">
     @csrf
     <input type="hidden" name="category" value="{{$buttonValue}}">
+    <input type="hidden" name="title" value="{{$buttonText}}">
+
     <button type="submit" class="@if (isset($activeCategory) && $activeCategory == $buttonValue) list-group-item-dark @endif
         list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-center">
         <span>{{$buttonText}}</span>
