@@ -292,7 +292,7 @@ Route::get('/admin/product/shop/image/{id_image}', [AdminProductController::clas
 Route::post('/admin/product/shop/create', [AdminProductController::class, 'shopStore']);
 
 // End sale of shop product
-Route::post('/admin/product/shop/endSale/', [AdminProductController::class, 'shopEndSale']);
+Route::post('/admin/product/shop/endSale', [AdminProductController::class, 'shopEndSale']);
 
 // Update shop product
 Route::post('/admin/product/shop/update', [AdminProductController::class, 'shopUpdate']);

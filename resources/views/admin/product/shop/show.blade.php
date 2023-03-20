@@ -202,7 +202,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Nie</button>
-                    <form method="POST" action="/admin/product/shop/endSale/">
+                    <form method="POST" action="/admin/product/shop/endSale">
                         @csrf
                         <input type="hidden" name="productId" id="productId" value="{{$product->id_product}}">
                         <button type="submit" class="btn btn-danger">Ukoncit predaj</button>

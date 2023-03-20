@@ -83,7 +83,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Nie</button>
-                    <form method="POST" action="/admin/purchase/cancelPurchase/">
+                    <form method="POST" action="/admin/purchase/cancelPurchase">
                         @csrf
                         <input type="hidden" name="cancelledPurchaseId" id="cancelledPurchaseId" value="{{$purchase->id_purchase}}">
                         <button type="submit" class="btn btn-danger">Zrusit</button>
