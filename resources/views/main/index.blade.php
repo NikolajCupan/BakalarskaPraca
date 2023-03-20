@@ -16,13 +16,13 @@
                 <div class="container mb-5">
                     <div class="d-flex justify-content-center row">
                         <div class="col-md-10">
-                            <h2 class="title mb-3">Najpredavanejsie produkty</h2>
+                            <h1 class="title mb-2">Najpredavanejsie produkty</h1>
 
                             @foreach ($mostSellingProducts as $product)
                                 <x-shop.productCard :product="$product"/>
                             @endforeach
 
-                            <h2 class="title mt-5 mb-3">Najnovsie produkty</h2>
+                            <h1 class="title mt-5 mb-2">Najnovsie produkty</h1>
 
                             @foreach ($newestProducts as $product)
                                 <x-shop.productCard :product="$product"/>
