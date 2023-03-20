@@ -23,9 +23,13 @@ class MainController extends Controller
     public function index()
     {
         $categories = Category::all();
+        $mostSellingProducts = Helper::getMostSellingProducts(5);
+        $newestProducts = Helper::getNewestProducts(5);
 
         return view('main.index', [
-            'categories' => $categories
+            'categories' => $categories,
+            'mostSellingProducts' => $mostSellingProducts,
+            'newestProducts' => $newestProducts
         ]);
     }
 
@@ -50,10 +54,6 @@ class MainController extends Controller
     // Page for testing html
     public function test()
     {
-        $purchase = Purchase::first();
-
-        return view('test', [
-            'purchase' => $purchase,
-        ]);
+        return view('test');
     }
 }

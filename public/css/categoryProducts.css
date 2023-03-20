@@ -64,3 +64,8 @@ h5 {
         display: block;
     }
 }
+
+.title {
+    text-decoration: underline;
+    color: #0062cc;
+}

@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Collection;
 use Intervention\Image\ImageManagerStatic;
 
 class Helper
@@ -361,5 +362,40 @@ class Helper
     {
         $stringNumber = (string)$number;
         return str_pad($stringNumber, $digits, '0', STR_PAD_LEFT);
+    }
+
+    // Functions returns products which have most pieces sold
+    // Products are sorted by pieces sold
+    // Only products that are still being sold are returned
+    public static function getMostSellingProducts($limit)
+    {
+        $viewProducts = DB::table('most_selling_products')
+                             ->limit($limit)
+                             ->get();
+
+        // Empty Collection is created
+        $products = collect();
+        foreach ($viewProducts as $viewProduct)
+        {
+            // Iterate through ids and add each product to the Collection
+            $product = Product::where('id_product', '=', $viewProduct->id_product)
+                              ->first();
+            $products->push($product);
+        }
+
+        return $products;
+    }
+
+    // Functions returns the newest products
+    // Only products that are still being sold are returned
+    public static function getNewestProducts($limit)
+    {
+        return Product::where(function($mainQuery) {
+                                $mainQuery->whereNull('date_sale_end')
+                                          ->orWhere('date_sale_end', '>', Carbon::now());
+                                })
+                      ->orderBy('date_sale_start', 'desc')
+                      ->limit($limit)
+                      ->get();
     }
 }
