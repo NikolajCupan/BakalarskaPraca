@@ -16,10 +16,12 @@ class Constants
     }
 
     // Constants related to company
-    const COMPANY_NAME = "Company";
-    const COMPANY_STREET = "Brezova";
-    const COMPANY_HOUSE_NUMBER = "9";
-    const COMPANY_POSTAL_CODE = "010 01";
+    const COMPANY_NAME = "FRI";
+    const COMPANY_STREET = "Univerzitna";
+    const COMPANY_HOUSE_NUMBER = "8215/1";
+    const COMPANY_POSTAL_CODE = "010 26";
+    const COMPANY_PHONE_NUMBER = "0905 111 222";
+    const COMPANY_EMAIL = "zvukovatechnika@gmail.com";
     const COMPANY_CITY = "Zilina";
     const COMPANY_ICO = "12345678";
     const COMPANY_DIC = "9876543210";
