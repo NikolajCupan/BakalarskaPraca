@@ -8,7 +8,7 @@ class Constants
     const MAX_PRODUCT_PIECES = 999;
     const MAX_REVIEW_COMMENT_CHARACTERS = 999;
     const DELIVERY_FEE = 15;
-    const PRODUCTS_PER_PAGE = 2;
+    const PRODUCTS_PER_PAGE = 12;
 
 
     public static function getFormattedDeliveryFee()
