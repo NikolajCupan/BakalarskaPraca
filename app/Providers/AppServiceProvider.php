@@ -31,7 +31,8 @@ class AppServiceProvider extends ServiceProvider
 
         // Sends user, basket and imagePath to views
         view()->composer(['main.index', 'main.contact', 'main.about', 'main.terms', 'shop.category',
-                          'shop.product', 'user.purchase.purchaseHistory', 'user.purchase.purchaseDetail'], function($view)
+                          'shop.product', 'user.purchase.purchaseHistory', 'user.purchase.purchaseDetail',
+                          'shop.search'], function($view)
         {
             $user = Auth::user();
 

@@ -84,3 +84,11 @@
         margin-top: 8px;
     }
 }
+
+.navbarItemCenter svg {
+    float: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

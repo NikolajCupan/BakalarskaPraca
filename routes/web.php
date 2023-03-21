@@ -176,6 +176,11 @@ Route::post('/user/editReview', [UserShopController::class, 'editReview'])
  * ShopController
  */
 
+// Show products according to what user searched page
+// NOTE: Must be placed above other routes from ShopController,
+//       otherwise it will not be called
+Route::get('/shop/product/search', [ShopController::class, 'showSearchedProducts']);
+
 // Show products from category page
 Route::get('/shop/{category}', [ShopController::class, 'showCategory']);
 

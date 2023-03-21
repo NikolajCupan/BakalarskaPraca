@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Constants;
 use App\Helpers\Helper;
 use App\Helpers\PaginationHelper;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
@@ -22,7 +24,7 @@ class ShopController extends Controller
         $categories = Category::all();
         $productsFromCategory = $category->getSellingProducts();
 
-        $paginatedProducts = PaginationHelper::paginate($productsFromCategory, 12);
+        $paginatedProducts = PaginationHelper::paginate($productsFromCategory, Constants::PRODUCTS_PER_PAGE);
 
         // user, basket and imagePath is sent to view using AppServiceProvider
         return view('shop.category', [
@@ -47,6 +49,42 @@ class ShopController extends Controller
             'reviews' => $reviews,
             'percentageRatings' => $percentageRatings,
             'absoluteRatings' => $absoluteRatings
+        ]);
+    }
+
+    // Show products according to what user searched page
+    public function showSearchedProducts(Request $request)
+    {
+        // Search input might be empty
+        $products = null;
+        if (is_null($request->term))
+        {
+            // If no input was entered, show all products
+            $products = Product::all();
+        }
+        else
+        {
+            // Only active products are shown
+            $products =  Product::join('warehouse_product', 'product.id_warehouse_product', '=', 'warehouse_product.id_warehouse_product')
+                                ->where('warehouse_product.product', 'LIKE', '%' . $request->term . '%')
+                                ->where(function($query) {
+                                        $query->whereNull('product.date_sale_end')
+                                              ->orWhere('product.date_sale_end', '>', Carbon::now());
+                                })->get();
+        }
+
+        // Many products can satisfy searched input, thus pagination is used
+        // Appends must be used in order to preserve searched input between pages
+        $paginatedProducts = PaginationHelper::paginate($products, Constants::PRODUCTS_PER_PAGE)
+                                             ->appends(['term' => $request->term]);
+
+        // Categories have to be sent to the view as well because of the left menu
+        $categories = Category::all();
+
+        // user, basket and imagePath is sent to view using AppServiceProvider
+        return view('shop.search', [
+            'products' => $paginatedProducts,
+            'categories' => $categories
         ]);
     }
 }
