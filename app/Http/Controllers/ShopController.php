@@ -56,13 +56,11 @@ class ShopController extends Controller
     public function showSearchedProducts(Request $request)
     {
         // Search input might be empty
-        $products = null;
-        if (is_null($request->term))
-        {
-            // If no input was entered, show all products
-            $products = Product::all();
-        }
-        else
+        // If no input was entered, show nothing
+        $paginatedProducts = null;
+        $productsCount = 0;
+
+        if (!is_null($request->term))
         {
             // Only active products are shown
             $products =  Product::join('warehouse_product', 'product.id_warehouse_product', '=', 'warehouse_product.id_warehouse_product')
@@ -71,12 +69,16 @@ class ShopController extends Controller
                                         $query->whereNull('product.date_sale_end')
                                               ->orWhere('product.date_sale_end', '>', Carbon::now());
                                 })->get();
-        }
 
-        // Many products can satisfy searched input, thus pagination is used
-        // Appends must be used in order to preserve searched input between pages
-        $paginatedProducts = PaginationHelper::paginate($products, Constants::PRODUCTS_PER_PAGE)
-                                             ->appends(['term' => $request->term]);
+            // Paginated products do not contain all the products, hence it is needed
+            // to save count of all products in additional variable
+            $productsCount = count($products);
+
+            // Many products can satisfy searched input, thus pagination is used
+            // Appends must be used in order to preserve searched input between pages
+            $paginatedProducts = PaginationHelper::paginate($products, Constants::PRODUCTS_PER_PAGE)
+                ->appends(['term' => $request->term]);
+        }
 
         // Categories have to be sent to the view as well because of the left menu
         $categories = Category::all();
@@ -84,7 +86,9 @@ class ShopController extends Controller
         // user, basket and imagePath is sent to view using AppServiceProvider
         return view('shop.search', [
             'products' => $paginatedProducts,
-            'categories' => $categories
+            'categories' => $categories,
+            'searchedTerm' => $request->term,
+            'productsCount' => $productsCount
         ]);
     }
 }

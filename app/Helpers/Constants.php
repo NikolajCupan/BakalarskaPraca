@@ -18,6 +18,7 @@ class Constants
 
     // Constants related to company
     const COMPANY_NAME = "FRI";
+    const COMPANY_WEBSITE = "zvukovatechnika.eu";
     const COMPANY_STREET = "Univerzitna";
     const COMPANY_HOUSE_NUMBER = "8215/1";
     const COMPANY_POSTAL_CODE = "010 26";
