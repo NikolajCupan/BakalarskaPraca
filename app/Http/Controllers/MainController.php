@@ -50,10 +50,4 @@ class MainController extends Controller
     {
         return view('main.terms');
     }
-
-    // Page for testing html
-    public function test()
-    {
-        return view('test');
-    }
 }
