@@ -17,7 +17,7 @@
         <div class="container py-5">
             <div class="row h-100 align-items-center py-5">
                 <div class="text-center col-lg-6 order-2 order-lg-1">
-                    <h1 class="display-4">Zvukovatechnika.eu</h1>
+                    <h1 class="display-4">Zvukovatechnika.tech</h1>
                     <p class="lead text-muted mb-0">Vitajte na nasej stranke!</p>
                 </div>
                 <div class="col-lg-6 px-5 mx-auto order-1 order-lg-2">
