@@ -1,11 +1,11 @@
-$(document).ready(function() {
+$(document).on("ready", function() {
     // When document loads, show description text
-    $('#collapseDescription').collapse('hide');
+    $('#collapseDescription').collapse('show');
     $('#collapseRating').collapse('hide');
-    $('#collapseReviews').collapse('show');
-    $('#toggleReviews').addClass('toggleActive');
+    $('#collapseReviews').collapse('hide');
+    $('#toggleDescription').addClass('toggleActive');
 
-    var clickable = true;
+    let clickable = true;
     function hideOther(collapse, toggle) {
         if (!clickable)
         {
@@ -33,17 +33,17 @@ $(document).ready(function() {
     }
 
     // Description collapse
-    $('#toggleDescription').click(function() {
+    $('#toggleDescription').on("click", function() {
         hideOther('#collapseDescription', '#toggleDescription');
     });
 
     // Rating collapse
-    $('#toggleRating').click(function() {
+    $('#toggleRating').on("click", function() {
         hideOther('#collapseRating', '#toggleRating');
     });
 
     // Reviews collapse
-    $('#toggleReviews').click(function() {
+    $('#toggleReviews').on("click", function() {
         hideOther('#collapseReviews', '#toggleReviews');
     });
 });

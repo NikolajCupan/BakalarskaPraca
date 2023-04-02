@@ -7,4 +7,4 @@
     }
 </style>
 
-<div class="content mb-4">{{$description}}</div>
+<div class="offset-xl-1 col-xl-10 content mb-4">{{$description}}</div>

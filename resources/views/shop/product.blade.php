@@ -13,7 +13,7 @@
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
                     <img src="{{$product->getImagePathIfExists() ? asset('/storage/images/products/' . $product->getImagePathIfExists()) : asset('/images/imageMissing.jpg')}}"
-                         class="rounded card-img-top mb-5 mb-md-0 {{$product->isSaleOver() ? "imageSaleOver" : ""}}" alt="">
+                         class="shadow-sm rounded card-img-top mb-5 mb-md-0 {{$product->isSaleOver() ? "imageSaleOver" : ""}}" alt="">
                 </div>
                 <div class="col-md-6">
                     <div class="small mb-1">{{$product->getCategory()->category}}</div>
