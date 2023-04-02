@@ -134,7 +134,8 @@ class AdminPurchaseController
 
         // Payment date cannot happen before purchase date
         $newPaymentDate = $request->newPaymentDate ? date('Y-m-d H:i:s', strtotime($request->newPaymentDate)) : null;
-        if ($newPaymentDate < $purchase->purchase_date)
+        // Compare only when $newPaymentDate is not null
+        if (!is_null($newPaymentDate) && $newPaymentDate < $purchase->purchase_date)
         {
             return back()->with('errorMessage', 'Datum platby za objednavku nemoze byt mensi ako datum objednavky');
         }
@@ -159,8 +160,8 @@ class AdminPurchaseController
         $purchase = Purchase::where('id_purchase', '=', $request->reclaimedPurchaseId)
                             ->first();
 
-        // PurchaseManager should not be able to reclaim product of purchase if its status is set to cancelled, but it is checked
-        if ($purchase->hasStatus('cancelled'))
+        // PurchaseManager should not be able to reclaim product of purchase if its status is not set to confirmed, but it is checked
+        if (!$purchase->hasStatus('confirmed'))
         {
             return redirect('admin/purchase')->with('errorMessage', 'Neplatna zmena datumu platby za objednavku');
         }
