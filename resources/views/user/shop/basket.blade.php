@@ -79,7 +79,7 @@
                             </p>
 
                             <p class="font-italic mb-4">
-                                Nakupom na nasom e-shope suhlasite s <a target="_blank" href="/terms" class="link-info">obchodnymi podmienkami</a>. Preto im, prosim, venujte dostatocnu pozornost a dokladne si ich precitajte. E-shop si vyhraduje pravo kedykolvek <a target="_blank" href="/terms" class="link-info">obchodne podmienky</a> zmenit.
+                                Nakupom na nasom e-shope suhlasite s <a target="_blank" href="/terms" class="link-info">obchodnymi podmienkami</a>. Preto im, prosim, venujte dostatocnu pozornost a dokladne si ich precitajte. E-shop si vyhradzuje pravo kedykolvek <a target="_blank" href="/terms" class="link-info">obchodne podmienky</a> zmenit.
                             </p>
 
                             <p class="font-italic mb-4">
@@ -92,7 +92,7 @@
                         <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Suhrn objednavky</div>
                         <div class="ps-0 pe-0 pt-4 pb-4 p-md-4">
                             <p class="font-italic mb-4">
-                                Pred pokracovanim si, prosim, skontrolujte Vas tovar. Objednavku je mozne vykonat len vtedy, ked z kazdeho tovaru v kosiku, je na sklade dostatok kusov.
+                                Pred pokracovanim si, prosim, skontrolujte Vas tovar. Objednavku je mozne vykonat len vtedy, ked z kazdeho tovaru v kosiku je na sklade dostatok kusov.
                             </p>
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tovar </strong><strong id="totalPurchasePrice">{{$basket->getTotalPrice()}} &euro;</strong></li>

@@ -367,7 +367,7 @@ class UserShopController extends Controller
             ->where('id_user', $request->authorId)
             ->where('id_product', $request->productId)
             ->update([
-                'comment' => $request->text,
+                'comment' => $request->comment,
                 'rating' => $request->rating
         ]);
 
