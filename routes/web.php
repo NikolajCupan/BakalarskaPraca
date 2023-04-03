@@ -293,7 +293,7 @@ Route::get('/admin/product/shop/show/{id_product}', [AdminProductController::cla
 // Show image of shop product page
 Route::get('/admin/product/shop/image/{id_image}', [AdminProductController::class, 'shopImage']);
 
-// Store new warehouse product
+// Store new shop product
 Route::post('/admin/product/shop/create', [AdminProductController::class, 'shopStore']);
 
 // End sale of shop product

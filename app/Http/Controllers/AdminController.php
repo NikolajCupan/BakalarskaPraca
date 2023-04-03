@@ -12,7 +12,7 @@ class AdminController extends Controller
     // Select page
     public static function admin()
     {
-        Helper::allow(['accountManager', 'productManager', 'reviewManager', 'purchaseManager']);
+        Helper::allow(['accountManager', 'productManager', 'purchaseManager']);
 
         return view('admin.adminSelect');
     }
