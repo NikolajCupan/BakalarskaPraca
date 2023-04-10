@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
-class WarehouseProductFactory extends Factory
+class BasketFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,10 +14,8 @@ class WarehouseProductFactory extends Factory
      */
     public function definition()
     {
-        // Return instance of User
         return [
-            'product' => $this->faker->word,
-            'quantity' => rand(0, 100000)
+            'date_basket_start' => Carbon::now()
         ];
     }
 }

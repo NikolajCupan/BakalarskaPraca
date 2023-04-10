@@ -26,8 +26,8 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'password' => Str::random(100),
-            'email' => Str::random(30) . '@gmail.com',
-            'phone_number' => $this->faker->numberBetween(0, 1000000)
+            'email' => $this->faker->email,
+            'phone_number' => rand(1, 100000)
         ];
     }
 }

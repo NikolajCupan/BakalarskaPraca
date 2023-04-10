@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class WarehouseProductFactory extends Factory
+class PriceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,10 +13,8 @@ class WarehouseProductFactory extends Factory
      */
     public function definition()
     {
-        // Return instance of User
         return [
-            'product' => $this->faker->word,
-            'quantity' => rand(0, 100000)
+            'price' => $this->faker->randomFloat(2, 1, 100)
         ];
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Helpers;
 
 use App\Models\Basket;
+use App\Models\Price;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\WebRole;
@@ -33,9 +35,20 @@ class TestingHelper
 
     public static function giveBasketToUser($user)
     {
-        Basket::create([
-            'id_user' => $user->id_user,
-            'date_basket_start' => Carbon::now()
+        Basket::factory()->create([
+            'id_user' => $user->id_user
         ]);
+    }
+
+    // Parameters must be send to factory of Price
+    public static function getProductWithPrice()
+    {
+        $product = Product::factory()->create();
+        $price = Price::factory()->create([
+            'id_product' => $product->id_product,
+            'date_price_start' => $product->date_sale_start
+        ]);
+
+        return $product;
     }
 }

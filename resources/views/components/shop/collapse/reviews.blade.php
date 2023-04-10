@@ -85,20 +85,19 @@
                 <div class="comment-widgets m-b-20">
                     <div class="row">
                         <div class="col-12 p-0">
-                            @if (!is_null($loggedUser))
-                                @if ($product->hasReviewFromUser($loggedUser))
-                                    @php ($userReview = $product->getReviewFromUser($loggedUser))
-                                    <div class="loggedUserReview">
-                                    <x-shop.collapse.review :review="$userReview" :loggedUser="$loggedUser"/>
-                                    </div>
-                                @endif
-
-                                @foreach ($reviews as $review)
-                                    @if ($review->id_user != $loggedUser->id_user)
-                                    <x-shop.collapse.review :review="$review" :loggedUser="$loggedUser"/>
-                                    @endif
-                                @endforeach
+                            <!-- User might not be logged in, hence additional check to decide according to that information -->
+                            @if (Auth::check() && $product->hasReviewFromUser($loggedUser))
+                                @php ($userReview = $product->getReviewFromUser($loggedUser))
+                                <div class="loggedUserReview">
+                                <x-shop.collapse.review :review="$userReview" :loggedUser="$loggedUser"/>
+                                </div>
                             @endif
+
+                            @foreach ($reviews as $review)
+                                @if (!Auth::check() || $review->id_user != $loggedUser->id_user)
+                                <x-shop.collapse.review :review="$review" :loggedUser="$loggedUser"/>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>

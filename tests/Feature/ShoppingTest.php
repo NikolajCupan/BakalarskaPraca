@@ -1,0 +1,48 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Helpers\TestingHelper;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
+
+class ShoppingTest extends TestCase
+{
+    use DatabaseTransactions;
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    // Test creates new product and user, and then tries to add
+    // the product to user's basket
+    public function test_addProductToBasket()
+    {
+        $product = TestingHelper::getProductWithPrice();
+        $user = TestingHelper::getUserWithRole('customer');
+
+        // Change product's quantity
+        $warehouseProduct = $product->getWarehouseProduct();
+        $warehouseProduct->quantity = 100;
+        $warehouseProduct->save();
+
+        // Try to add product to basket
+        $response = $this->actingAs($user)->post('/user/addToBasket', [
+            'productId' => $product->id_product,
+            'quantityValue' => 100
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHas('message', 'Produkt bol uspesne pridany do kosika');
+
+        // Ensure product was successfully added to user's basket
+        $this->assertDatabaseHas('basket_product', [
+            'id_basket' => $user->getCurrentBasket()->id_basket,
+            'id_product' => $product->id_product,
+            'quantity' => 100
+        ]);
+    }
+}
