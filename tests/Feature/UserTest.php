@@ -1,0 +1,82 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Helpers\TestingHelper;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Tests\TestCase;
+
+class UserTest extends TestCase
+{
+    use DatabaseTransactions;
+    use WithFaker;
+
+    public function test_editProfile()
+    {
+        $user = TestingHelper::getUserWithRole('customer');
+        $response = $this->actingAs($user)->post('/user/edit', [
+            'firstName' => 'NewFirstName',
+            'lastName' => 'NewLastName',
+            'email' => $this->faker->email,
+            'phoneNumber' => rand(1, 100000)
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHas('message', 'Zmena profilovych udajov bola uspesna');
+
+        // Ensure profile information was successfully edited
+        $this->assertDatabaseHas('web_user', [
+            'first_name' => 'NewFirstName',
+            'last_name' => 'NewLastName'
+        ]);
+    }
+
+    public function test_editPassword()
+    {
+        $user = TestingHelper::getUserWithRole('customer');
+
+        // Forcefully change password to 'password' so its value is known
+        $user->password = bcrypt('password');
+        $user->save();
+
+        $response = $this->actingAs($user)->post('/user/password', [
+            'oldPassword' => 'password',
+            'newPassword' => 'newpass',
+            'newPassword_confirmation' => 'newpass'
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHas('message', 'Zmena hesla bola uspesna');
+
+        // Ensure password was changed successfully
+        $this->assertTrue(Hash::check('newpass', $user->password));
+    }
+
+    public function test_deleteAccount()
+    {
+        $user = TestingHelper::getUserWithRole('customer');
+
+        // Forcefully change password to 'password' so its value is known
+        $user->password = bcrypt('password');
+        $user->save();
+
+        $this->assertDatabaseHas('web_user', [
+            'id_user' => $user->id_user
+        ]);
+
+        $response = $this->actingAs($user)->post('/user/delete', [
+            'email' => $user->email,
+            'password' => 'password',
+            'confirmDelete' => true
+        ]);
+
+        $response->assertSessionHas('message', 'Zmazanie uctu bolo uspesne');
+        $this->assertDatabaseMissing('web_user', [
+            'id_user' => $user->id_user
+        ]);
+    }
+}
