@@ -137,7 +137,7 @@ class AdminPurchaseController
         // Compare only when $newPaymentDate is not null
         if (!is_null($newPaymentDate) && $newPaymentDate < $purchase->purchase_date)
         {
-            return back()->with('errorMessage', 'Datum platby za objednavku nemoze byt mensi ako datum objednavky');
+            return back()->with('errorMessage', 'Datum platby za objednavku nemoze byt skor ako datum objednavky');
         }
 
         // Getting here means purchase's payment date can be changed

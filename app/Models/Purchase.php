@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Constants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -51,6 +52,13 @@ class Purchase extends Model
     {
         $basket = $this->getBasket();
         return $basket->getTotalPrice();
+    }
+
+    // Total price as of the date of the order with delivery fee included
+    public function getTotalPriceWithFee()
+    {
+        $basket = $this->getBasket();
+        return $basket->getTotalPriceWithFee();
     }
 
     // Price of the product as of the date of the order

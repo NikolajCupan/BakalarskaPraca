@@ -27,7 +27,7 @@
             </td>
             <td>{{$purchase->id_purchase}}</td>
             <td>{{$purchase->getStatus()->getSlovakStatusName()}}</td>
-            <td>{{$purchase->getTotalPrice()}} &euro;</td>
+            <td>{{$purchase->getTotalPriceWithFee()}} &euro;</td>
             <td>{{$purchase->getBasket()->getVariousProductsCount()}}</td>
             <td>{{\App\Helpers\Helper::getFormattedDate($purchase->purchase_date)}}</td>
             <td class="{{is_null($purchase->payment_date) ? "text-danger" : ""}}">{{\App\Helpers\Helper::getFormattedDate($purchase->payment_date) ?? "neuhradene"}}</td>

@@ -103,7 +103,9 @@
                 <div class="emptySpace"></div>
 
                 <p class="smallMargin">IBAN: {{\App\Helpers\Constants::COMPANY_IBAN}}</p>
-                <p class="smallMargin">Suma: {{$purchase->getTotalPrice()}} &euro;</p>
+                <p class="smallMargin">Produkty: {{$purchase->getTotalPrice()}} &euro;</p>
+                <p class="smallMargin">Dovoz: {{\App\Helpers\Constants::getFormattedDeliveryFee()}} &euro;</p>
+                <p class="smallMargin">Spolu: {{$purchase->getTotalPriceWithFee()}} &euro;</p>
                 <p class="smallMargin">Variabilny symbol: {{\App\Helpers\Helper::addLeadingZeros(10, $purchase->id_purchase)}}</p>
                 <p class="smallMargin">Specificky symbol: {{\App\Helpers\Helper::addLeadingZeros(10, $purchase->id_purchase)}}</p>
                 <p class="smallMargin">Konstantny symbol: {{\App\Helpers\Constants::CONSTANT_SYMBOL_PURCHASE}}</p>
@@ -142,8 +144,8 @@
 
             <table style="margin-top: 5px; width: 100%">
                 <tr>
-                    <th style="width: 50%">Produkt</th>
-                    <th style="width: 20%">Cena</th>
+                    <th style="width: 45%">Produkt</th>
+                    <th style="width: 15%">Cena</th>
                     <th style="width: 15%">Kvantita</th>
                     <th style="width: 25%">Celkova cena</th>
                 </tr>
@@ -160,7 +162,7 @@
 
                 <tr>
                     <td colspan="3"><strong>Spolu</strong></td>
-                    <td colspan="1">{{$purchase->getTotalPrice()}} &euro;</td>
+                    <td colspan="1">{{$purchase->getTotalPrice()}} &euro; (+ {{\App\Helpers\Constants::getFormattedDeliveryFee()}} &euro;)</td>
                 </tr>
             </table>
         </div>
