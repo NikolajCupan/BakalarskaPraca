@@ -59,15 +59,25 @@ class UserTest extends TestCase
     public function test_deleteAccount()
     {
         $user = TestingHelper::getUserWithRole('customer');
+        $image = $user->getImage();
+        $address = $user->getAddress();
 
         // Forcefully change password to 'password' so its value is known
         $user->password = bcrypt('password');
         $user->save();
 
+        // Assert all entities exist
         $this->assertDatabaseHas('web_user', [
             'id_user' => $user->id_user
         ]);
+        $this->assertDatabaseHas('image', [
+            'id_image' => $image->id_image
+        ]);
+        $this->assertDatabaseHas('address', [
+            'id_address' => $address->id_address
+        ]);
 
+        // Delete account
         $response = $this->actingAs($user)->post('/user/delete', [
             'email' => $user->email,
             'password' => 'password',
@@ -75,8 +85,16 @@ class UserTest extends TestCase
         ]);
 
         $response->assertSessionHas('message', 'Zmazanie uctu bolo uspesne');
+        // Assert all entities got deleted
+        // Image and Address are deleted using database trigger
         $this->assertDatabaseMissing('web_user', [
             'id_user' => $user->id_user
+        ]);
+        $this->assertDatabaseMissing('image', [
+           'id_image' => $image->id_image
+        ]);
+        $this->assertDatabaseMissing('address', [
+            'id_address' => $address->id_address
         ]);
     }
 }
