@@ -19,7 +19,7 @@
                     <li><strong>Zakaznik</strong> - Rola, ktora je pridelena zakaznikovi automaticky po registracii. Vsetci pouzivatelia maju tuto rolu.</li>
                     <li><strong>Manazer uctov</strong> - Umoznuje pridavat a odoberat role ostatnym pouzivatelom.</li>
                     <li><strong>Manazer produktov</strong> - Sprava skladoveho hospodarstva a predavanych produktov.</li>
-                    <li><strong>Manazer objednavok</strong> - Zmena statusov objednavok, rusenie objednavok, nastavenie platieb za objednavky, mazanie objednavok.</li>
+                    <li><strong>Manazer objednavok</strong> - Zmena stavov objednavok, rusenie objednavok, nastavenie platieb za objednavky, mazanie objednavok.</li>
                     <li><strong>Manazer recenzii</strong> - Umoznuje mazat recenzie ostatnych pouzivatelov.</li>
                 </ul>
             </div>

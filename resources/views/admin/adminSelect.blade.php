@@ -17,7 +17,7 @@
                             <h4>Sprava uctov</h4>
                         </div>
                         <div class="text">
-                            <span>Nasledujuca stranka sluzi na spravu pouzivatelskych uctov (mazanie, zmena roli, banovanie)</span>
+                            <span>Nasledujuca stranka sluzi na spravu pouzivatelskych uctov (zmena roli)</span>
                         </div>
                         <a href="/admin/user">Pokracovat</a>
                     </div>
